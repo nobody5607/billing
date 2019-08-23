@@ -60,7 +60,9 @@ class AppComponent extends Component {
                     ['label' => \Yii::t('appmenu','Informations'), 'icon' => 'microphone', 'url' => ['/informations/index']],
 //                    ['label' => \Yii::t('appmenu','Clinical Data Management'), 'icon' => '', 'url' => ['/'], 'visible' => !Yii::$app->user->isGuest],
                     
-                    ['label' => \Yii::t('bill','Bill Manager'), 'icon' => 'file-text-o', 'url' => ['/bill-items'],'visible' => \Yii::$app->user->can('billmanager'),],
+                    ['label' => \Yii::t('bill','Bill Manager'), 'icon' => 'file-text-o', 'url' => ['/bill-items'],
+                    'visible' => (\Yii::$app->user->can('billmanager') || \Yii::$app->user->can('preview_bill')?true:false)],
+
                     ['label' => \Yii::t('bill','Packager'), 'icon' => 'shopping-bag', 'url' => ['/bill-items'],'visible' => \Yii::$app->user->can('packager'),],
                     ['label' => \Yii::t('bill','Shipping'), 'icon' => 'truck', 'url' => ['/bill-items'],'visible' => \Yii::$app->user->can('shipping'),],
                     ['label' => \Yii::t('bill','Chargers'), 'icon' => 'credit-card', 'url' => ['/bill-items'],'visible' => \Yii::$app->user->can('chargers'),],
