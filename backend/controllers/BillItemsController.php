@@ -47,14 +47,14 @@ class BillItemsController extends Controller
     }
 
     public function beforeAction($action) {
-	if (parent::beforeAction($action)) {
-	    if (in_array($action->id, array('create', 'update'))) {
-		
-	    }
-	    return true;
-	} else {
-	    return false;
-	}
+    	if (parent::beforeAction($action)) {
+    	    if (in_array($action->id, array('create', 'update'))) {
+    		
+    	    }
+    	    return true;
+    	} else {
+    	    return false;
+    	}
     }
     
     /**

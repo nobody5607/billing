@@ -64,6 +64,28 @@ class Select2Controller extends \yii\web\Controller{
             return false;
         }
     }
+    public function actionGetCustomer($q = '', $id = ''){
+        try {
+            $out = ['results' => ['id' => '', 'text' => '']];
+            if ($id == null) {
+                $data_all = \backend\models\Customers::find()
+                        ->select(['id as id','name as name'])
+                        ->where('c_id like :c_id OR name like :name',[
+                    ':c_id'=>"%{$q}%",
+                    ':name'=>"%{$q}%",        
+                ])->all();
+                 
+                $data = [];
+                foreach ($data_all as $k => $c) {
+                    $data[$k] = ['id' => $c['id'], 'text' => ($c['name'] != '')?$c['name']:$c['username']];
+                }
+                $out['results'] = array_values($data);
+            }  
+            return $out;
+        } catch (\yii\db\Exception $ex) {
+            return false;
+        }
+    }
 
     public function actionBillType($q = '', $id = ''){
         try {
