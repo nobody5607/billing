@@ -1,0 +1,25 @@
+{
+    "name": "kongoon/yii2-c3js-chart",
+    "description": "C3JS Chart for Yii Framework 2.0",
+    "keywords": ["yii", "yii2", "extension", "c3js", "chart"],
+    "homepage": "https://github.com/kongoon/yii2-c3js",
+    "type": "yii2-extension",
+    "license": "BSD 3-Clause",
+    "authors": [
+        {
+            "name": "Manop Kongoon",
+            "email": "kongoon@gmail.com",
+            "homepage": "https://www.programmerthailand.com/"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "yiisoft/yii2": "*",
+        "bower-asset/c3js-chart": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "kongoon\\c3js\\": ""
+        }
+    }
+}
