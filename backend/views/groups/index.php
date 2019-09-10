@@ -56,8 +56,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	    [
 		'class' => 'appxq\sdii\widgets\ActionColumn',
-		'contentOptions' => ['style'=>'width:80px;text-align: center;'],
-		'template' => '{view} {update} {delete}',
+		'contentOptions' => ['style'=>'width:180px;text-align: center;'],
+		'template' => '{update} {delete}',
                 'buttons'=>[
                     'update'=>function($url, $model){
                         return Html::a('<span class="fa fa-edit"></span> '.Yii::t('app', 'Edit'), 
