@@ -17,7 +17,7 @@ use appxq\sdii\helpers\SDHtml;
     ]); ?>
 
     <div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<button type="button" class="close" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="itemModalLabel">อัตราค่าตอบแทนของคนขับรถและลูกน้อง </h4>
     </div>
 
@@ -55,6 +55,11 @@ use appxq\sdii\helpers\SDHtml;
 ]); ?>
 <script>
 // JS script
+$('.close').on('click',function(){
+    $(document).find('#modal-user-percent').modal('hide');
+    return false;
+});
+$("#modal-bill-items").animate({ scrollTop: 0 }, "slow");  
 $('form#<?= $model->formName()?>').on('beforeSubmit', function(e) {
     var $form = $(this);
     $.post(
