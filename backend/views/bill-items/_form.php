@@ -111,10 +111,12 @@ use appxq\sdii\helpers\SDNoty;
         
         <div class="row">
             
-            <div class="col-md-3 col-sm-3 col-xs-3">
+            <div class="col-md-2 col-sm-3 col-xs-3">
                  <?php
                     if($model->status == '5' AND !Yii::$app->user->can('billmanager')){
-                        echo "<label class='label label-success'>ยืนยันชำรุด</label>";
+                        echo "<label class='label label-success' style='font-size: 16px;display: block;padding: 10px;'><i class='fa fa-check'></i> ยืนยันชำรุด</label>";
+                    }else if($model->status == '4' AND !Yii::$app->user->can('billmanager')){
+                        echo "<label class='label label-success' style='font-size: 16px;display: block;padding: 10px;'><i class='fa fa-check'></i> ยืนยันยกเลิก</label>";
                     }else{
                         $items = \yii\helpers\ArrayHelper::map(\backend\models\BillStatus::find()->where('rstat not in(0,3)')->all(), 'id', 'name');
                         echo $form->field($model, 'status')
@@ -123,11 +125,13 @@ use appxq\sdii\helpers\SDNoty;
 
                 ?>
             </div>
-            <div class="col-md-3 col-sm-3 col-xs-3">
+            <div class="col-md-2 col-sm-3 col-xs-3">
                  <?php
                  if($model->shiping == '9' AND !Yii::$app->user->can('billmanager')){
-                        echo "<label class='label label-success'>ยืนยันจัดส่งสินค้า</label>";
-                    }else {
+                        echo "<label class='label label-success' style='font-size: 16px;display: block;padding: 10px;'><i class='fa fa-check'></i> ยืนยันจัดส่งสินค้า</label>";
+                 }else if($model->shiping == '8' AND !Yii::$app->user->can('billmanager')){
+                        echo "<label class='label label-success' style='font-size: 16px;display: block;padding: 10px;'><i class='fa fa-check'></i> ยืนยันยกเลิก</label>";
+                 }else {
                      $items = \yii\helpers\ArrayHelper::map(\backend\models\BillStatusShipping::find()->where('rstat not in(0,3)')->all(), 'id', 'name');
                      echo $form->field($model, 'shiping')
                          ->radioList($items, []);
@@ -137,7 +141,7 @@ use appxq\sdii\helpers\SDNoty;
             <div class="col-md-3 col-sm-3 col-xs-3">
                  <?php
                     if($model->charge == '10' AND !Yii::$app->user->can('billmanager')){
-                        echo "<label class='label label-success'>ยืนยันตัดบัญชีแล้ว</label>";
+                        echo "<label class='label label-success' style='font-size: 16px;display: block;padding: 10px;'><i class='fa fa-check'></i> ยืนยันตัดบัญชีแล้ว</label>";
                     }else {
                      $items = \yii\helpers\ArrayHelper::map(\backend\models\BillStatusCharge::find()->where('rstat not in(0,3)')->all(), 'id', 'name');
                      echo $form->field($model, 'charge')
@@ -148,12 +152,23 @@ use appxq\sdii\helpers\SDNoty;
             <div class="col-md-3 col-sm-3 col-xs-3">
                  <?php
                     if($model->charge == '10' AND !Yii::$app->user->can('billmanager')){
-                        echo "<label class='label label-success'>ยืนยันตัดบัญชีแล้ว</label>";
+                        echo "<label class='label label-success' style='font-size: 16px;display: block;padding: 10px;'><i class='fa fa-check'></i> ยืนยันตัดบัญชีแล้ว</label>";
                     }else {
                         $items = \backend\models\Difficultys::find()->all();
                        // \appxq\sdii\utils\VarDumper::dump($items);
                         $items = yii\helpers\ArrayHelper::map($items, 'id', 'name');
                      echo $form->field($model, 'difficulty')->radioList($items, []);
+                    }
+                ?>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-3">
+                <?php
+                    if(!Yii::$app->user->can('billmanager')){
+                        echo "";
+                    }else {
+                        $items = \backend\models\AffectiveScore::find()->all(); 
+                        $items = yii\helpers\ArrayHelper::map($items, 'id', 'name');
+                     echo $form->field($model, 'affective_score')->radioList($items, []);
                     }
                 ?>
             </div>
@@ -214,9 +229,9 @@ use appxq\sdii\helpers\SDNoty;
     <div class="modal-footer" style="background: #f3f3f3;">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <?php if(\Yii::$app->user->can('billmanager')):?>
+                 
                 <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Submit') : Yii::t('app', 'Submit'), ['class' => $model->isNewRecord ? 'btn btn-success btn-lg btn-block' : 'btn btn-primary btn-lg btn-block']) ?>	 
-                <?php endif; ?>
+                 
             </div>
         </div>
 	

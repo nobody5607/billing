@@ -36,8 +36,8 @@ class BillItems extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['billno', 'status',  'charge','amount'], 'required'],
-            [['id',  'billno', 'shop_id', 'btype', 'status', 'charge'], 'integer'],
+            [['billno', 'status','amount','blog','bill_type','billref','bill_date'], 'required'],
+            [['id',  'billno', 'shop_id', 'btype', 'status', 'charge','affective_score'], 'integer'],
             [['bookno','amount'], 'string', 'max' => 20],
             [['remark'], 'string', 'max' => 100],
             [['id'], 'unique'],
@@ -69,6 +69,7 @@ class BillItems extends \yii\db\ActiveRecord
             'bill_upload'=> Yii::t('backend', 'ไฟล์อัปโหลด'),
             'blog'=> Yii::t('backend', 'กล่อง'),
             'difficulty'=>'ความยาก',
+            'affective_score'=>'คะแนนจิตพิสัย'
         ];
     }
     

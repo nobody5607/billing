@@ -134,23 +134,23 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ],
                                 ]),
                             ],
-                            [
-                                'headerOptions' => ['style' => 'width:100px'],
-                                'format'=>'raw',
-                                'label'=>'พนักงานจัดสินค้า',
-                                'value'=>function($model){
-                                    $html = "";
-                                    $package = \backend\models\BillPackagers::find()->where(['bill_id'=>$model->id])->andWhere('rstat not in(0,3)')->all();
-                                    foreach($package as $k=>$v){
-                                      $name = isset($v->profiles->name)?$v->profiles->name:'';
-                                      $html .= "<a href='#' title='{$name}'><i id='{$v['id']}' class='fa fa-user'></i></a> ";
-                                    }
-                                    return $html;
-                                }
-                            ],
+//                            [
+//                                'headerOptions' => ['style' => 'width:100px'],
+//                                'format'=>'raw',
+//                                'label'=>'พนักงานจัดสินค้า',
+//                                'value'=>function($model){
+//                                    $html = "";
+//                                    $package = \backend\models\BillPackagers::find()->where(['bill_id'=>$model->id])->andWhere('rstat not in(0,3)')->all();
+//                                    foreach($package as $k=>$v){
+//                                      $name = isset($v->profiles->name)?$v->profiles->name:'';
+//                                      $html .= "<a href='#' title='{$name}'><i id='{$v['id']}' class='fa fa-user'></i></a> ";
+//                                    }
+//                                    return $html;
+//                                }
+//                            ],
                             [
                                 'class' => 'appxq\sdii\widgets\ActionColumn',
-                                'contentOptions' => ['style' => 'width:150px;text-align: center;'],
+                                'contentOptions' => ['style' => 'width:160px;text-align: center;'],
                                 'template' => ' {update} {delete}',
                                 'buttons' => [
                                     'update' => function($url, $model) {
@@ -167,7 +167,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         }
                                         return Html::a('<span class="fa fa-pencil"></span> ' . Yii::t('chanpan', $message), yii\helpers\Url::to(['bill-items/update?id=' . $model->id]), [
                                                     'title' => Yii::t('chanpan', 'Edit'),
-                                                    'class' => 'btn btn-info btn-xs',
+                                                    'class' => 'btn btn-info btn-sm',
                                                     'data-action' => 'update',
                                                     'data-pjax' => 0
                                         ]);
@@ -176,7 +176,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         if(Yii::$app->user->can('billmanager')){
                                             return Html::a('<span class="fa fa-trash"></span> ' . Yii::t('chanpan', 'ลบ'), yii\helpers\Url::to(['bill-items/delete?id=' . $model->id]), [
                                                 'title' => Yii::t('chanpan', 'Delete'),
-                                                'class' => 'btn btn-danger btn-xs',
+                                                'class' => 'btn btn-danger btn-sm',
                                                 'data-confirm' => Yii::t('chanpan', 'Are you sure you want to delete this item?'),
                                                 'data-method' => 'post',
                                                 'data-action' => 'delete',

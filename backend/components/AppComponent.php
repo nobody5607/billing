@@ -54,26 +54,27 @@ class AppComponent extends Component {
         $navbar = [
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
-                    ['label' => \Yii::t('appmenu','Home'), 'icon' => 'home', 'url' => ['/']],
+                    ['label' => \Yii::t('bill','จัดการบิล'), 'icon' => 'file-text-o', 'url' => ['/bill-items'],
+                    'visible' => (\Yii::$app->user->can('previewBill'))?true:false],
+                    [
+                        'label' => Yii::t('appmenu','จัดการพนักงาน'), 
+                        'icon' => 'users', 'url' => ['/user/admin/index'],
+                        'visible' => \Yii::$app->user->can('admin')
+                    ],
+//                    ['label' => \Yii::t('appmenu','Home'), 'icon' => 'home', 'url' => ['/']],
                     ['label' => \Yii::t('appmenu','About'), 'icon' => 'info-circle', 'url' => ['/site/about']],
                     ['label' => \Yii::t('appmenu','Contact'), 'icon' => 'phone-square', 'url' => ['/site/contact']],
-                    ['label' => \Yii::t('appmenu','Informations'), 'icon' => 'microphone', 'url' => ['/informations/index']],
+                    ['label' => \Yii::t('bill','จัดการพนักงานขับรถ'), 'icon' => 'user', 'url' => ['/customer'],'visible' => \Yii::$app->user->can('sell_shipping')],//sell-shipping
+//                    ['label' => \Yii::t('appmenu','Informations'), 'icon' => 'microphone', 'url' => ['/informations/index']],
 //                    ['label' => \Yii::t('appmenu','Clinical Data Management'), 'icon' => '', 'url' => ['/'], 'visible' => !Yii::$app->user->isGuest],
                     
-                    ['label' => \Yii::t('bill','Bill Manager'), 'icon' => 'file-text-o', 'url' => ['/bill-items'],
-                    'visible' => (\Yii::$app->user->can('billmanager') || \Yii::$app->user->can('preview_bill')?true:false)],
+                    
 
                     //['label' => \Yii::t('bill','Packager'), 'icon' => 'shopping-bag', 'url' => ['/bill-items'],'visible' => \Yii::$app->user->can('packager'),],
                     //['label' => \Yii::t('bill','Shipping'), 'icon' => 'truck', 'url' => ['/bill-items'],'visible' => \Yii::$app->user->can('shipping'),],
                     //['label' => \Yii::t('bill','Chargers'), 'icon' => 'credit-card', 'url' => ['/bill-items'],'visible' => \Yii::$app->user->can('chargers'),],
                     //['label' => \Yii::t('bill','Percent Shipping'), 'icon' => 'percent', 'url' => ['/sell-shipping'],'visible' => \Yii::$app->user->can('sell_shipping')],//sell-shipping
-                    ['label' => \Yii::t('bill','พนักงานขับรถ'), 'icon' => 'user', 'url' => ['/customer'],'visible' => \Yii::$app->user->can('sell_shipping')],//sell-shipping
-                    
-                    [
-                        'label' => Yii::t('appmenu','Member Management'), 
-                        'icon' => 'users', 'url' => ['/user/admin/index'],
-                        'visible' => \Yii::$app->user->can('admin')
-                    ],
+                     
                     [
                         'label' => Yii::t('appmenu', 'System Config'),
                         'visible' => \Yii::$app->user->can('admin'),

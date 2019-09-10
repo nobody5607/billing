@@ -48,9 +48,12 @@ class BillItemsController extends Controller
 
     public function beforeAction($action) {
     	if (parent::beforeAction($action)) {
-    	    if (in_array($action->id, array('create', 'update'))) {
-    		
-    	    }
+    	    if (in_array($action->id, array('index','create','update', 'delete','deletes'))) {
+			if(!Yii::$app->user->can('billmanager') && !Yii::$app->user->can('previewBill')){
+				return $this->redirect(['/user/login']);
+			}
+	    }
+	    return true;
     	    return true;
     	} else {
     	    return false;
@@ -148,11 +151,23 @@ class BillItemsController extends Controller
         Yii::$app->session['price'] = $model->amount;
 
 	    if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {
-                return \cpn\chanpan\classes\CNMessage::getSuccess('Update successfully');
-            } else {
-                return \cpn\chanpan\classes\CNMessage::getError('Can not update the data.', $model->errors);
-            }
+                $post = \Yii::$app->request->post('BillItems');
+                if(!\Yii::$app->user->can('billmanager')){
+                    if($post['status'] == '4' || $post['status'] == '5'){
+                        return \cpn\chanpan\classes\CNMessage::getWarning('คุณไม่มีสิทธิ์ยืนยันสถานะบิล');
+                    }
+                    if(in_array($post['shiping'], ['8','9'])){
+                        return \cpn\chanpan\classes\CNMessage::getWarning('คุณไม่มีสิทธิ์ยืนยันสถานะการส่งสินค้า');
+                    }
+                    if(in_array($post['charge'], ['9','10'])){
+                        return \cpn\chanpan\classes\CNMessage::getWarning('คุณไม่มีสิทธิ์ยืนยันสถานะเก็บเงิน');
+                    }
+                } 
+                if ($model->save()) {
+                    return \cpn\chanpan\classes\CNMessage::getSuccess('Update successfully');
+                } else {
+                    return \cpn\chanpan\classes\CNMessage::getError('Can not update the data.', $model->errors);
+                }
 	    } else {
             return $this->renderAjax('update', [
                 'model' => $model,

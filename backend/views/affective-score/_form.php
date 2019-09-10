@@ -6,50 +6,44 @@ use appxq\sdii\helpers\SDNoty;
 use appxq\sdii\helpers\SDHtml;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\BillType */
+/* @var $model backend\models\AffectiveScore */
 /* @var $form yii\bootstrap\ActiveForm */
 ?>
 
-<div class="bill-type-form">
+<div class="affective-score-form">
 
     <?php $form = ActiveForm::begin([
 	'id'=>$model->formName(),
     ]); ?>
 
     <div class="modal-header">
-	<button type="button" class="close"  aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="itemModalLabel"><i class="fa fa-table"></i> ประเภทบิล</h4>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="itemModalLabel"><i class="fa fa-table"></i> คะแนนจิตพิสัย</h4>
     </div>
 
     <div class="modal-body">
-	<?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
-        <?= $form->field($model, 'type')->hiddenInput()->label(FALSE) ?>
+	<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+	<?= $form->field($model, 'percent')->textInput(['maxlength' => true]) ?>
 
     </div>
-    <div class="modal-footer" style="background: #f3f3f3;">
-	    <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'บันทึก') : Yii::t('app', 'บันทึก'), ['class' => $model->isNewRecord ? 'btn btn-success btn-block' : 'btn btn-primary']) ?>
-    </div>
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success btn-lg btn-block' : 'btn btn-primary btn-lg btn-block']) ?>
+	
+            </div>
+        </div>
+    </div> 
 
     <?php ActiveForm::end(); ?>
 
 </div>
-<?php 
-    $modal = isset($modal)?$modal:'bill-type-grid-pjax';
-?>
+
 <?php  \richardfan\widget\JSRegister::begin([
     //'key' => 'bootstrap-modal',
     'position' => \yii\web\View::POS_READY
 ]); ?>
 <script>
-    
-    $(".close").on('click', function(){
-       $('#modal-bill-items-child').modal('hide');  
-    });
-    $("#modal-bill-items").animate({ scrollTop: 0 }, "slow");
-setTimeout(function(){
-    $("#billtype-name").focus(); 
-    
-},500);    
 // JS script
 $('form#<?= $model->formName()?>').on('beforeSubmit', function(e) {
     var $form = $(this);
@@ -61,11 +55,11 @@ $('form#<?= $model->formName()?>').on('beforeSubmit', function(e) {
             <?= SDNoty::show('result.message', 'result.status')?>
             if(result.action == 'create') {
                 //$(\$form).trigger('reset');
-                $(document).find('#<?= $modal?>').modal('hide');
-                $.pjax.reload({container:'#bill-type-grid-pjax'});
+                $(document).find('#modal-affective-score').modal('hide');
+                $.pjax.reload({container:'#affective-score-grid-pjax'});
             } else if(result.action == 'update') {
-                $(document).find('#<?= $modal?>').modal('hide');
-                $.pjax.reload({container:'#bill-type-grid-pjax'});
+                $(document).find('#modal-affective-score').modal('hide');
+                $.pjax.reload({container:'#affective-score-grid-pjax'});
             }
         } else {
             <?= SDNoty::show('result.message', 'result.status')?>

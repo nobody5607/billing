@@ -34,5 +34,15 @@ class CNMessage {
         ];
         return $result;
     }
+    public static function getWarning($message, $data=[]) {
+        self::JsonResponses(); 
+        $result = [
+            'status' => 'error',
+            'action' => 'create',
+            'message' => \cpn\chanpan\helpers\CNHtml::getMsgWarning() . Yii::t('chanpan', $message),
+            'data'=>$data
+        ];
+        return $result;
+    }
 
 }

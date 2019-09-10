@@ -12,17 +12,17 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="modal-header kn-modal-header">
     <button type="button" class="btn btn-danger pull-right btnModalMain">ปิด</button>
-    <h4 class="modal-title" id="itemModalLabel"> <?= Html::encode($this->title)?></h4>
+    <h2 class="modal-title" id="itemModalLabel"> <?= Html::encode($this->title)?></h2>
 </div>
 <div class="modal-body">
     <div class="bill-items-update">
 
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#bill-items">รายละเอียดบิล</a></li>
-        <li><a data-toggle="tab" href="#product-list">รายการสินค้า</a></li>
-        <li><a data-toggle="tab" href="#bill-packagers">จัดสินค้า</a></li>
+        <li class="active" style="font-size: 14pt;font-weight: bold;"><a data-toggle="tab" href="#bill-items"><i class="fa fa-files-o" aria-hidden="true"></i> รายละเอียดบิล</a></li>
+        <li style="font-size: 14pt;font-weight: bold;"><a data-toggle="tab" href="#product-list"><i class="fa fa-th-list" aria-hidden="true"></i> รายการสินค้า</a></li>
+<!--        <li><a data-toggle="tab" href="#bill-packagers">จัดสินค้า</a></li>
         <li><a data-toggle="tab" href="#bill-shippings">ส่งสินค้า</a></li>
-        <li><a data-toggle="tab" href="#bill-chargers">เรียกเก็บเงิน</a></li>
+        <li><a data-toggle="tab" href="#bill-chargers">เรียกเก็บเงิน</a></li>-->
     </ul>
 
     <div class="tab-content">
@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div id="product-list" class="tab-pane fade">
             <div id="product-list"></div>
         </div>
-        <div id="bill-packagers" class="tab-pane fade">
+<!--        <div id="bill-packagers" class="tab-pane fade">
             <div id="data-bill-package"></div>
         </div>
         <div id="bill-shippings" class="tab-pane fade">
@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div id="bill-chargers" class="tab-pane fade">
             <div id="data-bill-chargers"></div>
-        </div>
+        </div>-->
     </div>
 
 
@@ -89,8 +89,8 @@ $this->params['breadcrumbs'][] = $this->title;
     }
 
     initProductList();
-    initBillPackage();
-    initBillShipping();
-    initBillChargers();
+//    initBillPackage();
+//    initBillShipping();
+//    initBillChargers();
 </script>
 <?php \richardfan\widget\JSRegister::end();?>

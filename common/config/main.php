@@ -14,7 +14,7 @@ return [
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
-        ],
+        ], 
         'urlManager' => [
 	    'class' => 'yii\web\UrlManager',
 	    'showScriptName' => false, // Disable index.php

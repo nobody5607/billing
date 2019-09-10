@@ -20,7 +20,9 @@ return [
             'supportedLanguages' => ['en-US', 'th-TH'], //กำหนดรายการภาษาที่ support หรือใช้ได้
         ]
     ],
+    
     'components' => [
+       
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
@@ -131,5 +133,6 @@ return [
             //'admin/*',
         ]
     ],
-    'params' => $params,
+    'params' => $params, 
+
 ];
