@@ -115,7 +115,7 @@ class BillItemsController extends Controller
              
             $model->status = 1;
             $model->shiping = 1;
-            $model->charge = 1;
+            $model->charge = 5;
             $model->difficulty = 1;
             $model->affective_score = 3;
 		
