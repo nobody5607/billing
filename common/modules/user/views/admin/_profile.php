@@ -39,6 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id'=>'image-profile'
         ])
     ?>
+    <?= $form->field($profile, 'cashier') ?>
 </div>
 <div class="modal-footer">
     <div class="row">
