@@ -82,6 +82,19 @@ class AppComponent extends Component {
                         'url' => '#',
                         'items' => [
                             [
+                                'label' => Yii::t('appmenu', 'ตั้งค่าทั่วไป'),
+                                'active'=>($moduleId == 'admin'),
+                                'icon' => 'cogs',
+                                'url' => '#',
+                                'items' => [
+                                    //Assignments
+                                    ['label' => Yii::t('appmenu', 'คะแนนจิตวิพิสัย'), 'icon' => 'circle-o', 'url' => ['/affective-score/index']],
+                                    ['label' => Yii::t('appmenu', 'Percent'), 'icon' => 'circle-o', 'url' => ['/sell-shipping/index']],
+                                    ['label' => Yii::t('appmenu', 'พนักงานขับรถ'), 'icon' => 'circle-o', 'url' => ['/customer/index']],
+                                    ['label' => Yii::t('appmenu', 'Permission'), 'icon' => 'circle-o', 'url' => ['/admin/permission']],
+                                ],
+                            ],
+                            [
                                 'label' => Yii::t('appmenu', 'Authentication'),
                                 'active'=>($moduleId == 'admin'),
                                 'icon' => 'shield',
