@@ -113,6 +113,12 @@ class BillItemsController extends Controller
             $model->billno = sprintf("%05d",$billno); 
             $model->id = \appxq\sdii\utils\SDUtility::getMillisecTime();
              
+            $model->status = 1;
+            $model->shiping = 1;
+            $model->charge = 5;
+            $model->difficulty = 1;
+            $model->affective_score = 3;
+		
 	    if ($model->load(Yii::$app->request->post())) {
                 
                 $model->shop_id = 0;
