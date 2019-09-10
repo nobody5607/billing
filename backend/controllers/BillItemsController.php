@@ -158,7 +158,7 @@ class BillItemsController extends Controller
 
 	    if ($model->load(Yii::$app->request->post())) {
                 $post = \Yii::$app->request->post('BillItems');
-                if(!\Yii::$app->user->can('billmanager')){
+                if(!\Yii::$app->user->can('ApprovedBill')){
                     if($post['status'] == '4' || $post['status'] == '5'){
                         return \cpn\chanpan\classes\CNMessage::getWarning('คุณไม่มีสิทธิ์ยืนยันสถานะบิล');
                     }
