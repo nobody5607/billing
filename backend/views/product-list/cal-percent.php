@@ -1,1 +1,1 @@
-<div>โดนหักค่าจิตวิสัย <?= $output['aff']?> เป็นเงิน <?= number_format($output['percentAffectiveSum'], 2); ?> บาท</div><div><?= $output['driver'];?></div><div><?= $output['customer'];?></div>
+<div>หักค่าจิตวิสัย <?= $output['aff']?> เป็นเงิน <?= number_format($output['percentAffectiveSum'], 2); ?> บาท</div><div><?= $output['driver'];?></div><div><?= $output['customer'];?></div>

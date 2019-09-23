@@ -63,8 +63,13 @@ class UserPercentController extends Controller
     public function actionIndex()
     {
         $bill_id = isset(\Yii::$app->session['bill_id'])?\Yii::$app->session['bill_id']:'';
+        $query = UserPercent::find()->where('bill_id=:bill_id',[':bill_id' => $bill_id]);
+        if(!$query->all()){
+            $query = UserPercent::find()->where(['id'=>'10000']);
+        }
+        //VarDumper::dump($query->one());
         $dataProvider = new ActiveDataProvider([
-            'query' => UserPercent::find()->where('bill_id=:bill_id',[':bill_id' => $bill_id]),
+            'query' => $query,
         ]);
         if(Yii::$app->request->isAjax){
             return $this->renderAjax('index', [

@@ -3,8 +3,8 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\AffectiveScore;
-use backend\models\AffectiveScoreSearch;
+use backend\models\Difficultys;
+use backend\models\search\Difficultys as DifficultysSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -13,9 +13,9 @@ use yii\web\Response;
 use appxq\sdii\helpers\SDHtml;
 
 /**
- * AffectiveScoreController implements the CRUD actions for AffectiveScore model.
+ * DifficultysController implements the CRUD actions for Difficultys model.
  */
-class AffectiveScoreController extends Controller
+class DifficultysController extends Controller
 {
     public function behaviors()
     {
@@ -56,22 +56,22 @@ class AffectiveScoreController extends Controller
     }
     
     /**
-     * Lists all AffectiveScore models.
+     * Lists all Difficultys models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new AffectiveScoreSearch();
+        $searchModel = new DifficultysSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
+        
+        return $this->renderAjax('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single AffectiveScore model.
+     * Displays a single Difficultys model.
      * @param integer $id
      * @return mixed
      */
@@ -89,17 +89,17 @@ class AffectiveScoreController extends Controller
     }
 
     /**
-     * Creates a new AffectiveScore model.
+     * Creates a new Difficultys model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
 	if (Yii::$app->getRequest()->isAjax) {
-	    $model = new AffectiveScore();
-$modal = \Yii::$app->request->get('modal');
+	    $model = new Difficultys();
+            $modal = \Yii::$app->request->get('modal');
 	    if ($model->load(Yii::$app->request->post())) {
-		Yii::$app->response->format = Response::FORMAT_JSON;
+		
 		if ($model->save()) {
 		    return \cpn\chanpan\classes\CNMessage::getSuccess('Create successfully');
 		} else {
@@ -117,7 +117,7 @@ $modal = \Yii::$app->request->get('modal');
     }
 
     /**
-     * Updates an existing AffectiveScore model.
+     * Updates an existing Difficultys model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -145,7 +145,7 @@ $modal = \Yii::$app->request->get('modal');
     }
 
     /**
-     * Deletes an existing AffectiveScore model.
+     * Deletes an existing Difficultys model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -181,15 +181,15 @@ $modal = \Yii::$app->request->get('modal');
     }
     
     /**
-     * Finds the AffectiveScore model based on its primary key value.
+     * Finds the Difficultys model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return AffectiveScore the loaded model
+     * @return Difficultys the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = AffectiveScore::findOne($id)) !== null) {
+        if (($model = Difficultys::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

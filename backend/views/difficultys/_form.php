@@ -6,11 +6,11 @@ use appxq\sdii\helpers\SDNoty;
 use appxq\sdii\helpers\SDHtml;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\AffectiveScore */
+/* @var $model backend\models\Difficultys */
 /* @var $form yii\bootstrap\ActiveForm */
 ?>
 
-<div class="affective-score-form">
+<div class="difficultys-form">
 
     <?php $form = ActiveForm::begin([
 	'id'=>$model->formName(),
@@ -18,12 +18,13 @@ use appxq\sdii\helpers\SDHtml;
 
     <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="itemModalLabel"><i class="fa fa-table"></i> คะแนนจิตพิสัย</h4>
+        <h4 class="modal-title" id="itemModalLabel"><i class="fa fa-table"></i> ความยาก</h4>
     </div>
 
     <div class="modal-body">
 	<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-	<?= $form->field($model, 'percent')->textInput(['maxlength' => true]) ?>
+
+	<?= $form->field($model, 'percent')->textInput() ?>
 
     </div>
     <div class="modal-footer">
@@ -57,10 +58,10 @@ $('form#<?= $model->formName()?>').on('beforeSubmit', function(e) {
             if(result.action == 'create') {
                 //$(\$form).trigger('reset');
                 $(document).find('#<?= $modal?>').modal('hide');
-                $.pjax.reload({container:'#affective-score-grid-pjax'});
+                $.pjax.reload({container:'#difficultys-grid-pjax'});
             } else if(result.action == 'update') {
                 $(document).find('#<?= $modal?>').modal('hide');
-                $.pjax.reload({container:'#affective-score-grid-pjax'});
+                $.pjax.reload({container:'#difficultys-grid-pjax'});
             }
         } else {
             <?= SDNoty::show('result.message', 'result.status')?>

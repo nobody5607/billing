@@ -89,6 +89,7 @@ class AppComponent extends Component {
                                 'items' => [
                                     //Assignments
                                     ['label' => Yii::t('appmenu', 'คะแนนจิตวิพิสัย'), 'icon' => 'circle-o', 'url' => ['/affective-score/index']],
+                                    ['label' => Yii::t('appmenu', 'จัดการความยาก'), 'icon' => 'circle-o', 'url' => ['/difficultys/index']],
                                     ['label' => Yii::t('appmenu', 'Percent'), 'icon' => 'circle-o', 'url' => ['/sell-shipping/index']],
                                     ['label' => Yii::t('appmenu', 'พนักงานขับรถ'), 'icon' => 'circle-o', 'url' => ['/customer/index']],
                                     ['label' => Yii::t('appmenu', 'กลอง'), 'icon' => 'circle-o', 'url' => ['/groups/index']],

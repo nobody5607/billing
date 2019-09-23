@@ -110,5 +110,51 @@ class Select2Controller extends \yii\web\Controller{
             return false;
         }
     }
+    
+    public function actionBillDifficulty($q = '', $id = ''){
+        try {
+            $out = ['results' => ['id' => '', 'text' => '']];
+            if ($id == null) {
+                $data_all = \backend\models\Difficultys::find()
+                        ->select(['id as id','name as name'])
+                        ->where('id like :id OR name like :name',[
+                    ':id'=>"%{$q}%",
+                    ':name'=>"%{$q}%",        
+                ])->all();
+                 
+                $data = [];
+                foreach ($data_all as $k => $c) {
+                    $data[$k] = ['id' => $c['id'], 'text' => ($c['name'] != '')?$c['name']:$c['username']];
+                }
+                $out['results'] = array_values($data);
+            }  
+            return $out;
+        } catch (\yii\db\Exception $ex) {
+            return false;
+        }
+    }
+    
+    public function actionAffectiveScore($q = '', $id = ''){
+        try {
+            $out = ['results' => ['id' => '', 'text' => '']];
+            if ($id == null) {
+                $data_all = \backend\models\AffectiveScore::find()
+                        ->select(['id as id','name as name'])
+                        ->where('id like :id OR name like :name',[
+                    ':id'=>"%{$q}%",
+                    ':name'=>"%{$q}%",        
+                ])->all();
+                 
+                $data = [];
+                foreach ($data_all as $k => $c) {
+                    $data[$k] = ['id' => $c['id'], 'text' => ($c['name'] != '')?$c['name']:$c['username']];
+                }
+                $out['results'] = array_values($data);
+            }  
+            return $out;
+        } catch (\yii\db\Exception $ex) {
+            return false;
+        }
+    }
 
 }
