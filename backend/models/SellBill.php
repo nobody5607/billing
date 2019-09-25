@@ -16,6 +16,10 @@ use Yii;
  * @property string $customername ชื่อลูกหนี้/เจ้าหนี้
  * @property string $totalprice มูลค่าสินค้า
  * @property string $netprice มูลค่าหลังหักส่วนลด
+ * @property string $tax มูลค่ายกเว้นภาษี
+ * @property string $vat ภาษีมูลค่าเพิ่ม
+ * @property string $net_value มูลค่าสุทธิ
+ * @property string $cashier Cashier
  */
 class SellBill extends \yii\db\ActiveRecord
 {
@@ -33,13 +37,13 @@ class SellBill extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['docno'], 'required'],
+            //[['docno'], 'required'],
             [['docdate', 'doctime', 'refdate'], 'safe'],
             [['docno', 'customerno'], 'string', 'max' => 50],
             [['refdata'], 'string', 'max' => 255],
             [['customername'], 'string', 'max' => 200],
-            [['totalprice', 'netprice'], 'string', 'max' => 20],
-            [['docno'], 'unique'],
+            [['totalprice', 'netprice', 'tax', 'vat', 'net_value', 'cashier'], 'string', 'max' => 20],
+
         ];
     }
 
@@ -58,6 +62,10 @@ class SellBill extends \yii\db\ActiveRecord
             'customername' => Yii::t('app', 'ชื่อลูกหนี้/เจ้าหนี้'),
             'totalprice' => Yii::t('app', 'มูลค่าสินค้า'),
             'netprice' => Yii::t('app', 'มูลค่าหลังหักส่วนลด'),
+            'tax' => Yii::t('app', 'มูลค่ายกเว้นภาษี'),
+            'vat' => Yii::t('app', 'ภาษีมูลค่าเพิ่ม'),
+            'net_value' => Yii::t('app', 'มูลค่าสุทธิ'),
+            'cashier' => Yii::t('app', 'Cashier'),
         ];
     }
 }

@@ -17,16 +17,90 @@ $this->title = Yii::t('bill', 'Bill Manager');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+
+
+
 <div class="tab-content"> 
     <div class="row">
+        <div class="col-md-12">
+            <div class="kt-section">
+                <div class="kt-section__info"><label>อัปโหลดรายการสินค้า:</label></div>
+                <div class="kt-section__content kt-section__content--solid kt-border-success kt-bg-light">
+                    <form id="fupForm" enctype="multipart/form-data">
+                        <div class="statusMsg"></div>
+                        <div class="row">
+                            <div class="col-md-3 text-right">
+                                <input id="exfile" name="exfile" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-success" id="btnUploadFile"><i class="fa fa-upload"></i> อัปโหลดรายการสินค้า</button>
+
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <?php if(\Yii::$app->user->can('billmanager')) :?>
+                                    <?= Html::button(Yii::t('bill','Create Bill').' '.SDHtml::getBtnAdd(), ['data-url' => Url::to(['bill-items/create']), 'class' => 'btn btn-success btn-lg btn-outline-success', 'id' => 'modal-addbtn-bill-items'])
+                                    ?>
+                                <?php endif;    ?>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <?php \richardfan\widget\JSRegister::begin(); ?>
+                <script>
+                    $("#exfile").change(function() {
+                        var file = this.files[0];
+                        var fileType = file.type;
+                        var match = ['.csv', 'application/msword', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'];
+                        if(!((fileType == match[0]) || (fileType == match[1]) || (fileType == match[2]) || (fileType == match[3]) || (fileType == match[4]) || (fileType == match[5]))){
+                            alert('Sorry, only xlsx files are allowed to upload.');
+                            $("#file").val('');
+                            return false;
+                        }
+                    });
+                    $('#fupForm').on('submit', function(e){
+                        let url = '<?= \yii\helpers\Url::to(['/product-list/upload']) ?>';
+                        e.preventDefault();
+                        $.ajax({
+                            type: 'POST',
+                            url: url,
+                            data: new FormData(this),
+                            dataType: 'json',
+                            contentType: false,
+                            cache: false,
+                            processData:false,
+                            beforeSend: function(){
+                                //$('#btnUploadFile').attr("disabled","disabled");
+                                $('#fupForm').css("opacity",".5");
+                            },
+                            success: function(response){
+                                console.log(response);
+                                $('.statusMsg').html('');
+                                if(response.status == 'success'){
+                                    $('#fupForm')[0].reset();
+                                    $('.statusMsg').html('<p class="alert alert-success">'+response.message+'</p>');
+                                    getProductList();
+                                }else{
+                                    $('.statusMsg').html('<p class="alert alert-danger">'+response.message+'</p>');
+                                }
+                                $('#fupForm').css("opacity","");
+                                // $("#btnUploadFile").removeAttr("disabled");
+                            }
+                        });
+
+
+
+                    });
+                </script>
+                <?php \richardfan\widget\JSRegister::end(); ?>
+            </div>
+        </div>
+
         <div class="col-md-12">
             <div style="background: #fff;margin:0 0 0 1px">
                 <div class="box-header">
                     <div class="pull-right">
-                        <?php if(\Yii::$app->user->can('billmanager')) :?>
-                        <?= Html::button(Yii::t('bill','Create Bill').' '.SDHtml::getBtnAdd(), ['data-url' => Url::to(['bill-items/create']), 'class' => 'btn btn-success btn-lg btn-outline-success', 'id' => 'modal-addbtn-bill-items'])
-                        ?>
-                        <?php endif;    ?>
+
                     </div>
                 </div>
                 <div class="box-body">    

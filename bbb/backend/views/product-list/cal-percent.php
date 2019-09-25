@@ -1,1 +1,0 @@
-<div><?= $output['driver'];?></div><div><?= $output['customer'];?></div>

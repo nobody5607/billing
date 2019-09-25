@@ -150,58 +150,26 @@ use appxq\sdii\helpers\SDNoty;
                 ?>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-3">
-                 <?php
+                <?php
                     if($model->charge == '10' AND !Yii::$app->user->can('billmanager')){
-                        echo "<label class='label label-success' style='font-size: 16px;display: block;padding: 10px;'><i class='fa fa-check'></i> ยืนยันตัดบัญชีแล้ว</label>";
-                    }else {  
-                        /* Select2 */
-                        $url = \yii\helpers\Url::to(['/select2/bill-difficulty']);
-                        $init_data = isset($model->difficulty) ? backend\models\Difficultys::findOne($model->difficulty) : '';
-
-                        echo \cpn\chanpan\widgets\KNSelect2::widget([
-                            'minimumInputLength'=>0,
-                            'init_data'=>$init_data,
-                            'model'=>$model,
-                            'field'=>'difficulty',
-                            'form'=>$form,
-                            'options'=>['placeholder'=>'-- เลือกความยาก --'],
-                            'url'=>$url,
-                            'addUrl'=>Url::to(['/difficultys/create?modal=modal-bill-items-child&type=1']),
-                            'addId'=>'select-difficulty',
-                            'modal'=>'modal-bill-items-child'
-                        ]);
-                //echo \backend\classes\KNSelect2::renderSelect2Single($form, $model, 'bill_type', $init_data, $url, '-- เลือกประเภทบิล --', 0);
-            
+                        echo "<label class='label label-success'>ยืนยันตัดบัญชีแล้ว</label>";
+                    }else {
+                        $items = \backend\models\Difficultys::find()->all();
+                        // \appxq\sdii\utils\VarDumper::dump($items);
+                        $items = yii\helpers\ArrayHelper::map($items, 'id', 'name');
+                        echo $form->field($model, 'difficulty')->radioList($items, []);
                     }
                 ?>
             </div>
             <div class="col-md-2 col-sm-3 col-xs-3">
                 <?php
-                    if(!Yii::$app->user->can('billmanager')){
-                        echo "";
-                    }else {
-                        $items = \backend\models\AffectiveScore::find()->all(); 
-                        $items = yii\helpers\ArrayHelper::map($items, 'id', 'name');
-                        
-                        /* Select2 */
-                        $url = \yii\helpers\Url::to(['/select2/affective-score']);
-                        $init_data = isset($model->affective_score) ? backend\models\AffectiveScore::findOne($model->affective_score) : '';
-
-                        echo \cpn\chanpan\widgets\KNSelect2::widget([
-                            'minimumInputLength'=>0,
-                            'init_data'=>$init_data,
-                            'model'=>$model,
-                            'field'=>'affective_score',
-                            'form'=>$form,
-                            'options'=>['placeholder'=>'-- เลือกความยาก --'],
-                            'url'=>$url,
-                            'addUrl'=>Url::to(['/affective-score/create?modal=modal-bill-items-child&type=1']),
-                            'addId'=>'affective_score',
-                            'modal'=>'modal-bill-items-child'
-                        ]);
-                        
-                        //echo $form->field($model, 'affective_score')->radioList($items, []);
-                    }
+                if(!Yii::$app->user->can('billmanager')){
+                    echo "";
+                }else {
+                    $items = \backend\models\AffectiveScore::find()->all();
+                    $items = yii\helpers\ArrayHelper::map($items, 'id', 'name');
+                    echo $form->field($model, 'affective_score')->radioList($items, []);
+                }
                 ?>
             </div>
             

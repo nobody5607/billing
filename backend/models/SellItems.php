@@ -37,7 +37,7 @@ class SellItems extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['docno', 'itemcode'], 'required'],
+//            [['docno', 'itemcode'], 'required'],
             [['docno', 'itemcode'], 'string', 'max' => 50],
             [['itemname'], 'string', 'max' => 200],
             [['treasury', 'storage', 'unit', 'amount', 'unitprice', 'unitdiscount', 'totaldiscount', 'netprice'], 'string', 'max' => 20],
