@@ -23,13 +23,13 @@ class Profile extends BaseProfile{
             'bioString' => ['bio', 'string'],
             'publicEmailPattern' => ['public_email', 'email'],
             'gravatarEmailPattern' => ['gravatar_email', 'email'],
-            'websiteUrl' => ['website', 'url','cashier'],
+            'websiteUrl' => ['website', 'url'],
             'nameLength' => ['name', 'string', 'max' => 255],
             'publicEmailLength' => ['public_email', 'string', 'max' => 255],
             'gravatarEmailLength' => ['gravatar_email', 'string', 'max' => 255],
             'locationLength' => ['location', 'string', 'max' => 255],
             'websiteLength' => ['website', 'string', 'max' => 255],
-            
+            'cashierString'=>['cashier','string']
             
             
         ];
