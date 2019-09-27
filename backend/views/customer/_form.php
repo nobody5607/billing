@@ -27,7 +27,7 @@ use appxq\sdii\helpers\SDHtml;
 	<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
 	<?= $form->field($model, 'tel')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'type')->dropDownList(['1'=>'คนขับ','2'=>'ลูกน้อง'],['prompt'=>'--เลือกพนักงานขับรถ--']) ?>
+    <?= $form->field($model, 'type')->dropDownList(['1'=>'คนขับ','2'=>'ลูกน้อง','99'=>'พนักงานจัดของ'],['prompt'=>'--เลือกพนักงานขับรถ--']) ?>
 
     </div>
     <div class="modal-footer">
