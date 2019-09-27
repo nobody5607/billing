@@ -75,6 +75,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                 ],
                 [
+//                    'attribute' => 'tel',
+                    'label' => 'cashier',
+                    'value' => 'profile.cashier',
+                ],
+                [
                     //'header' => 'Active',
                     'label'=>Yii::t('_user','Role'), 
                     'value' => function ($model) {
