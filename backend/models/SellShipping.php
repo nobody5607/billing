@@ -44,6 +44,7 @@ class SellShipping extends \yii\db\ActiveRecord
             'groupcond' => Yii::t('app', 'Groupcond'),
             'groupname' => Yii::t('app', 'Groupname'),
             'percent' => Yii::t('app', 'Percent'),
+            'percent_package' => Yii::t('app', 'Percent พนักงานจัดของ'),
         ];
     }
 }
