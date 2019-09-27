@@ -58,10 +58,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=>function($model){
                     if($model->type == 1){
                         return 'คนขับ';
+                    }else if($model->type == 99){
+                        return 'พนักงานจัดของ';
                     }
                     return 'ลูกน้อง';
                 },
-                'filter'=>['1'=>'คนขับ','2'=>'ลูกน้อง']
+                'filter'=>['1'=>'คนขับ','2'=>'ลูกน้อง','99'=>'พนักงานจัดของ']
             ],
 
 	    [
