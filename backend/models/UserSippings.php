@@ -36,7 +36,7 @@ class UserSippings extends \yii\db\ActiveRecord
         return [
             [['user_id'], 'required'],
             [['id', 'bill_id', 'user_id', 'parent_id', 'type', 'rstat', 'create_by', 'upddate_by'], 'integer'],
-            [['create_date', 'update_date','percent'], 'safe'],
+            [['create_date', 'update_date','percent','treasury','storage'], 'safe'],
             [['id'], 'unique'],
         ];
     }
@@ -57,7 +57,9 @@ class UserSippings extends \yii\db\ActiveRecord
             'create_date' => Yii::t('app', 'Create Date'),
             'upddate_by' => Yii::t('app', 'Upddate By'),
             'update_date' => Yii::t('app', 'Update Date'),
-            'percent'=>'percent%'
+            'percent'=>'percent%',
+            'treasury'=>'คลัง',
+            'storage'=>'ที่เก็บ'
         ];
     }
 }

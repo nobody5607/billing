@@ -11,15 +11,15 @@ $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' 
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="modal-header kn-modal-header">
-    <button type="button" class="btn btn-danger pull-right btnModalMain">ปิด</button>
-    <h2 class="modal-title" id="itemModalLabel"> <?= Html::encode($this->title)?></h2>
+    <button type="button" class="btn btn-danger pull-right btnModalMain"><i class="fa fa-power-off"></i></button>
+    <h3 class="modal-title" id="itemModalLabel"> <?= Html::encode($this->title)?></h3>
 </div>
 <div class="modal-body">
     <div class="bill-items-update">
 
     <ul class="nav nav-tabs">
-        <li class="active" style="font-size: 14pt;font-weight: bold;"><a data-toggle="tab" href="#bill-items"><i class="fa fa-files-o" aria-hidden="true"></i> รายละเอียดบิล</a></li>
-        <li style="font-size: 14pt;font-weight: bold;"><a data-toggle="tab" href="#product-list"><i class="fa fa-th-list" aria-hidden="true"></i> รายการสินค้า</a></li>
+        <li class="active" style="font-size: 12pt;font-weight: bold;"><a data-toggle="tab" href="#bill-items"><i class="fa fa-files-o" aria-hidden="true"></i> รายละเอียดบิล</a></li>
+        <li style="font-size: 12pt;font-weight: bold;"><a data-toggle="tab" href="#product-list"><i class="fa fa-th-list" aria-hidden="true"></i> รายการสินค้า</a></li>
 <!--        <li><a data-toggle="tab" href="#bill-packagers">จัดสินค้า</a></li>
         <li><a data-toggle="tab" href="#bill-shippings">ส่งสินค้า</a></li>
         <li><a data-toggle="tab" href="#bill-chargers">เรียกเก็บเงิน</a></li>-->

@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             processData:false,
                             beforeSend: function(){
                                 //$('#btnUploadFile').attr("disabled","disabled");
-                                $('#fupForm').css("opacity",".5");
+                                //$('#fupForm').css("opacity",".5");
                             },
                             success: function(response){
                                 console.log(response);
@@ -83,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 }else{
                                     $('.statusMsg').html('<p class="alert alert-danger">'+response.message+'</p>');
                                 }
-                                $('#fupForm').css("opacity","");
+                                //$('#fupForm').css("opacity","");
                                 // $("#btnUploadFile").removeAttr("disabled");
                             }
                         });
@@ -280,7 +280,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'id' => 'modal-bill-items',
         'options' => ['tabindex' => false],
         'size'=>'modal-lg',
-         'clientOptions' => ['backdrop' => 'static', 'keyboard' => false]
+//         'clientOptions' => ['backdrop' => 'static', 'keyboard' => false]
     ]);
 ?>
 

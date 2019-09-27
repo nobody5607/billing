@@ -44,7 +44,7 @@ cpn\chanpan\assets\jquery_scroll\JqueryScrollAsset::register($this);
         <link rel="stylesheet" href="<?= $baseUrl;?>/css/custom.css"/>
         <link rel="stylesheet" href="<?= $baseUrl;?>/css/themes.css"/>
     </head>
-    <body class="<?= $skin?> sidebar-mini sidebar-collapse">
+    <body class="<?= $skin?> sidebar-mini">
     <?php $this->beginBody() ?>
     <div class="wrapper">
         

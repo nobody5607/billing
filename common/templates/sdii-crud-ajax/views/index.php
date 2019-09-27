@@ -89,24 +89,24 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
 
 	    [
 		'class' => 'appxq\sdii\widgets\ActionColumn',
-		'contentOptions' => ['style'=>'width:80px;text-align: center;'],
-		'template' => '{view} {update} {delete}',
+		'contentOptions' => ['style'=>'width:180px;text-align: center;'],
+		'template' => '{update} {delete}',
                 'buttons'=>[
                     'update'=>function($url, $model){
-                        return Html::a('<span class="fa fa-edit"></span> '.Yii::t('app', 'Edit'), 
-                                    yii\helpers\Url::to(['<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/update/'.$model->id]), [
-                                    'title' => Yii::t('app', 'Edit'),
+                        return Html::a('<span class="fa fa-pencil"></span> '.Yii::t('app', 'แก้ไข'),
+                                    yii\helpers\Url::to(['<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/update?id='.$model->id]), [
+                                    'title' => Yii::t('app', 'แก้ไข'),
                                     'class' => 'btn btn-primary btn-xs',
                                     'data-action'=>'update',
                                     'data-pjax'=>0
                         ]);
                     },
                     'delete' => function ($url, $model) {                         
-                        return Html::a('<span class="fa fa-trash"></span> '.Yii::t('app', 'Delete'), 
-                                yii\helpers\Url::to(['<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/delete/'.$model->id]), [
-                                'title' => Yii::t('app', 'Delete'),
+                        return Html::a('<span class="fa fa-trash"></span> '.Yii::t('app', 'ลบ'),
+                                yii\helpers\Url::to(['<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/delete?id='.$model->id]), [
+                                'title' => Yii::t('app', 'ลบ'),
                                 'class' => 'btn btn-danger btn-xs',
-                                'data-confirm' => Yii::t('chanpan', 'Are you sure you want to delete this item?'),
+                                'data-confirm' => Yii::t('app', 'คุณแน่ใจหรือว่าต้องการลบรายการนี้หรือไม่?'),
                                 'data-method' => 'post',
                                 'data-action' => 'delete',
                                 'data-pjax'=>0

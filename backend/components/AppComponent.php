@@ -57,6 +57,15 @@ class AppComponent extends Component {
                     ['label' => \Yii::t('bill','จัดการบิล'), 'icon' => 'file-text-o', 'url' => ['/bill-items'],
                     'visible' => (\Yii::$app->user->can('previewBill'))?true:false],
                     [
+                        'label' => Yii::t('appmenu', 'รายงาน'),
+                        'visible' => \Yii::$app->user->can('admin'),
+                        'icon' => 'road',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => Yii::t('appmenu','ค่า Com พนักงานขับรถ'),     'icon' => 'circle-o', 'url' => ['/report/customer-car'],],
+                        ],
+                    ],
+                    [
                         'label' => Yii::t('appmenu','จัดการพนักงาน'), 
                         'icon' => 'users', 'url' => ['/user/admin/index'],
                         'visible' => \Yii::$app->user->can('admin')
@@ -74,7 +83,7 @@ class AppComponent extends Component {
                     //['label' => \Yii::t('bill','Shipping'), 'icon' => 'truck', 'url' => ['/bill-items'],'visible' => \Yii::$app->user->can('shipping'),],
                     //['label' => \Yii::t('bill','Chargers'), 'icon' => 'credit-card', 'url' => ['/bill-items'],'visible' => \Yii::$app->user->can('chargers'),],
                     //['label' => \Yii::t('bill','Percent Shipping'), 'icon' => 'percent', 'url' => ['/sell-shipping'],'visible' => \Yii::$app->user->can('sell_shipping')],//sell-shipping
-                     
+
                     [
                         'label' => Yii::t('appmenu', 'System Config'),
                         'visible' => \Yii::$app->user->can('admin'),
@@ -93,6 +102,9 @@ class AppComponent extends Component {
                                     ['label' => Yii::t('appmenu', 'Percent'), 'icon' => 'circle-o', 'url' => ['/sell-shipping/index']],
                                     ['label' => Yii::t('appmenu', 'พนักงานขับรถ'), 'icon' => 'circle-o', 'url' => ['/customer/index']],
                                     ['label' => Yii::t('appmenu', 'กลอง'), 'icon' => 'circle-o', 'url' => ['/groups/index']],
+
+                                    ['label' => Yii::t('appmenu', 'คลัง'), 'icon' => 'circle-o', 'url' => ['/treasurys/index']],
+                                    ['label' => Yii::t('appmenu', 'ที่เก็บ'), 'icon' => 'circle-o', 'url' => ['/storages/index']],
                                 ],
                             ],
                             [

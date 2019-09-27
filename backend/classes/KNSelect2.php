@@ -14,7 +14,7 @@ class KNSelect2 {
      * @param type $minimumInputLength พิมพ์กี่ตัวอักษรถึงจะทำงาน
      * @return render select2
      */
-    public static function renderSelect2Single($form, $model, $field, $init_data=[], $url, $placeholder='', $minimumInputLength=0){
+    public static function renderSelect2Single($form, $model, $field, $init_data=[], $url, $placeholder='', $minimumInputLength=0, $label="ผู้ใช้"){
         return $form->field($model, $field)->widget(\kartik\select2\Select2::className(), [
             'initValueText' => !empty($init_data) ? $init_data['name'] : [], //กำหนดค่าเริ่มต้น
             'options' => ['placeholder' => $placeholder],
@@ -41,6 +41,6 @@ class KNSelect2 {
                     'asButton' => true
                 ] 
             ],
-        ]);
+        ])->label($label);
     }//select2Single
 }
