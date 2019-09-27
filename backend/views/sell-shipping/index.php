@@ -53,6 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'groupcond',
             'groupname',
             'percent',
+	        'percent_package',
 
 	    [
 		'class' => 'appxq\sdii\widgets\ActionColumn',

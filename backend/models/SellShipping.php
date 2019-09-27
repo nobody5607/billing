@@ -30,7 +30,7 @@ class SellShipping extends \yii\db\ActiveRecord
             [['groupcond'], 'required'],
             [['groupcond'], 'string', 'max' => 50],
             [['groupname'], 'string', 'max' => 200],
-            [['percent'], 'string', 'max' => 5],
+            [['percent','percent_package'], 'string', 'max' => 5],
             [['groupcond'], 'unique'],
         ];
     }
