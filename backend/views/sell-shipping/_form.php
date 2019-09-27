@@ -27,7 +27,7 @@ use appxq\sdii\helpers\SDHtml;
 	<?= $form->field($model, 'groupname')->textInput(['maxlength' => true]) ?>
 
 	<?= $form->field($model, 'percent')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'percent_package')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'percent_package')->textInput(['maxlength' => true]); ?>
 
     </div>
     <div class="modal-footer">

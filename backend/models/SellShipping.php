@@ -30,7 +30,7 @@ class SellShipping extends \yii\db\ActiveRecord
             [['groupcond'], 'required'],
             [['groupcond'], 'string', 'max' => 50],
             [['groupname'], 'string', 'max' => 200],
-            [['percent','percent_package'], 'string', 'max' => 5],
+            [['percent','percent_package'], 'string', 'max' => 10],
             [['groupcond'], 'unique'],
         ];
     }
@@ -43,8 +43,8 @@ class SellShipping extends \yii\db\ActiveRecord
         return [
             'groupcond' => Yii::t('app', 'Groupcond'),
             'groupname' => Yii::t('app', 'Groupname'),
-            'percent' => Yii::t('app', 'Percent'),
-            'percent_package' => Yii::t('app', 'Percent พนักงานจัดของ'),
+            'percent' => Yii::t('app', 'Factor'),
+            'percent_package' => Yii::t('app', 'Factor พนักงานจัดของ'),
         ];
     }
 }
