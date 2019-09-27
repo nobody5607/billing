@@ -41,7 +41,7 @@ class BillItems extends BillItemsModel
      */
     public function search($params)
     {
-        $query = BillItemsModel::find()->where('rstat not in(0,3)');
+        $query = BillItemsModel::find()->where('rstat not in(0,3)')->orderBy(['id'=>SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
