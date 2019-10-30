@@ -23,20 +23,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-md-12" id="navbars">
             <div class="kt-section">
-                <div class="kt-section__info"><label>อัปโหลดรายการสินค้า:</label></div>
+
                 <div class="kt-section__content kt-section__content--solid kt-border-success kt-bg-light">
                     <form id="fupForm" enctype="multipart/form-data">
                         <div class="statusMsg"></div>
                         <div class="row">
-                            <div class="col-md-3 text-right">
-                                <input id="exfile" name="exfile" type="file"
-                                       accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
-                            </div>
-                            <div class="col-md-3">
-                                <button class="btn btn-success" id="btnUploadFile"><i class="fa fa-upload"></i>
-                                    อัปโหลดรายการสินค้า
-                                </button>
-
+                            <div class="col-md-6">
+                                <h3>กดปุ่มสร้างบิลเพื่อสร้างบิลใหม่</h3>
                             </div>
                             <div class="col-md-6 text-right">
                                 <?php if (\Yii::$app->user->can('billmanager')) : ?>
@@ -48,52 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </form>
                 </div>
-                <?php \richardfan\widget\JSRegister::begin(); ?>
-                <script>
-                    $("#exfile").change(function () {
-                        var file = this.files[0];
-                        var fileType = file.type;
-                        var match = ['.csv', 'application/msword', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'];
-                        if (!((fileType == match[0]) || (fileType == match[1]) || (fileType == match[2]) || (fileType == match[3]) || (fileType == match[4]) || (fileType == match[5]))) {
-                            alert('Sorry, only xlsx files are allowed to upload.');
-                            $("#file").val('');
-                            return false;
-                        }
-                    });
-                    $('#fupForm').on('submit', function (e) {
-                        let url = '<?= \yii\helpers\Url::to(['/product-list/upload']) ?>';
-                        e.preventDefault();
-                        $.ajax({
-                            type: 'POST',
-                            url: url,
-                            data: new FormData(this),
-                            dataType: 'json',
-                            contentType: false,
-                            cache: false,
-                            processData: false,
-                            beforeSend: function () {
-                                //$('#btnUploadFile').attr("disabled","disabled");
-                                //$('#fupForm').css("opacity",".5");
-                            },
-                            success: function (response) {
-                                console.log(response);
-                                $('.statusMsg').html('');
-                                if (response.status == 'success') {
-                                    $('#fupForm')[0].reset();
-                                    $('.statusMsg').html('<p class="alert alert-success">' + response.message + '</p>');
-                                    getProductList();
-                                } else {
-                                    $('.statusMsg').html('<p class="alert alert-danger">' + response.message + '</p>');
-                                }
-                                //$('#fupForm').css("opacity","");
-                                // $("#btnUploadFile").removeAttr("disabled");
-                            }
-                        });
 
-
-                    });
-                </script>
-                <?php \richardfan\widget\JSRegister::end(); ?>
             </div>
         </div>
 
@@ -435,7 +383,6 @@ ModalForm::widget([
         padding-left: 65px;
         padding-right: 17px;
         z-index: 1;
-        color: #fff;
         border-bottom: 1px solid #e9ecef;
         box-shadow: -11px 3px 6px #e9ecef;
     }

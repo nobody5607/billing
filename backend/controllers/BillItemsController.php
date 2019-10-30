@@ -217,12 +217,15 @@ class BillItemsController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
+    public function actionBillUpload(){
+        return $this->render('bill-upload',[
+
+        ]);
+    }
     public function actionUploadFiles($id) {
-        
 	 if (Yii::$app->getRequest()->isAjax) {
 	    $model = new BillItems(); 
-            $post = \Yii::$app->request->post('BillItems');
+        $post = \Yii::$app->request->post('BillItems');
 	    if ($post) {
                 $file = \backend\classes\KNFileUpload::upload($model, 'bill_upload');
                 
@@ -244,7 +247,7 @@ class BillItemsController extends Controller
                      
                 }
                 
-	    } 
+	    }
 	} else {
 	    throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
 	}

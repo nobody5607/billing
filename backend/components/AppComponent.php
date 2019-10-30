@@ -59,11 +59,12 @@ class AppComponent extends Component {
                     [
                         'label' => Yii::t('appmenu', 'รายงาน'),
                         'visible' => \Yii::$app->user->can('admin'),
-                        'icon' => 'road',
+                        'icon' => 'file',
                         'url' => '#',
                         'items' => [
-                            ['label' => Yii::t('appmenu','พนักงานส่งของ'),     'icon' => 'circle-o', 'url' => ['/report/customer-car'],],
-                            ['label' => 'รายงานบิล',     'icon' => 'circle-o', 'url' => ['/report/sell-bill'],],
+                            ['label' => 'พนักงานส่งของ',     'icon' => 'circle-o', 'url' => ['/report/customer-car'],],
+                            ['label' => 'รายงานบิลจากรายงาน',     'icon' => 'circle-o', 'url' => ['/report/sell-bill'],],
+                            ['label' => 'รายงานบิลที่เพิ่มเข้ามา',     'icon' => 'circle-o', 'url' => ['/report/bill-items'],],
                         ],
                     ],
                     [
