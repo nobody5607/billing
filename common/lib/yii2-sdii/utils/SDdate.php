@@ -81,7 +81,7 @@ class SDdate {
 	public static function yearEn2yearTh($yEn){
 		return $yEn+543;
 	}
-	
+
 	public static function mysql2phpDate($sqlDate, $delimiter='/'){
 		$arr = date_parse($sqlDate);
 		$date = new DateTime($arr["year"].'-'.$arr["month"].'-'.$arr["day"]);
@@ -310,6 +310,12 @@ class SDdate {
         public static function getMonthFull(){
            return SDdate::$thaimonthFull;
         }
+
+	public static function convertDmyToYmd($date){
+        if(isset($date)){
+			return date("Y-m-d", strtotime($date) );
+		}
+	}
 }
 
 ?>

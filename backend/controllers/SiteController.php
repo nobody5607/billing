@@ -66,7 +66,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->redirect(['/bill-items']);
+         return $this->redirect(['/bill-items']);
          return $this->render('index');
  
     }
