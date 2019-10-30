@@ -8,6 +8,7 @@ use appxq\sdii\widgets\GridView;
 use appxq\sdii\widgets\ModalForm;
 use appxq\sdii\helpers\SDNoty;
 use appxq\sdii\helpers\SDHtml;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\search\BillItems */
@@ -18,9 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 
-
-
-<div class="tab-content"> 
+<div class="tab-content">
     <div class="row">
         <div class="col-md-12" id="navbars">
             <div class="kt-section">
@@ -30,17 +29,20 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="statusMsg"></div>
                         <div class="row">
                             <div class="col-md-3 text-right">
-                                <input id="exfile" name="exfile" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                <input id="exfile" name="exfile" type="file"
+                                       accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                             </div>
                             <div class="col-md-3">
-                                <button class="btn btn-success" id="btnUploadFile"><i class="fa fa-upload"></i> อัปโหลดรายการสินค้า</button>
+                                <button class="btn btn-success" id="btnUploadFile"><i class="fa fa-upload"></i>
+                                    อัปโหลดรายการสินค้า
+                                </button>
 
                             </div>
                             <div class="col-md-6 text-right">
-                                <?php if(\Yii::$app->user->can('billmanager')) :?>
-                                    <?= Html::button(Yii::t('bill','Create Bill').' '.SDHtml::getBtnAdd(), ['data-url' => Url::to(['bill-items/create']), 'class' => 'btn btn-success btn-lg btn-outline-success', 'id' => 'modal-addbtn-bill-items'])
+                                <?php if (\Yii::$app->user->can('billmanager')) : ?>
+                                    <?= Html::button(Yii::t('bill', 'Create Bill') . ' ' . SDHtml::getBtnAdd(), ['data-url' => Url::to(['bill-items/create']), 'class' => 'btn btn-success btn-lg btn-outline-success', 'id' => 'modal-addbtn-bill-items'])
                                     ?>
-                                <?php endif;    ?>
+                                <?php endif; ?>
 
                             </div>
                         </div>
@@ -48,17 +50,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <?php \richardfan\widget\JSRegister::begin(); ?>
                 <script>
-                    $("#exfile").change(function() {
+                    $("#exfile").change(function () {
                         var file = this.files[0];
                         var fileType = file.type;
                         var match = ['.csv', 'application/msword', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'];
-                        if(!((fileType == match[0]) || (fileType == match[1]) || (fileType == match[2]) || (fileType == match[3]) || (fileType == match[4]) || (fileType == match[5]))){
+                        if (!((fileType == match[0]) || (fileType == match[1]) || (fileType == match[2]) || (fileType == match[3]) || (fileType == match[4]) || (fileType == match[5]))) {
                             alert('Sorry, only xlsx files are allowed to upload.');
                             $("#file").val('');
                             return false;
                         }
                     });
-                    $('#fupForm').on('submit', function(e){
+                    $('#fupForm').on('submit', function (e) {
                         let url = '<?= \yii\helpers\Url::to(['/product-list/upload']) ?>';
                         e.preventDefault();
                         $.ajax({
@@ -68,26 +70,25 @@ $this->params['breadcrumbs'][] = $this->title;
                             dataType: 'json',
                             contentType: false,
                             cache: false,
-                            processData:false,
-                            beforeSend: function(){
+                            processData: false,
+                            beforeSend: function () {
                                 //$('#btnUploadFile').attr("disabled","disabled");
                                 //$('#fupForm').css("opacity",".5");
                             },
-                            success: function(response){
+                            success: function (response) {
                                 console.log(response);
                                 $('.statusMsg').html('');
-                                if(response.status == 'success'){
+                                if (response.status == 'success') {
                                     $('#fupForm')[0].reset();
-                                    $('.statusMsg').html('<p class="alert alert-success">'+response.message+'</p>');
+                                    $('.statusMsg').html('<p class="alert alert-success">' + response.message + '</p>');
                                     getProductList();
-                                }else{
-                                    $('.statusMsg').html('<p class="alert alert-danger">'+response.message+'</p>');
+                                } else {
+                                    $('.statusMsg').html('<p class="alert alert-danger">' + response.message + '</p>');
                                 }
                                 //$('#fupForm').css("opacity","");
                                 // $("#btnUploadFile").removeAttr("disabled");
                             }
                         });
-
 
 
                     });
@@ -103,7 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     </div>
                 </div>
-                <div class="box-body">    
+                <div class="box-body">
                     <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
                     <?php Pjax::begin(['id' => 'bill-items-grid-pjax']); ?>
                     <?=
@@ -121,35 +122,48 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             [
                                 'format' => 'raw',
-                                //'attribute'=>'bill_upload',
-                                'value' => function($model) {
+                                'attribute' => 'bill_date',
+                                'value' => function ($model) {
+                                    if (isset($model->bill_date) && $model->bill_date != '') {
+                                        return \appxq\sdii\utils\SDdate::mysql2phpDate($model->bill_date);
+                                    }
+                                },
+                                'filter' => DatePicker::widget([
+                                        'model'=>$searchModel,
+                                        'attribute' => 'bill_date',
+                                        'type' => DatePicker::TYPE_INPUT,
+                                        'pluginOptions' => [
+                                            'autoclose'=>true,
+                                            'format' => 'yyyy-mm-dd'
+                                        ]
+                                    ])
+                            ],
+                            [
+                                'format' => 'raw',
+                                'value' => function ($model) {
                                     $storageUrl = \Yii::getAlias('@storageUrl');
                                     $url = "{$storageUrl}/uploads/{$model->bill_upload}";
                                     $img = Html::img($url, ['style' => 'width:50px;']);
                                     return "<a href='{$url}' target='_BLANK' class='showImage'>{$img}</a>";
                                 }
-                            ], 
+                            ],
                             'billno',
-//                            'bookno',
-                           
-
-                            // 'shop_id',
                             [
                                 'format' => 'raw',
-                                 'attribute'=>'bill_type',
-                                'value' => function($model) {
+                                'attribute' => 'bill_type',
+                                'value' => function ($model) {
                                     $url = \yii\helpers\Url::to(['/select2/bill-type?type=1']);
                                     $data = isset($model->bill_type) ? backend\models\BillType::findOne($model->bill_type) : '';
-                                    return isset($data['name'])?$data['name']:'ไม่ได้ตั้ง';
+                                    return isset($data['name']) ? $data['name'] : 'ไม่ได้ตั้ง';
                                 },
-                                'filter'=>\yii\helpers\ArrayHelper::map(BillType::find()->where('type=1')->asArray()->all(), 'id', 'name'),
+                                'filter' => \yii\helpers\ArrayHelper::map(BillType::find()->where('type=1')->asArray()->all(), 'id', 'name'),
                             ],
                             'billref',
                             'amount',
                             [
                                 'format' => 'raw',
                                 'attribute' => 'status',
-                                'value' => function($model) {
+                                'value' => function ($model) {
                                     if ($model->status) {
                                         return isset($model->statuss->name) ? $model->statuss->name : '';
                                     }
@@ -164,15 +178,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'placeholder' => 'เลือกสถานะบิล',
                                     ],
                                     'pluginOptions' => [
-                                            'allowClear' => true,
+                                        'allowClear' => true,
                                     ],
                                 ]),
                             ],
                             [
                                 'format' => 'raw',
                                 'attribute' => 'shiping',
-                                'value' => function($model) {
-                                    return isset($model->shippings->name)?$model->shippings->name:'ยังไม่จัดสินค้า';
+                                'value' => function ($model) {
+                                    return isset($model->shippings->name) ? $model->shippings->name : 'ยังไม่จัดสินค้า';
                                 },
                                 'filter' => kartik\select2\Select2::widget([
                                     'model' => $searchModel,
@@ -184,14 +198,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'placeholder' => 'สถานะการส่งสินค้า',
                                     ],
                                     'pluginOptions' => [
-                                            'allowClear' => true,
+                                        'allowClear' => true,
                                     ],
-                                ]),        
+                                ]),
                             ],
                             [
                                 'format' => 'raw',
                                 'attribute' => 'charge',
-                                'value' => function($model) {
+                                'value' => function ($model) {
                                     return isset($model->charge) ? $model->charges->name : '';
                                 },
                                 'filter' => kartik\select2\Select2::widget([
@@ -204,7 +218,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'placeholder' => 'สถานะเก็บเงิน',
                                     ],
                                     'pluginOptions' => [
-                                            'allowClear' => true,
+                                        'allowClear' => true,
                                     ],
                                 ]),
                             ],
@@ -227,27 +241,27 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'contentOptions' => ['style' => 'width:160px;text-align: center;'],
                                 'template' => ' {update} {delete}',
                                 'buttons' => [
-                                    'update' => function($url, $model) {
+                                    'update' => function ($url, $model) {
 
                                         $message = '';
-                                        if(Yii::$app->user->can('billmanager')){
+                                        if (Yii::$app->user->can('billmanager')) {
                                             $message = 'จัดการบิล';
-                                        }else if(Yii::$app->user->can('packager')){
+                                        } else if (Yii::$app->user->can('packager')) {
                                             $message = 'จัดสินค้า';
-                                        }else if(Yii::$app->user->can('shipping')){
+                                        } else if (Yii::$app->user->can('shipping')) {
                                             $message = 'ส่งสินค้า';
-                                        }else if(Yii::$app->user->can('chargers')){
+                                        } else if (Yii::$app->user->can('chargers')) {
                                             $message = 'จัดการการเงิน';
                                         }
                                         return Html::a('<span class="fa fa-pencil"></span> ' . Yii::t('chanpan', $message), yii\helpers\Url::to(['bill-items/update?id=' . $model->id]), [
-                                                    'title' => Yii::t('chanpan', 'Edit'),
-                                                    'class' => 'btn btn-info btn-sm',
-                                                    'data-action' => 'update',
-                                                    'data-pjax' => 0
+                                            'title' => Yii::t('chanpan', 'Edit'),
+                                            'class' => 'btn btn-info btn-sm',
+                                            'data-action' => 'update',
+                                            'data-pjax' => 0
                                         ]);
                                     },
                                     'delete' => function ($url, $model) {
-                                        if(Yii::$app->user->can('billmanager')){
+                                        if (Yii::$app->user->can('billmanager')) {
                                             return Html::a('<span class="fa fa-trash"></span> ' . Yii::t('chanpan', 'ลบ'), yii\helpers\Url::to(['bill-items/delete?id=' . $model->id]), [
                                                 'title' => Yii::t('chanpan', 'Delete'),
                                                 'class' => 'btn btn-danger btn-sm',
@@ -262,7 +276,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     },
                                 ]
                             ],
-                        // 'remark',
+                            // 'remark',
                         ],
                     ]);
                     ?>
@@ -276,20 +290,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <?=
-    ModalForm::widget([
-        'id' => 'modal-bill-items',
-        'options' => ['tabindex' => false],
-        'size'=>'modal-lg',
-//         'clientOptions' => ['backdrop' => 'static', 'keyboard' => false]
-    ]);
-?>
-
-<?=
 ModalForm::widget([
     'id' => 'modal-bill-items',
     'options' => ['tabindex' => false],
-    //'size'=>'modal-lg',
+    'size' => 'modal-lg',
+//         'clientOptions' => ['backdrop' => 'static', 'keyboard' => false]
 ]);
+?>
+
+<?php
+//ModalForm::widget([
+//    'id' => 'modal-bill-items',
+//    'options' => ['tabindex' => false],
+//    //'size'=>'modal-lg',
+//]);
 ?>
 <?php
 \richardfan\widget\JSRegister::begin([
@@ -298,9 +312,13 @@ ModalForm::widget([
 ]);
 ?>
 <script>
-    window.onscroll = function() {myFunction()};
+    $(".hasDatepicker").addClass('form-control');
+    window.onscroll = function () {
+        myFunction()
+    };
     var navbar = document.getElementById("navbars");
     var sticky = navbar.offsetTop;
+
     function myFunction() {
         if (window.pageYOffset >= sticky) {
             navbar.classList.add("sticky")
@@ -310,14 +328,13 @@ ModalForm::widget([
     }
 
 
-
     $(".showImage").on('click', function () {
         let url = $(this).attr('href');
         window.open(url, '_BLANK');
         return false;
     });
 
-// JS script
+    // JS script
     $('#modal-addbtn-bill-items').on('click', function () {
         modalBillItem($(this).attr('data-url'));
     });
@@ -349,19 +366,19 @@ ModalForm::widget([
 
         if (action === 'view' || action === 'update') {
             modalBillItem(url);
-        }  else if (action === 'delete') {
+        } else if (action === 'delete') {
             yii.confirm('<?= Yii::t('chanpan', 'Are you sure you want to delete this item?') ?>', function () {
                 $.post(
-                        url
-                        ).done(function (result) {
+                    url
+                ).done(function (result) {
                     if (result.status == 'success') {
-<?= SDNoty::show('result.message', 'result.status') ?>
+                        <?= SDNoty::show('result.message', 'result.status') ?>
                         $.pjax.reload({container: '#bill-items-grid-pjax'});
                     } else {
-<?= SDNoty::show('result.message', 'result.status') ?>
+                        <?= SDNoty::show('result.message', 'result.status') ?>
                     }
                 }).fail(function () {
-<?= SDNoty::show("'" . SDHtml::getMsgError() . "Server Error'", '"error"') ?>
+                    <?= SDNoty::show("'" . SDHtml::getMsgError() . "Server Error'", '"error"') ?>
                     console.log('server error');
                 });
             });
@@ -386,10 +403,10 @@ ModalForm::widget([
                 dataType: 'JSON',
                 success: function (result, textStatus) {
                     if (result.status == 'success') {
-<?= SDNoty::show('result.message', 'result.status') ?>
+                        <?= SDNoty::show('result.message', 'result.status') ?>
                         $.pjax.reload({container: '#bill-items-grid-pjax'});
                     } else {
-<?= SDNoty::show('result.message', 'result.status') ?>
+                        <?= SDNoty::show('result.message', 'result.status') ?>
                     }
                 }
             });
@@ -400,13 +417,13 @@ ModalForm::widget([
         $('.modal').css('overflow', 'scroll');
         $('#modal-bill-items .modal-content').html('<div class=\"sdloader \"><i class=\"sdloader-icon\"></i></div>');
         $('#modal-bill-items').modal('show')
-                .find('.modal-content')
-                .load(url);
+            .find('.modal-content')
+            .load(url);
     }
 </script>
 <?php \richardfan\widget\JSRegister::end(); ?>
 
-<?php \appxq\sdii\widgets\CSSRegister::begin()?>
+<?php \appxq\sdii\widgets\CSSRegister::begin() ?>
 <style>
     .sticky {
         position: fixed;
@@ -423,4 +440,4 @@ ModalForm::widget([
         box-shadow: -11px 3px 6px #e9ecef;
     }
 </style>
-<?php \appxq\sdii\widgets\CSSRegister::end()?>
+<?php \appxq\sdii\widgets\CSSRegister::end() ?>

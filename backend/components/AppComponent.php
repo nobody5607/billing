@@ -63,6 +63,7 @@ class AppComponent extends Component {
                         'url' => '#',
                         'items' => [
                             ['label' => Yii::t('appmenu','พนักงานส่งของ'),     'icon' => 'circle-o', 'url' => ['/report/customer-car'],],
+                            ['label' => 'รายงานบิล',     'icon' => 'circle-o', 'url' => ['/report/sell-bill'],],
                         ],
                     ],
                     [
@@ -74,15 +75,6 @@ class AppComponent extends Component {
                     ['label' => \Yii::t('appmenu','About'), 'icon' => 'info-circle', 'url' => ['/site/about']],
                     ['label' => \Yii::t('appmenu','Contact'), 'icon' => 'phone-square', 'url' => ['/site/contact']],
                     ['label' => \Yii::t('bill','จัดการพนักงานขับรถ'), 'icon' => 'user', 'url' => ['/customer'],'visible' => \Yii::$app->user->can('sell_shipping')],//sell-shipping
-//                    ['label' => \Yii::t('appmenu','Informations'), 'icon' => 'microphone', 'url' => ['/informations/index']],
-//                    ['label' => \Yii::t('appmenu','Clinical Data Management'), 'icon' => '', 'url' => ['/'], 'visible' => !Yii::$app->user->isGuest],
-                    
-                    
-
-                    //['label' => \Yii::t('bill','Packager'), 'icon' => 'shopping-bag', 'url' => ['/bill-items'],'visible' => \Yii::$app->user->can('packager'),],
-                    //['label' => \Yii::t('bill','Shipping'), 'icon' => 'truck', 'url' => ['/bill-items'],'visible' => \Yii::$app->user->can('shipping'),],
-                    //['label' => \Yii::t('bill','Chargers'), 'icon' => 'credit-card', 'url' => ['/bill-items'],'visible' => \Yii::$app->user->can('chargers'),],
-                    //['label' => \Yii::t('bill','Percent Shipping'), 'icon' => 'percent', 'url' => ['/sell-shipping'],'visible' => \Yii::$app->user->can('sell_shipping')],//sell-shipping
 
                     [
                         'label' => Yii::t('appmenu', 'System Config'),
