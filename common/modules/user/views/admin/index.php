@@ -15,13 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="box box-primary">
     <div class="box-header">
         <div class="row">
-            <div class="col-md-10">
-                <div class="panel-title">
-                    <i class="fa fa-user"></i> <?= Html::encode($this->title); ?>
-                </div>
+            <div class="col-md-9 col-xs-9 col-sm-9">
+                <label><i class="fa fa-user"></i> <?= Html::encode($this->title) ?></label>
             </div>
-            <div class="col-md-2 text-right">
-                <button data-url="<?= Url::to(['/user/admin/graph'])?>" class="btn btn-warning btnPreviewGraph"><i class="fa fa-pie-chart" aria-hidden="true"></i> <?= Yii::t('appmenu','Preview Graph')?></button>
+            <div class="col-md-3 col-xs-3 col-sm-3 text-right">
+                <button class="btn btn-success btn-xs" id="btnCreate">เพิ่มพนักงาน</button>
             </div>
         </div>
     </div>
@@ -270,6 +268,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 .find('.modal-content')
                 .load(url);
     }
+
+    $("#btnCreate").on('click', function(){
+        const url = "<?= Url::to(['/user/admin/create'])?>";
+        modalUser(url);
+        return false;
+    });
 </script>
 <?php \richardfan\widget\JSRegister::end(); ?>
 

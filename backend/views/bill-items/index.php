@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="tab-content"> 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" id="navbars">
             <div class="kt-section">
                 <div class="kt-section__info"><label>อัปโหลดรายการสินค้า:</label></div>
                 <div class="kt-section__content kt-section__content--solid kt-border-success kt-bg-light">
@@ -298,6 +298,19 @@ ModalForm::widget([
 ]);
 ?>
 <script>
+    window.onscroll = function() {myFunction()};
+    var navbar = document.getElementById("navbars");
+    var sticky = navbar.offsetTop;
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            navbar.classList.add("sticky")
+        } else {
+            navbar.classList.remove("sticky");
+        }
+    }
+
+
+
     $(".showImage").on('click', function () {
         let url = $(this).attr('href');
         window.open(url, '_BLANK');
@@ -392,3 +405,22 @@ ModalForm::widget([
     }
 </script>
 <?php \richardfan\widget\JSRegister::end(); ?>
+
+<?php \appxq\sdii\widgets\CSSRegister::begin()?>
+<style>
+    .sticky {
+        position: fixed;
+        top: 50px;
+        width: 100%;
+        background: #ffffff;
+        left: 0;
+        /* bottom: 70px; */
+        padding-left: 65px;
+        padding-right: 17px;
+        z-index: 1;
+        color: #fff;
+        border-bottom: 1px solid #e9ecef;
+        box-shadow: -11px 3px 6px #e9ecef;
+    }
+</style>
+<?php \appxq\sdii\widgets\CSSRegister::end()?>

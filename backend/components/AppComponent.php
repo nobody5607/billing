@@ -62,7 +62,7 @@ class AppComponent extends Component {
                         'icon' => 'road',
                         'url' => '#',
                         'items' => [
-                            ['label' => Yii::t('appmenu','ค่า Com พนักงานขับรถ'),     'icon' => 'circle-o', 'url' => ['/report/customer-car'],],
+                            ['label' => Yii::t('appmenu','พนักงานส่งของ'),     'icon' => 'circle-o', 'url' => ['/report/customer-car'],],
                         ],
                     ],
                     [

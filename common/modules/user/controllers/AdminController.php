@@ -155,6 +155,54 @@ class AdminController extends BaseAdminController{
     {
         return $this->renderAjax('graph'); 
     }
-     
+    public function actionCreate()
+    {
+        $model = new \common\modules\user\models\Teacher();
+        if ($model->load(\Yii::$app->request->post())) {
+            $data = \Yii::$app->request->post('Teacher');
+            $user = new User();
+            $name = "{$data['fname']} {$data['lname']}";
+            $user->id = time();
+            $user->username = $data['username'];
+            $user->email = $data['email'];
+            $user->confirmed_at = time();
+            $user->created_at = time();
+            $checkEmail = User::find()->where('email=:email',[':email'=>$data['email']])->one();
+            if($checkEmail){
+                return \cpn\chanpan\classes\CNMessage::getError("Email {$data['email']} ถูกใช้แล้ว");
+            }
+            $checkUsername = User::find()->where('username=:username',[':username'=>$data['username']])->one();
+            if($checkUsername){
+                return \cpn\chanpan\classes\CNMessage::getError("Username {$data['username']} ถูกใช้แล้ว");
+            }
+
+            $user->password = $data['password'];  //\Yii::$app->security->generatePasswordHash($data['password']);//Yii::$app->getSecurity()->generatePasswordHash($data['password']);
+            $user->register();
+
+            // $user->auth_key = \Yii::$app->security->generateRandomString();
+
+            try{
+                $user->save();
+                $columns=[
+                    'user_id'=>$user->id,
+                    'name'=>$name,
+                    'public_email'=>$user->email,
+                    'firstname'=>$data['fname'],
+                    'lastname'=>$data['lname'],
+                    'tel' => $data['tel']
+                ];
+                \Yii::$app->db->createCommand()->delete('profile', 'user_id=:id',[':id'=>$user->id])->execute();
+                \Yii::$app->db->createCommand()->insert('profile', $columns)->execute();
+
+            } catch (Exception $ex) {
+
+            }
+            return \cpn\chanpan\classes\CNMessage::getSuccess("เพิ่มครูสำเร็จ");
+        }
+
+        return $this->renderAjax('_create', [
+            'model' => $model,
+        ]);
+    }
     
 }
