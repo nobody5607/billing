@@ -28,7 +28,7 @@ class BillItems extends BillItemsModel
     {
         $query = BillItemsModel::find()
             ->where('rstat not in(0,3)')
-            ->orderBy(['id'=>SORT_DESC]);
+            ->orderBy(['billno'=>SORT_ASC]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
