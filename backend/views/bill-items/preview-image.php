@@ -20,7 +20,9 @@
                                 ?>
                             </div>
                             <div class="col-md-12">
-                                <?= $v->billType->name; ?> 
+                                <?php
+                                    echo isset($v->billType->name)?$v->billType->name:'';
+                                ?>
                             </div>
                         </div>  
                          
