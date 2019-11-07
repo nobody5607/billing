@@ -49,7 +49,7 @@ use appxq\sdii\helpers\SDNoty;
             </div>
             <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                 
-                <?php 
+                <?php
                     echo $form->field($model, 'bill_date')->widget(DatePicker::classname(), [
                         'options' => ['placeholder' => 'เลือกวันที่','readonly'=> \Yii::$app->user->can('billmanager')?false:true],
                         'value' => isset($model->create_date)?$model->create_date:date('Y-m-d'),
@@ -330,7 +330,10 @@ $('form#<?= $model->formName()?>').on('beforeSubmit', function(e) {
                 <?= SDNoty::show('result.message', 'result.status')?>
                 if(result.status == 'success') {
                    $(document).find('#modal-bill-items').modal('hide');
-                   $.pjax.reload({container:'#bill-items-grid-pjax'});
+                   // $.pjax.reload({container:'#bill-items-grid-pjax'});
+                    setTimeout(function () {
+                        location.reload();
+                    },1000);
                 }   
         }
       }).fail(function( jqXHR, textStatus ) {

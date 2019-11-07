@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use appxq\sdii\utils\SDdate;
 use appxq\sdii\utils\VarDumper;
 use cpn\chanpan\classes\CNMessage;
 use Yii;
@@ -115,14 +116,12 @@ class BillItemsController extends Controller
             }
 		
 	    if ($model->load(Yii::$app->request->post())) {
-                
-                $model->shop_id = 0;
-//                $model->btype =1;
-//                $model->status=1;
-//                $model->charge=1;
-//                $model->amount=0;
-//                $model->amount='0';
-                $model->rstat=1; 
+	        $post = Yii::$app->request->post('BillItems');
+//	        $bill_date = $post['bill_date'];
+//            $bill_date = SDdate::convertDmyToYmdThaiYear($bill_date);
+//            $model->bill_date = $bill_date;
+            $model->shop_id = 0;
+            $model->rstat=1;
 		if ($model->save()) {
 		    return \cpn\chanpan\classes\CNMessage::getSuccess('Create successfully');
 		} else {

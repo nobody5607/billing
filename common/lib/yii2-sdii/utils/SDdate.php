@@ -316,6 +316,22 @@ class SDdate {
 			return date("Y-m-d", strtotime($date) );
 		}
 	}
+	public static function convertDmyToYmdThaiYear($date){
+		if(isset($date)){
+			$dateArray = explode('-',$date);
+			$year = end($dateArray)-543;
+			$dateYmdFormat = "{$dateArray[0]}-{$dateArray[1]}-{$year}";
+			return date("Y-m-d", strtotime($dateYmdFormat) );
+		}
+	}
+	public static function convertYmdToDmyThaiYear($date){
+		if(isset($date)){
+			$dateArray = explode('-',$date);
+			$year = $dateArray[0]+543;
+			$dateYmdFormat = "{$dateArray[1]}-{$dateArray[2]}-{$year}";
+			return date("d-m-Y", strtotime($dateYmdFormat) );
+		}
+	}
 }
 
 ?>
