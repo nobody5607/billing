@@ -58,13 +58,14 @@ class AppComponent extends Component {
                     'visible' => (\Yii::$app->user->can('previewBill'))?true:false],
                     [
                         'label' => Yii::t('appmenu', 'รายงาน'),
-                        'visible' => \Yii::$app->user->can('admin'),
+                        'visible' => \Yii::$app->user->can('report'),
                         'icon' => 'file',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'พนักงานส่งของ',     'icon' => 'circle-o', 'url' => ['/report/customer-car'],],
-                            ['label' => 'รายงานบิลจากรายงาน',     'icon' => 'circle-o', 'url' => ['/report/sell-bill'],],
-                            ['label' => 'รายงานบิลที่เพิ่มเข้ามา',     'icon' => 'circle-o', 'url' => ['/report/bill-items'],],
+                            ['label' => 'พนักงานส่งของ',     'icon' => 'circle-o', 'url' => ['/report/customer-car'],'visible' => \Yii::$app->user->can('report')],
+                            ['label' => 'รายงานบิลจากรายงาน',     'icon' => 'circle-o', 'url' => ['/report/sell-bill'],'visible' => \Yii::$app->user->can('report')],
+                            ['label' => 'รายงานบิลที่เพิ่มเข้ามา',     'icon' => 'circle-o', 'url' => ['/report/bill-items'],'visible' => \Yii::$app->user->can('report')],
+                            ['label' => 'รายงานกล่อง',     'icon' => 'circle-o', 'url' => ['/report/block'],'visible' => \Yii::$app->user->can('report')],
                         ],
                     ],
                     [

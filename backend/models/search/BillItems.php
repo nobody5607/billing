@@ -2,6 +2,7 @@
 
 namespace backend\models\search;
 
+use appxq\sdii\utils\VarDumper;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -26,6 +27,7 @@ class BillItems extends BillItemsModel
     }
     public function search($params)
     {
+        //VarDumper::dump($params);
         $query = BillItemsModel::find()
             ->where('rstat not in(0,3)')
             ->orderBy(['billno'=>SORT_ASC]);

@@ -28,10 +28,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     <form id="fupForm" enctype="multipart/form-data">
                         <div class="statusMsg"></div>
                         <div class="row">
-                            <div class="col-md-6">
-                                <h3>กดปุ่มสร้างบิลเพื่อสร้างบิลใหม่</h3>
+                            <div class="col-md-8">
+                                <?= $this->render('_search'); ?>
                             </div>
-                            <div class="col-md-6 text-right">
+                            <div class="col-md-4 text-right">
                                 <?php if (\Yii::$app->user->can('billmanager')) : ?>
                                     <?= Html::button(Yii::t('bill', 'Create Bill') . ' ' . SDHtml::getBtnAdd(), ['data-url' => Url::to(['bill-items/create']), 'class' => 'btn btn-success btn-lg btn-outline-success', 'id' => 'modal-addbtn-bill-items'])
                                     ?>
@@ -77,14 +77,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                     }
                                 },
                                 'filter' => DatePicker::widget([
-                                        'model'=>$searchModel,
-                                        'attribute' => 'bill_date',
-                                        'type' => DatePicker::TYPE_INPUT,
-                                        'pluginOptions' => [
-                                            'autoclose'=>true,
-                                            'format' => 'yyyy-mm-dd'
-                                        ]
-                                    ])
+                                    'model' => $searchModel,
+                                    'attribute' => 'bill_date',
+                                    'type' => DatePicker::TYPE_INPUT,
+                                    'pluginOptions' => [
+                                        'autoclose' => true,
+                                        'format' => 'yyyy-mm-dd'
+                                    ]
+                                ])
                             ],
                             [
                                 'format' => 'raw',

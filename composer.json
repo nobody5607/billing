@@ -45,7 +45,8 @@
         "sansusan/yii2-jqwidgets-asset": "dev-master",
         "loveorigami/yii2-slimscroll-widget": "*",
         "miloschuman/yii2-highcharts-widget": "^7.0",
-        "phpoffice/phpexcel": "^1.8"
+        "phpoffice/phpexcel": "^1.8",
+        "kartik-v/yii2-date-range": "dev-master"
         
     },
     "require-dev": {

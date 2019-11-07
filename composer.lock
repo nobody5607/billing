@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f4d6838a5596aac238bb56a0ee117ef8",
+    "content-hash": "a31b10b235e72bf3c899dd01f8191491",
     "packages": [
         {
             "name": "2amigos/yii2-date-picker-widget",
@@ -221,7 +221,7 @@
             "version": "v1.4.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ajaxorg/ace-builds.git",
+                "url": "git@github.com:ajaxorg/ace-builds.git",
                 "reference": "7489e42c81725cd58d969478ddf9b2e8fd6e8aef"
             },
             "dist": {
@@ -239,7 +239,7 @@
             "version": "v3.15.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/blueimp/JavaScript-Canvas-to-Blob.git",
+                "url": "git@github.com:blueimp/JavaScript-Canvas-to-Blob.git",
                 "reference": "f47d01f2827f69dde571c0fe06159e8e99a1de96"
             },
             "dist": {
@@ -254,7 +254,7 @@
             "version": "v9.34.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/blueimp/jQuery-File-Upload.git",
+                "url": "git@github.com:blueimp/jQuery-File-Upload.git",
                 "reference": "bb52d3493d725175fcf5554da034a317aaaea0e2"
             },
             "dist": {
@@ -278,7 +278,7 @@
             "version": "v2.17.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/blueimp/Gallery.git",
+                "url": "git@github.com:blueimp/Gallery.git",
                 "reference": "8336bb5934cb623608808601129db3fbf9201a09"
             },
             "dist": {
@@ -293,7 +293,7 @@
             "version": "v2.23.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/blueimp/JavaScript-Load-Image.git",
+                "url": "git@github.com:blueimp/JavaScript-Load-Image.git",
                 "reference": "455a28c68dc1cd1046e8c458cc0f5027ed7ac03f"
             },
             "dist": {
@@ -308,7 +308,7 @@
             "version": "v3.12.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/blueimp/JavaScript-Templates.git",
+                "url": "git@github.com:blueimp/JavaScript-Templates.git",
                 "reference": "f8fe3d34c662fb3315e3af8dc5bae8bdf5a619b2"
             },
             "dist": {
@@ -365,12 +365,12 @@
             "version": "v0.7.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/c3js/c3.git",
+                "url": "git@github.com:masayuki0812/c3.git",
                 "reference": "90d9bc9adca628a761484c4742f0a37333dc1a87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/c3js/c3/zipball/90d9bc9adca628a761484c4742f0a37333dc1a87",
+                "url": "https://api.github.com/repos/masayuki0812/c3/zipball/90d9bc9adca628a761484c4742f0a37333dc1a87",
                 "reference": "90d9bc9adca628a761484c4742f0a37333dc1a87"
             },
             "require": {
@@ -386,7 +386,7 @@
             "version": "v5.9.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mbostock-bower/d3-bower.git",
+                "url": "git@github.com:mbostock-bower/d3-bower.git",
                 "reference": "77660d570360e98d29ad279c9ca49b9601fe9110"
             },
             "dist": {
@@ -404,12 +404,12 @@
             "version": "1.3.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/farbelous/fontawesome-iconpicker.git",
+                "url": "git@github.com:itsjavi/fontawesome-iconpicker.git",
                 "reference": "c484b4316608791fffd90a106eac8a154bea3989"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/farbelous/fontawesome-iconpicker/zipball/c484b4316608791fffd90a106eac8a154bea3989",
+                "url": "https://api.github.com/repos/itsjavi/fontawesome-iconpicker/zipball/c484b4316608791fffd90a106eac8a154bea3989",
                 "reference": "c484b4316608791fffd90a106eac8a154bea3989"
             },
             "require": {
@@ -423,7 +423,7 @@
             "version": "v7.1.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/highcharts/highcharts-dist.git",
+                "url": "git@github.com:highcharts/highcharts-dist.git",
                 "reference": "51a9c5accab962648b4d723f747e79a740f93261"
             },
             "dist": {
@@ -480,7 +480,7 @@
             "version": "v1.3.8",
             "source": {
                 "type": "git",
-                "url": "https://github.com/rochal/jQuery-slimScroll.git",
+                "url": "git@github.com:rochal/jQuery-slimScroll.git",
                 "reference": "cf39d364e777ef95574c30c42d3b85cb2bf325d3"
             },
             "dist": {
@@ -516,7 +516,7 @@
             "version": "v1.3.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/bestiejs/punycode.js.git",
+                "url": "git@github.com:bestiejs/punycode.js.git",
                 "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
             },
             "dist": {
@@ -1531,6 +1531,60 @@
                 "select"
             ],
             "time": "2019-03-09T10:53:11+00:00"
+        },
+        {
+            "name": "kartik-v/yii2-date-range",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-date-range.git",
+                "reference": "49572aee602ecc056e1b62c6b9c2b1f8367fb023"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-date-range/zipball/49572aee602ecc056e1b62c6b9c2b1f8367fb023",
+                "reference": "49572aee602ecc056e1b62c6b9c2b1f8367fb023",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/yii2-krajee-base": ">=2.0.0"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.7.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "kartik\\daterange\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "An advanced Yii 2 date range picker input for based on bootstrap-daterangepicker plugin.",
+            "homepage": "https://github.com/kartik-v/yii2-date-range",
+            "keywords": [
+                "bootstrap",
+                "bootstrap 3",
+                "date",
+                "date-range",
+                "extension",
+                "range",
+                "time",
+                "widget",
+                "yii2"
+            ],
+            "time": "2019-08-29T18:42:11+00:00"
         },
         {
             "name": "kartik-v/yii2-dialog",
@@ -7951,7 +8005,8 @@
         "trntv/yii2-file-kit": 20,
         "kartik-v/yii2-grid": 20,
         "yurkinx/yii2-image": 20,
-        "sansusan/yii2-jqwidgets-asset": 20
+        "sansusan/yii2-jqwidgets-asset": 20,
+        "kartik-v/yii2-date-range": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

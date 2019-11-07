@@ -103,6 +103,16 @@ class BillItemsController extends Controller
             $model->charge = 5;
             $model->difficulty = 1;
             $model->affective_score = 3;
+
+            $billno_prm = Yii::$app->request->get('billno');
+            $blog = Yii::$app->request->get('blog');
+
+            if($billno_prm != ''){
+                $model->billno = $billno_prm;
+            }
+            if($blog != ''){
+                $model->blog = $blog;
+            }
 		
 	    if ($model->load(Yii::$app->request->post())) {
                 
