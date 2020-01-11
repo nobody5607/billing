@@ -16,7 +16,9 @@ class AdminLteAsset extends BaseAdminLteAsset
         'css/style.css'
     ];
     public $js = [
-        'js/adminlte.min.js'
+        'js/adminlte.min.js',
+        'https://cdn.jsdelivr.net/npm/vue/dist/vue.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.js'
     ];
     public $depends = [
         'rmrevin\yii\fontawesome\AssetBundle',

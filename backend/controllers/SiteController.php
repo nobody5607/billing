@@ -28,7 +28,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error','index','about','contact','test'],
+                        'actions' => ['login', 'error'],
                         'allow' => true,
                     ],
                     [
@@ -66,7 +66,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-         return $this->redirect(['/bill-items']);
+         //return $this->redirect(['/bill-items']);
          return $this->render('index');
  
     }

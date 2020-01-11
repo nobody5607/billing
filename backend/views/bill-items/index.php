@@ -21,35 +21,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="tab-content">
     <div class="row">
-        <div class="col-md-12" id="navbars">
-            <div class="kt-section">
-
-                <div class="kt-section__content kt-section__content--solid kt-border-success kt-bg-light">
-                    <form id="fupForm" enctype="multipart/form-data">
-                        <div class="statusMsg"></div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <?= $this->render('_search'); ?>
-                            </div>
-                            <div class="col-md-4 text-right">
-                                <?php if (\Yii::$app->user->can('billmanager')) : ?>
-                                    <?= Html::button(Yii::t('bill', 'Create Bill') . ' ' . SDHtml::getBtnAdd(), ['data-url' => Url::to(['bill-items/create']), 'class' => 'btn btn-success btn-lg btn-outline-success', 'id' => 'modal-addbtn-bill-items'])
-                                    ?>
-                                <?php endif; ?>
-
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
 
         <div class="col-md-12">
             <div style="background: #fff;margin:0 0 0 1px">
-                <div class="box-header">
-                    <div class="pull-right">
 
+                <div class="box-header">
+                    <div class="pull-left">
+                        <i class="fa fa-database" id="icon-header"></i> รายการบิลทั้งหมด
+                    </div>
+                    <div class="pull-right">
+                        <?php if (\Yii::$app->user->can('billmanager')) : ?>
+                            <?= Html::button(Yii::t('bill', 'Create Bill') . ' ' . SDHtml::getBtnAdd(), ['data-url' => Url::to(['bill-items/create']), 'class' => 'btn btn-success btn-lg btn-outline-success', 'id' => 'modal-addbtn-bill-items'])
+                            ?>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="box-body">
@@ -265,14 +249,14 @@ ModalForm::widget([
         myFunction()
     };
     var navbar = document.getElementById("navbars");
-    var sticky = navbar.offsetTop;
+    //var sticky = navbar.offsetTop;
 
     function myFunction() {
-        if (window.pageYOffset >= sticky) {
-            navbar.classList.add("sticky")
-        } else {
-            navbar.classList.remove("sticky");
-        }
+        // if (window.pageYOffset >= sticky) {
+        //     navbar.classList.add("sticky")
+        // } else {
+        //     navbar.classList.remove("sticky");
+        // }
     }
 
 

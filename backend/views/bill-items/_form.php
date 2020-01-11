@@ -219,11 +219,14 @@ use appxq\sdii\helpers\SDNoty;
             <div id="preview-bill"></div>
         </div>
         <?php
-            echo $form->field($model, 'remark')->widget(\cpn\chanpan\widgets\CNFroalaEditorWidget::className(), [
-                'toolbar_size' => 'sm',
-                'options' => ['class' => 'eztemplate'],
-            ]); //->hint('Default Template <a class="btn btn-warning btn-xs btn-template" data-widget="{tab-widget}">Use Default</a>'); 
-        ?> 
+//            echo $form->field($model, 'remark')->widget(\cpn\chanpan\widgets\CNFroalaEditorWidget::className(), [
+//                'toolbar_size' => 'sm',
+//                'options' => ['class' => 'eztemplate'],
+//            ]); //->hint('Default Template <a class="btn btn-warning btn-xs btn-template" data-widget="{tab-widget}">Use Default</a>');
+        ?>
+<?php
+echo $form->field($model, 'remark')->textarea(); //->hint('Default Template <a class="btn btn-warning btn-xs btn-template" data-widget="{tab-widget}">Use Default</a>');
+?>
 
     </div>
     <div class="modal-footer" style="background: #f3f3f3;">

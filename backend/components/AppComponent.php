@@ -52,20 +52,25 @@ class AppComponent extends Component {
         $viewId = \Yii::$app->request->get('id', '');
          
         $navbar = [
+
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
-                    ['label' => \Yii::t('bill','จัดการบิล'), 'icon' => 'file-text-o', 'url' => ['/bill-items'],
+                    ['label' => \Yii::t('bill','Dashboard'), 'icon' => 'tachometer', 'url' => ['/site/index'] ],
+
+                    ['label' => \Yii::t('bill','จัดการบิล'), 'icon' => 'database', 'url' => ['/bill-items'],
                     'visible' => (\Yii::$app->user->can('previewBill'))?true:false],
                     [
                         'label' => Yii::t('appmenu', 'รายงาน'),
                         'visible' => \Yii::$app->user->can('report'),
                         'icon' => 'file',
                         'url' => '#',
+
                         'items' => [
-                            ['label' => 'พนักงานส่งของ',     'icon' => 'circle-o', 'url' => ['/report/customer-car'],'visible' => \Yii::$app->user->can('report')],
-                            ['label' => 'รายงานบิลจากรายงาน',     'icon' => 'circle-o', 'url' => ['/report/sell-bill'],'visible' => \Yii::$app->user->can('report')],
-                            ['label' => 'รายงานบิลที่เพิ่มเข้ามา',     'icon' => 'circle-o', 'url' => ['/report/bill-items'],'visible' => \Yii::$app->user->can('report')],
-                            ['label' => 'รายงานกล่อง',     'icon' => 'circle-o', 'url' => ['/report/block'],'visible' => \Yii::$app->user->can('report')],
+                            ['label' => 'พนักงานส่งของ',     'icon' => ' ', 'url' => ['/report/customer-car'],'visible' => \Yii::$app->user->can('report')],
+                            ['label' => 'พนักงานจัดของ',     'icon' => ' ', 'url' => ['/report/customer-package'],'visible' => \Yii::$app->user->can('report')],
+                            ['label' => 'รายงานบิลจากรายงาน',     'icon' => ' ', 'url' => ['/report/sell-bill'],'visible' => \Yii::$app->user->can('report')],
+                            ['label' => 'รายงานบิลที่เพิ่มเข้ามา',     'icon' => ' ', 'url' => ['/report/bill-items'],'visible' => \Yii::$app->user->can('report')],
+                            ['label' => 'รายงานกล่อง',     'icon' => ' ', 'url' => ['/report/block'],'visible' => \Yii::$app->user->can('report')],
                         ],
                     ],
                     [
@@ -87,45 +92,45 @@ class AppComponent extends Component {
                             [
                                 'label' => Yii::t('appmenu', 'ตั้งค่าทั่วไป'),
                                 'active'=>($moduleId == 'admin'),
-                                'icon' => 'cogs',
+                                'icon' => ' ',
                                 'url' => '#',
                                 'items' => [
                                     //Assignments
-                                    ['label' => Yii::t('appmenu', 'คะแนนจิตวิพิสัย'), 'icon' => 'circle-o', 'url' => ['/affective-score/index']],
-                                    ['label' => Yii::t('appmenu', 'จัดการความยาก'), 'icon' => 'circle-o', 'url' => ['/difficultys/index']],
-                                    ['label' => Yii::t('appmenu', 'Percent'), 'icon' => 'circle-o', 'url' => ['/sell-shipping/index']],
-                                    ['label' => Yii::t('appmenu', 'พนักงานขับรถ'), 'icon' => 'circle-o', 'url' => ['/customer/index']],
-                                    ['label' => Yii::t('appmenu', 'กลอง'), 'icon' => 'circle-o', 'url' => ['/groups/index']],
+                                    ['label' => Yii::t('appmenu', 'คะแนนจิตวิพิสัย'), 'icon' => ' ', 'url' => ['/affective-score/index']],
+                                    ['label' => Yii::t('appmenu', 'จัดการความยาก'), 'icon' => ' ', 'url' => ['/difficultys/index']],
+                                    ['label' => Yii::t('appmenu', 'Percent'), 'icon' => ' ', 'url' => ['/sell-shipping/index']],
+                                    ['label' => Yii::t('appmenu', 'พนักงานขับรถ'), 'icon' => ' ', 'url' => ['/customer/index']],
+                                    ['label' => Yii::t('appmenu', 'กลอง'), 'icon' => ' ', 'url' => ['/groups/index']],
 
-                                    ['label' => Yii::t('appmenu', 'คลัง'), 'icon' => 'circle-o', 'url' => ['/treasurys/index']],
-                                    ['label' => Yii::t('appmenu', 'ที่เก็บ'), 'icon' => 'circle-o', 'url' => ['/storages/index']],
+                                    ['label' => Yii::t('appmenu', 'คลัง'), 'icon' => ' ', 'url' => ['/treasurys/index']],
+                                    ['label' => Yii::t('appmenu', 'ที่เก็บ'), 'icon' => ' ', 'url' => ['/storages/index']],
                                 ],
                             ],
                             [
                                 'label' => Yii::t('appmenu', 'Authentication'),
                                 'active'=>($moduleId == 'admin'),
-                                'icon' => 'shield',
+                                'icon' => ' ',
                                 'url' => '#',
                                 'items' => [
                                     //Assignments
-                                    ['label' => Yii::t('appmenu', 'Assignments'), 'icon' => 'circle-o', 'url' => ['/admin'],'active'=>($moduleId == 'admin' && $controllerId == 'assignment'),],
-                                    ['label' => Yii::t('appmenu', 'Role'), 'icon' => 'circle-o', 'url' => ['/admin/role'],'active'=>($moduleId == 'admin' && $controllerId == 'role')],
-                                    ['label' => Yii::t('appmenu', 'Route'), 'icon' => 'circle-o', 'url' => ['/admin/route'],'active'=>($moduleId == 'admin' && $controllerId == 'route')],
-                                    ['label' => Yii::t('appmenu', 'Permission'), 'icon' => 'circle-o', 'url' => ['/admin/permission'],'active'=>($moduleId == 'admin' && $controllerId == 'permission')],
+                                    ['label' => Yii::t('appmenu', 'Assignments'), 'icon' => ' ', 'url' => ['/admin'],'active'=>($moduleId == 'admin' && $controllerId == 'assignment'),],
+                                    ['label' => Yii::t('appmenu', 'Role'), 'icon' => ' ', 'url' => ['/admin/role'],'active'=>($moduleId == 'admin' && $controllerId == 'role')],
+                                    ['label' => Yii::t('appmenu', 'Route'), 'icon' => ' ', 'url' => ['/admin/route'],'active'=>($moduleId == 'admin' && $controllerId == 'route')],
+                                    ['label' => Yii::t('appmenu', 'Permission'), 'icon' => ' ', 'url' => ['/admin/permission'],'active'=>($moduleId == 'admin' && $controllerId == 'permission')],
                                 ],
                             ],
                             [
                             'label' => Yii::t('appmenu', 'Tools'),
-                            'icon' => 'wrench',
+                            'icon' => ' ',
                             'url' => '#',
                             'items' => [
                                 //options
-                                ['label' => Yii::t('appmenu','Setting Config'),        'icon' => 'circle-o', 'url' => ['/options'],],
-                                ['label' => Yii::t('appmenu','System Log'),     'icon' => 'circle-o', 'url' => ['/systemlog'],], 
-                                ['label' => Yii::t('appmenu','Skin'),           'icon' => 'circle-o', 'url' => ['/skin'],],
-                                ['label' => Yii::t('appmenu','Sql Update'),     'icon' => 'circle-o', 'url' => ['/dbupdate'],], 
-                                ['label' => Yii::t('appmenu','Gii'),            'icon' => 'circle-o', 'url' => ['/gii'],],
-                                ['label' => Yii::t('appmenu','Debug'),          'icon' => 'circle-o', 'url' => ['/debug'],]
+                                ['label' => Yii::t('appmenu','Setting Config'),        'icon' => ' ', 'url' => ['/options'],],
+                                ['label' => Yii::t('appmenu','System Log'),     'icon' => ' ', 'url' => ['/systemlog'],],
+                                ['label' => Yii::t('appmenu','Skin'),           'icon' => ' ', 'url' => ['/skin'],],
+                                ['label' => Yii::t('appmenu','Sql Update'),     'icon' => ' ', 'url' => ['/dbupdate'],],
+                                ['label' => Yii::t('appmenu','Gii'),            'icon' => ' ', 'url' => ['/gii'],],
+                                ['label' => Yii::t('appmenu','Debug'),          'icon' => ' ', 'url' => ['/debug'],]
                             ],
                         ],
                     ],
@@ -153,7 +158,7 @@ class AppComponent extends Component {
         return $items;
     }
     public static function slideToggleLeft(){              
-        return \yii\helpers\Html::a("<span class='sr-only'></span>", '#', [
+        return \yii\helpers\Html::a("", '#', [
             'class'=>'sidebar-toggle',
             'data-toggle'=>'push-menu',
             'role'=>'button',
@@ -163,9 +168,9 @@ class AppComponent extends Component {
     public static function slideToggleRight(){  
         return 
         
-        \yii\helpers\Html::button("<i class='fa fa-bars'></i>", [
+        \yii\helpers\Html::button("<i class='fa fa-th-large'></i>", [
             'class'=>'navbar-toggle',
-            'data-toggle'=>'collapse',
+            'data-toggle'=>'push-menu',
             'data-target'=>'#cnNavbar',
             
         ]);
