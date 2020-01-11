@@ -37,7 +37,7 @@ class BillItems extends \yii\db\ActiveRecord
     {
         return [
             [['billno', 'status','amount','blog','bill_type','billref','bill_date'], 'required'],
-            [['id',  'billno', 'shop_id', 'btype', 'status', 'charge','affective_score','amount'], 'integer'],
+            [['id',  'billno', 'shop_id', 'btype', 'status', 'charge','affective_score'], 'integer'],
             [['bookno','amount'], 'string', 'max' => 20],
             [['remark'], 'string', 'max' => 100],
             [['id'], 'unique'],
