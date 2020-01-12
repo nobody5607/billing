@@ -42,7 +42,7 @@ $rstat = Yii::$app->request->get('rstat');
 
                     <?php Pjax::begin(['id' => 'bill-items-grid-pjax']); ?>
                     <?php if(!isset($rstat)):?>
-                        <a href="#" id="btn-close-bill"><i class="fa fa-times"></i> ปิดบิล</a> |
+                        <a href="#" title="เลือกบิลที่ต้องการจัดการสถานะบิล" id="btn-close-bill" class=""><i class="fa fa-pencil-square-o"></i>จัดการสถานะบิล</a> |
                         <a href="#" id="btn-deletes"><i class="fa fa-trash"></i> ลบ</a>
                         <label style="color:red">* หมายหตุ ต้องติ๊กเลือกบิลก่อน</label>
                     <?php endif; ?>
@@ -95,6 +95,7 @@ $rstat = Yii::$app->request->get('rstat');
                                 }
                             ],
                             'billno',
+                            'billref',
                             [
                                 'format' => 'raw',
                                 'attribute' => 'bill_type',
@@ -105,8 +106,8 @@ $rstat = Yii::$app->request->get('rstat');
                                 },
                                 'filter' => \yii\helpers\ArrayHelper::map(BillType::find()->where('type=1')->asArray()->all(), 'id', 'name'),
                             ],
-                            'billref',
-                            'amount',
+
+                           /// 'amount',
                             [
                                 'format' => 'raw',
                                 'attribute' => 'status',
@@ -168,6 +169,13 @@ $rstat = Yii::$app->request->get('rstat');
                                         'allowClear' => true,
                                     ],
                                 ]),
+                            ],
+                            [
+                                'contentOptions' =>['style'=>'text-align:right'],
+                                'attribute'=>'amount',
+                                'value'=>function($model){
+                                    return isset($model->amount)?number_format($model->amount):0;
+                                }
                             ],
 //
                             [
