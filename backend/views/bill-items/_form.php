@@ -24,7 +24,7 @@ use appxq\sdii\helpers\SDNoty;
 
 <?php if($model->isNewRecord):?>
     <div class="modal-header kn-modal-header">
-        <a  class="pull-right btnModalMain close">&times;</a>
+        <a  class="pull-right btnModalMain close" data-dismiss="modal">&times;</a>
         <h3 class="modal-title" id="itemModalLabel"> <?= Html::encode($this->title)?></h3>
     </div>
 <?php endif; ?>

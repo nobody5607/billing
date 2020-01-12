@@ -68,6 +68,7 @@ class AppComponent extends Component {
                             ['label' => 'บิลทั้งหมด','icon' => ' ', 'url' => ['/bill-items'],'visible' => \Yii::$app->user->can('previewBill')],
                             ['label' => 'ห้ามแก้ไข','icon' => ' ', 'url' => ['/bill-items?rstat=2'],'visible' => \Yii::$app->user->can('previewBill')],
                             ['label' => 'ปิดบิล','icon' => ' ', 'url' => ['/bill-items?rstat=0'],'visible' => \Yii::$app->user->can('previewBill')],
+                            ['label' => 'อัปโหลดสินค้า','icon' => ' ', 'url' => ['/bill-items/bill-upload'],'visible' => \Yii::$app->user->can('previewBill')],
                         ],
                     ],
 
@@ -76,12 +77,11 @@ class AppComponent extends Component {
                         'visible' => \Yii::$app->user->can('report'),
                         'icon' => 'file',
                         'url' => '#',
-
                         'items' => [
+                            ['label' => 'อัปโหลดรายการสินค้า',     'icon' => ' ', 'url' => ['/report/bill-items'],'visible' => \Yii::$app->user->can('report')],
+                            ['label' => 'อัปโหลดบิลตามสินค้า',     'icon' => ' ', 'url' => ['/report/sell-bill'],'visible' => \Yii::$app->user->can('report')],
                             ['label' => 'พนักงานส่งของ',     'icon' => ' ', 'url' => ['/report/customer-car'],'visible' => \Yii::$app->user->can('report')],
                             ['label' => 'พนักงานจัดของ',     'icon' => ' ', 'url' => ['/report/customer-package'],'visible' => \Yii::$app->user->can('report')],
-                            ['label' => 'รายงานบิลจากรายงาน',     'icon' => ' ', 'url' => ['/report/sell-bill'],'visible' => \Yii::$app->user->can('report')],
-                            ['label' => 'รายงานบิลที่เพิ่มเข้ามา',     'icon' => ' ', 'url' => ['/report/bill-items'],'visible' => \Yii::$app->user->can('report')],
                             ['label' => 'รายงานกล่อง',     'icon' => ' ', 'url' => ['/report/block'],'visible' => \Yii::$app->user->can('report')],
                         ],
                     ],
