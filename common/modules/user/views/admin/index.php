@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <label><i class="fa fa-user"></i> <?= Html::encode($this->title) ?></label>
             </div>
             <div class="col-md-3 col-xs-3 col-sm-3 text-right">
-                <button class="btn btn-success btn-lg btn-outline-success" id="btnCreate">เพิ่มพนักงาน</button>
+<!--                <button class="btn btn-success btn-lg btn-outline-success" id="btnCreate">เพิ่มพนักงาน</button>-->
 
             </div>
         </div>

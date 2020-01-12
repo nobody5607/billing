@@ -157,9 +157,9 @@ class AdminController extends BaseAdminController{
     }
     public function actionCreate()
     {
-        $model = new \common\modules\user\models\Teacher();
+        $model = new User();
         if ($model->load(\Yii::$app->request->post())) {
-            $data = \Yii::$app->request->post('Teacher');
+            $data = \Yii::$app->request->post('User');
             $user = new User();
             $name = "{$data['fname']} {$data['lname']}";
             $user->id = time();
