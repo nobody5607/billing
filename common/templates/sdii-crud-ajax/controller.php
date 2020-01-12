@@ -48,36 +48,10 @@ use appxq\sdii\helpers\SDHtml;
  */
 class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->baseControllerClass) . "\n" ?>
 {
-    public function behaviors()
-    {
-        return [
-/*	    'access' => [
-		'class' => AccessControl::className(),
-		'rules' => [
-		    [
-			'allow' => true,
-			'actions' => ['index', 'view'], 
-			'roles' => ['?', '@'],
-		    ],
-		    [
-			'allow' => true,
-			'actions' => ['view', 'create', 'update', 'delete', 'deletes'], 
-			'roles' => ['@'],
-		    ],
-		],
-	    ],*/
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
-        ];
-    }
 
     public function beforeAction($action) {
 	if (parent::beforeAction($action)) {
-	    if (in_array($action->id, array('create', 'update'))) {
+	    if (in_array($action->id, array('create', 'update','delete','index'))) {
 		
 	    }
 	    return true;
@@ -140,7 +114,9 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
 	    $model = new <?= $modelClass ?>();
 
 	    if ($model->load(Yii::$app->request->post())) {
-		Yii::$app->response->format = Response::FORMAT_JSON;
+            $model->rstat = 1;
+            $model->create_date = date('Y-m-d H:i:s');
+            $model->create_by = isset(\Yii::$app->user->id)?\Yii::$app->user->id:'';
 		if ($model->save()) {
 		    return \cpn\chanpan\classes\CNMessage::getSuccess('Create successfully');
 		} else {
@@ -168,7 +144,9 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
 	    $model = $this->findModel(<?= $actionParams ?>);
 
 	    if ($model->load(Yii::$app->request->post())) {
-		Yii::$app->response->format = Response::FORMAT_JSON;
+        $model->rstat = 1;
+        $model->update_date = date('Y-m-d H:i:s');
+        $model->update_by = isset(\Yii::$app->user->id)?\Yii::$app->user->id:'';
 		if ($model->save()) {
 		    return \cpn\chanpan\classes\CNMessage::getSuccess('Update successfully');
 		} else {
@@ -193,11 +171,15 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     public function actionDelete(<?= $actionParams ?>)
     {
 	if (Yii::$app->getRequest()->isAjax) {
-	    Yii::$app->response->format = Response::FORMAT_JSON;
-	    if ($this->findModel(<?= $actionParams ?>)->delete()) {
-		return \cpn\chanpan\classes\CNMessage::getSuccess('Delete successfully'); 
+        $model = $this->findModel(<?= $actionParams ?>);
+        $model->rstat = 3;
+        $model->update_date = date('Y-m-d H:i:s');
+        $model->update_by = isset(\Yii::$app->user->id)?\Yii::$app->user->id:'';
+	    if ($model->save()) {
+
+		    return \cpn\chanpan\classes\CNMessage::getSuccess('Delete successfully');
 	    } else {
-		return \cpn\chanpan\classes\CNMessage::getError('Can not delete the data.'); 
+		    return \cpn\chanpan\classes\CNMessage::getError('Can not delete the data.');
 	    }
 	} else {
 	    throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
@@ -206,10 +188,15 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
 
     public function actionDeletes() {
 	if (Yii::$app->getRequest()->isAjax) {
-	    Yii::$app->response->format = Response::FORMAT_JSON;
+
 	    if (isset($_POST['selection'])) {
 		foreach ($_POST['selection'] as $id) {
-		    $this->findModel($id)->delete();
+		    $model = $this->findModel($id);
+            $model = $this->findModel(<?= $actionParams ?>);
+            $model->rstat = 3;
+            $model->update_date = date('Y-m-d H:i:s');
+            $model->update_by = isset(\Yii::$app->user->id)?\Yii::$app->user->id:'';
+            $model->save();
 		}
 		return \cpn\chanpan\classes\CNMessage::getSuccess('Delete successfully'); 
 	    } else {

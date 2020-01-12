@@ -16,6 +16,7 @@ use kartik\date\DatePicker;
 
 $this->title = Yii::t('bill', 'Bill Manager');
 $this->params['breadcrumbs'][] = $this->title;
+$rstat = Yii::$app->request->get('rstat');
 ?>
 
 
@@ -38,7 +39,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="box-body">
                     <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
+
                     <?php Pjax::begin(['id' => 'bill-items-grid-pjax']); ?>
+                    <?php if(!isset($rstat)):?>
+                    <a href="#" id="btn-close-bill"><i class="fa fa-times"></i> ปิดบิล</a> |
+                    <a href="#" id="btn-deletes"><i class="fa fa-trash"></i> ลบ</a>
+                    <?php endif; ?>
                     <?=
                     GridView::widget([
                         'id' => 'bill-items-grid',
@@ -47,6 +53,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
+                            [
+                                'class' => 'yii\grid\CheckboxColumn',
+                                'checkboxOptions' => [
+                                    'class' => 'selectionBillIds'
+                                ],
+                                'headerOptions' => ['style' => 'text-align: center;'],
+                                'contentOptions' => ['style' => 'width:40px;text-align: center;'],
+                            ],
                             [
                                 'class' => 'yii\grid\SerialColumn',
                                 'headerOptions' => ['style' => 'text-align: center;'],
@@ -154,30 +168,27 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ],
                                 ]),
                             ],
-//                            [
-//                                'headerOptions' => ['style' => 'width:100px'],
-//                                'format'=>'raw',
-//                                'label'=>'พนักงานจัดสินค้า',
-//                                'value'=>function($model){
-//                                    $html = "";
-//                                    $package = \backend\models\BillPackagers::find()->where(['bill_id'=>$model->id])->andWhere('rstat not in(0,3)')->all();
-//                                    foreach($package as $k=>$v){
-//                                      $name = isset($v->profiles->name)?$v->profiles->name:'';
-//                                      $html .= "<a href='#' title='{$name}'><i id='{$v['id']}' class='fa fa-user'></i></a> ";
-//                                    }
-//                                    return $html;
-//                                }
-//                            ],
+//
                             [
                                 'class' => 'appxq\sdii\widgets\ActionColumn',
-                                'contentOptions' => ['style' => 'width:160px;text-align: center;'],
-                                'template' => ' {update} {delete}',
+                                'contentOptions' => ['style' => 'width:80px;text-align: center;'],
+//                                'template' => '{update-status} {update} {delete}',
+                                'template' => '{update}',
                                 'buttons' => [
+                                    'update-status' => function ($url, $model) {
+                                        return Html::a('<span class="fa fa-times"></span> ' . Yii::t('app', 'ปิดบิล'),
+                                            yii\helpers\Url::to(['/bill-items/update-status?id=' . $model->id]), [
+                                                'title' => Yii::t('app', 'Update'),
+                                                'class' => '',
+                                                'data-action' => 'update',
+                                                'data-pjax' => 0
+                                            ]);
+                                    },
                                     'update' => function ($url, $model) {
 
                                         $message = '';
                                         if (Yii::$app->user->can('billmanager')) {
-                                            $message = 'จัดการบิล';
+                                            $message = 'จัดการ';
                                         } else if (Yii::$app->user->can('packager')) {
                                             $message = 'จัดสินค้า';
                                         } else if (Yii::$app->user->can('shipping')) {
@@ -187,21 +198,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                         }
                                         return Html::a('<span class="fa fa-pencil"></span> ' . Yii::t('chanpan', $message), yii\helpers\Url::to(['bill-items/update?id=' . $model->id]), [
                                             'title' => Yii::t('chanpan', 'Edit'),
-                                            'class' => 'btn btn-info btn-sm',
+                                            'class' => '',
                                             'data-action' => 'update',
                                             'data-pjax' => 0
                                         ]);
                                     },
                                     'delete' => function ($url, $model) {
                                         if (Yii::$app->user->can('billmanager')) {
-                                            return Html::a('<span class="fa fa-trash"></span> ' . Yii::t('chanpan', 'ลบ'), yii\helpers\Url::to(['bill-items/delete?id=' . $model->id]), [
-                                                'title' => Yii::t('chanpan', 'Delete'),
-                                                'class' => 'btn btn-danger btn-sm',
-                                                'data-confirm' => Yii::t('chanpan', 'Are you sure you want to delete this item?'),
-                                                'data-method' => 'post',
-                                                'data-action' => 'delete',
-                                                'data-pjax' => 0
-                                            ]);
+                                            return " | " . Html::a('<span class="fa fa-trash"></span> ' . Yii::t('chanpan', 'ลบ'), yii\helpers\Url::to(['bill-items/delete?id=' . $model->id]), [
+                                                    'title' => Yii::t('chanpan', 'Delete'),
+                                                    'class' => '',
+                                                    'data-confirm' => Yii::t('chanpan', 'Are you sure you want to delete this item?'),
+                                                    'data-method' => 'post',
+                                                    'data-action' => 'delete',
+                                                    'data-pjax' => 0
+                                                ]);
                                         }
                                         return '';
 
@@ -249,6 +260,7 @@ ModalForm::widget([
         myFunction()
     };
     var navbar = document.getElementById("navbars");
+
     //var sticky = navbar.offsetTop;
 
     function myFunction() {
@@ -345,6 +357,7 @@ ModalForm::widget([
         });
     }
 
+
     function modalBillItem(url) {
         $('.modal').css('overflow', 'scroll');
         $('#modal-bill-items .modal-content').html('<div class=\"sdloader \"><i class=\"sdloader-icon\"></i></div>');
@@ -370,5 +383,131 @@ ModalForm::widget([
         border-bottom: 1px solid #e9ecef;
         box-shadow: -11px 3px 6px #e9ecef;
     }
+
+    #form-update-status-bill .radio {
+        display: inline;
+    }
 </style>
 <?php \appxq\sdii\widgets\CSSRegister::end() ?>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">จัดการสถานะบิล</h4>
+            </div>
+            <div class="modal-body">
+                <?php \yii\bootstrap\ActiveForm::begin([
+                    'id' => 'form-update-status-bill'
+                ]) ?>
+                <div>
+                    <label for="">สถานะบิล</label>
+                    <?php
+                    $items = [0 => 'ปิดการใช้งานบิล', '2' => 'ไม่สามารถแก้ไขบิลได้'];
+                    echo \yii\bootstrap\Html::radioList('rstat', '', $items, [
+                        'id' => 'rstat'
+                    ]);
+                    ?>
+                </div>
+                <br>
+                <div>
+                    <label for="">หมายเหตุ</label>
+                    <div class="alert alert-warning" id="form-remark" style="background: white !important;
+    border: 2px solid #f39c12;    color: #595d6e !important;">
+
+                        <?php
+                        $items = \backend\models\Remarks::find()->where('rstat not in(0,3)')->all();
+                        $items = \yii\helpers\ArrayHelper::map($items, 'id', 'name');
+                        echo \yii\bootstrap\Html::radioList('remark', '', $items);
+                        ?>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary" id="btn-submit-bill">ยืนยัน</button>
+                </div>
+                <?php \yii\bootstrap\ActiveForm::end(); ?>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<?php \richardfan\widget\JSRegister::begin() ?>
+<script>
+    var ids = [];
+    $("#btn-close-bill").on("click", function () {
+
+        let id = $('.selectionBillIds:checked[name="selection[]"]').serializeArray();
+        if(id.length === 0){
+            return false;
+        }
+        for(let i of id){
+            ids.push(i.value);
+        }
+        $("#myModal").modal('show');
+        return false;
+    });
+    $("#btn-deletes").on('click',function () {
+
+        let id = $('.selectionBillIds:checked[name="selection[]"]').serializeArray();
+        if(id.length === 0){
+            return false;
+        }
+        for(let i of id){
+            ids.push(i.value);
+        }
+        //let ids = JSON.stringify(ids);
+        console.log(JSON.stringify(ids));
+        let url = '<?= Url::to(['/bill-items/delete-bills'])?>';
+        let params = {
+            id:JSON.stringify(ids)
+        };
+        yii.confirm('คุณต้องการลบบิลหรือไม่?', function () {
+            $.post(url,params,function(result){
+                <?= SDNoty::show('result.message', 'result.status')?>
+                if(result.status == 'success') {
+                    $(document).find('#myModal').modal('hide');
+                    setTimeout(function () {
+                        location.reload();
+                    },1000);
+                }
+            });
+        });
+
+
+        return false;
+
+    });
+    $("#btn-submit-bill").on('click', function (e) {
+        e.preventDefault();
+        let rstat = $('input[name="rstat"]:checked').val();
+        let remark = $('input[name="remark"]:checked').val();
+        if(rstat === undefined){
+            return false;
+        }
+        let id = JSON.stringify(ids);
+
+        let url = '<?= Url::to(['/bill-items/update-status'])?>';
+        let params = {
+            rstat:rstat,
+            remark:remark,
+            id:id
+        };
+        $.post(url,params,function(result){
+            <?= SDNoty::show('result.message', 'result.status')?>
+            if(result.status == 'success') {
+                $(document).find('#myModal').modal('hide');
+                setTimeout(function () {
+                    location.reload();
+                },1000);
+            }
+        });
+        return false;
+    });
+
+</script>
+<?php \richardfan\widget\JSRegister::end() ?>

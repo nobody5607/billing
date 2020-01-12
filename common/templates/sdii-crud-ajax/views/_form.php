@@ -2,7 +2,7 @@
 
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
-
+$this->title = Yii::t('app',Inflector::camel2words(StringHelper::basename($generator->modelClass)));
 /* @var $this yii\web\View */
 /* @var $generator yii\gii\generators\crud\Generator */
 
@@ -34,7 +34,7 @@ use appxq\sdii\helpers\SDHtml;
 
     <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="itemModalLabel"><i class="fa fa-table"></i> <?= Inflector::camel2words(StringHelper::basename($generator->modelClass)) ?></h4>
+        <h4 class="modal-title" id="itemModalLabel"><i class="fa fa-table"></i> <?= $this->title; ?></h4>
     </div>
 
     <div class="modal-body">
@@ -47,7 +47,7 @@ use appxq\sdii\helpers\SDHtml;
     <div class="modal-footer">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <?= "<?= " ?>Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success btn-lg btn-block' : 'btn btn-primary btn-lg btn-block']) ?>
+                <?= "<?= " ?>Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success btn-lg btn-block btn-submit' : 'btn btn-primary btn-lg btn-block btn-submit']) ?>
 	
             </div>
         </div>
@@ -64,23 +64,33 @@ use appxq\sdii\helpers\SDHtml;
 <script>
 // JS script
 $('form#<?= "<?= " ?>$model->formName()?>').on('beforeSubmit', function(e) {
+    $('.btn-submit').prepend('<span class="icon-spin"><i class="fa fa-spinner fa-spin"></i></span> ');
+    $('.btn-submit').attr('disabled',true);
+
     var $form = $(this);
     $.post(
         $form.attr('action'), //serialize Yii2 form
         $form.serialize()
     ).done(function(result) {
+        $('.btn-submit .icon-spin').remove();
+        $('.btn-submit').attr('disabled',false);
         if(result.status == 'success') {
-            <?= "<?= " ?>SDNoty::show('result.message', 'result.status')?>
-            if(result.action == 'create') {
-                //$(\$form).trigger('reset');
-                $(document).find('#modal-<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>').modal('hide');
-                $.pjax.reload({container:'#<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-grid-pjax'});
-            } else if(result.action == 'update') {
-                $(document).find('#modal-<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>').modal('hide');
-                $.pjax.reload({container:'#<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-grid-pjax'});
-            }
+            swal({
+                title: result.message,
+                text: result.message,
+                type: result.status,
+                timer: 2000
+            });
+            $(document).find('#modal-<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>').modal('hide');
+            $.pjax.reload({container:'#<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-grid-pjax'});
+
         } else {
-            <?= "<?= " ?>SDNoty::show('result.message', 'result.status')?>
+            swal({
+                title: result.message,
+                text: result.message,
+                type: result.status,
+                timer: 2000
+            });
         } 
     }).fail(function() {
         <?= "<?= " ?>SDNoty::show("'" . SDHtml::getMsgError() . "Server Error'", '"error"')?>

@@ -57,8 +57,20 @@ class AppComponent extends Component {
                 'items' => [
                     ['label' => \Yii::t('bill','Dashboard'), 'icon' => 'tachometer', 'url' => ['/site/index'] ],
 
-                    ['label' => \Yii::t('bill','จัดการบิล'), 'icon' => 'database', 'url' => ['/bill-items'],
-                    'visible' => (\Yii::$app->user->can('previewBill'))?true:false],
+//                    ['label' => \Yii::t('bill','จัดการบิล'), 'icon' => 'database', 'url' => ['/bill-items'],
+//                    'visible' => (\Yii::$app->user->can('previewBill'))?true:false],
+                    [
+                        'label' => Yii::t('appmenu', 'จัดการบิล'),
+                        'visible' => \Yii::$app->user->can('previewBill'),
+                        'icon' => 'database',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'บิลทั้งหมด','icon' => ' ', 'url' => ['/bill-items'],'visible' => \Yii::$app->user->can('previewBill')],
+                            ['label' => 'ห้ามแก้ไข','icon' => ' ', 'url' => ['/bill-items?rstat=2'],'visible' => \Yii::$app->user->can('previewBill')],
+                            ['label' => 'ปิดบิล','icon' => ' ', 'url' => ['/bill-items?rstat=0'],'visible' => \Yii::$app->user->can('previewBill')],
+                        ],
+                    ],
+
                     [
                         'label' => Yii::t('appmenu', 'รายงาน'),
                         'visible' => \Yii::$app->user->can('report'),
@@ -104,6 +116,7 @@ class AppComponent extends Component {
 
                                     ['label' => Yii::t('appmenu', 'คลัง'), 'icon' => ' ', 'url' => ['/treasurys/index']],
                                     ['label' => Yii::t('appmenu', 'ที่เก็บ'), 'icon' => ' ', 'url' => ['/storages/index']],
+                                    ['label' => Yii::t('appmenu', 'จัดการหมายเหตุ'), 'icon' => ' ', 'url' => ['/remarks/index']],
                                 ],
                             ],
                             [

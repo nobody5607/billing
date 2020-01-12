@@ -4,10 +4,12 @@ namespace backend\controllers;
 
 use appxq\sdii\utils\SDdate;
 use appxq\sdii\utils\VarDumper;
+use common\modules\user\classes\CNUserFunc;
 use cpn\chanpan\classes\CNMessage;
 use Yii;
 use backend\models\BillItems;
 use backend\models\search\BillItems as BillItemsSearch;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -52,7 +54,7 @@ class BillItemsController extends Controller
      */
     public function actionIndex()
     {
-         
+
         $searchModel = new BillItemsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -122,6 +124,7 @@ class BillItemsController extends Controller
 //            $model->bill_date = $bill_date;
             $model->shop_id = 0;
             $model->rstat=1;
+            $model->create_date = date('Y-m-d H:i:s');
 		if ($model->save()) {
 		    return \cpn\chanpan\classes\CNMessage::getSuccess('Create successfully');
 		} else {
@@ -143,8 +146,51 @@ class BillItemsController extends Controller
      * @param string $id
      * @return mixed
      */
+    private function checkBillDate($id){
+        $bill = BillItems::find()->where('id=:id AND rstat not in(0,3)',[
+            ':id' => $id
+        ])->one();
+
+        $current_date = date("Y-m-d");
+        $bill_date = isset($bill->bill_date)?$bill->bill_date:'';
+        if($bill_date != ''){
+            $checkDiffDate = SDdate::getDiffDate($bill_date,$current_date);
+            //VarDumper::dump($checkDiffDate);
+            if($checkDiffDate > 3){
+                $bill->rstat = 2;
+                $bill->save();
+            }
+        }
+
+    }
+    public function actionDeleteBills(){
+        $ids = Yii::$app->request->post('id');
+        $ids = Json::decode($ids);
+        foreach($ids as $id){
+            $bill = \backend\models\search\BillItems::findOne($id);
+            $bill->rstat = 3;
+            $bill->save();
+        }
+        return CNMessage::getSuccess("ลบบิลสำเร็จ");
+    }
+    public function actionUpdateStatus(){
+        $ids = Yii::$app->request->post('id');
+        $ids = Json::decode($ids);
+        $rstat = Yii::$app->request->post('rstat');
+        $remark = Yii::$app->request->post('remark');
+        foreach($ids as $id){
+            $bill = \backend\models\search\BillItems::findOne($id);
+            $bill->rstat = $rstat;
+            $bill->remark = $remark;
+            $bill->save();
+        }
+        return CNMessage::getSuccess("แก้ไขสถานะบิลสำเร็จ");
+    }
     public function actionUpdate($id)
     {
+        $this->checkBillDate($id);
+
+
 	    $model = $this->findModel($id);
         $bid = $model->id;
         Yii::$app->session['bill_id'] = $bid;
@@ -162,7 +208,9 @@ class BillItemsController extends Controller
                     if(in_array($post['charge'], ['9','10'])){
                         return \cpn\chanpan\classes\CNMessage::getWarning('คุณไม่มีสิทธิ์ยืนยันสถานะเก็บเงิน');
                     }
-                } 
+                }
+                $model->update_date = date('Y-m-d H:i:s');
+                $model->create_by = CNUserFunc::getUserId();
                 if ($model->save()) {
                     return \cpn\chanpan\classes\CNMessage::getSuccess('Update successfully');
                 } else {

@@ -10,7 +10,9 @@
             ?>
                 <div class="user-panel">
                     <div class="pull-left image">
-                      <img src="<?= "{$login}";?>" class="img img-responsive" alt="Logo">
+                        <a href="<?= \yii\helpers\Url::to(['/'])?>">
+                            <img src="<?= "{$login}";?>" class="img img-responsive" alt="Logo">
+                        </a>
                     </div>
 
                 </div>

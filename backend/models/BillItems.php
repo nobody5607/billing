@@ -40,7 +40,7 @@ class BillItems extends \yii\db\ActiveRecord
             [['id',  'billno', 'shop_id', 'btype', 'status', 'charge','affective_score'], 'integer'],
             [['bookno','amount'], 'string', 'max' => 20],
             [['remark'], 'string', 'max' => 100],
-            [['id'], 'unique'],
+            [['rstat'], 'required'],
             [['create_date','update_date','rstat','create_by','update_by','billtype','bill_date','bill_type','shiping','billref','blog','difficulty'], 'safe'],
         ];
     }
@@ -69,7 +69,9 @@ class BillItems extends \yii\db\ActiveRecord
             'bill_upload'=> Yii::t('backend', 'ไฟล์อัปโหลด'),
             'blog'=> Yii::t('backend', 'กล่อง'),
             'difficulty'=>'ความยาก',
-            'affective_score'=>'คะแนนจิตพิสัย'
+            'affective_score'=>'คะแนนจิตพิสัย',
+            'rstat'=>'สถานะบิล',
+            'remark_id'=>'หมายเหตุ'
         ];
     }
     public  function getBilltypes(){

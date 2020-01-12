@@ -257,7 +257,12 @@ class SDdate {
 		return $strTime;
 
 	}
-	
+	public static function getDiffDate($date1, $date2){
+		$ts1 = strtotime($date1);
+		$ts2 = strtotime($date2);
+		$seconds_diff = $ts2 - $ts1;
+		return floor($seconds_diff/3600/24);
+	}
 	public static function getDiffDay($sqlDate, $day=30)
 	{
 		$arr = date_parse($sqlDate);

@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="box box-primary">
     <div class="box-header">
-         <i class="fa fa-table"></i> <?= "<?= " ?> Html::encode($this->title) ?> 
+         <i class=""></i> <?= "<?= " ?> Html::encode($this->title) ?>
          <div class="pull-right">
              <?php 
                echo "<?= "?>Html::button(SDHtml::getBtnAdd(), ['data-url'=>Url::to(['<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/create']), 'class' => 'btn btn-success btn-sm', 'id'=>'modal-addbtn-<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>']). ' ' .
@@ -93,20 +93,20 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
 		'template' => '{update} {delete}',
                 'buttons'=>[
                     'update'=>function($url, $model){
-                        return Html::a('<span class="fa fa-pencil"></span> '.Yii::t('app', 'แก้ไข'),
+                        return Html::a('<span class="fa fa-pencil"></span> '.Yii::t('app', 'Update'),
                                     yii\helpers\Url::to(['<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/update?id='.$model->id]), [
-                                    'title' => Yii::t('app', 'แก้ไข'),
+                                    'title' => Yii::t('app', 'Update'),
                                     'class' => 'btn btn-primary btn-xs',
                                     'data-action'=>'update',
                                     'data-pjax'=>0
                         ]);
                     },
                     'delete' => function ($url, $model) {                         
-                        return Html::a('<span class="fa fa-trash"></span> '.Yii::t('app', 'ลบ'),
+                        return Html::a('<span class="fa fa-trash"></span> '.Yii::t('app', 'Delete'), 
                                 yii\helpers\Url::to(['<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/delete?id='.$model->id]), [
-                                'title' => Yii::t('app', 'ลบ'),
+                                'title' => Yii::t('app', 'Delete'),
                                 'class' => 'btn btn-danger btn-xs',
-                                'data-confirm' => Yii::t('app', 'คุณแน่ใจหรือว่าต้องการลบรายการนี้หรือไม่?'),
+                                'data-confirm' => Yii::t('chanpan', 'Are you sure you want to delete this item?'),
                                 'data-method' => 'post',
                                 'data-action' => 'delete',
                                 'data-pjax'=>0
@@ -180,10 +180,20 @@ $('#<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-g
 		url
 	    ).done(function(result) {
 		if(result.status == 'success') {
-		    <?= "<?= " ?>SDNoty::show('result.message', 'result.status')?>
+            swal({
+                title: result.message,
+                text: result.message,
+                type: result.status,
+                timer: 2000
+            });
 		    $.pjax.reload({container:'#<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-grid-pjax'});
 		} else {
-		    <?= "<?= " ?>SDNoty::show('result.message', 'result.status')?>
+            swal({
+                title: result.message,
+                text: result.message,
+                type: result.status,
+                timer: 2000
+            });
 		}
 	    }).fail(function() {
 		<?= "<?= " ?>SDNoty::show("'" . SDHtml::getMsgError() . "Server Error'", '"error"')?>
@@ -211,10 +221,20 @@ function selection<?= Inflector::classify(StringHelper::basename($generator->mod
 	    dataType: 'JSON',
 	    success: function(result, textStatus) {
 		if(result.status == 'success') {
-		    <?= "<?= " ?>SDNoty::show('result.message', 'result.status')?>
+            swal({
+                title: result.message,
+                text: result.message,
+                type: result.status,
+                timer: 2000
+            });
 		    $.pjax.reload({container:'#<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-grid-pjax'});
 		} else {
-		    <?= "<?= " ?>SDNoty::show('result.message', 'result.status')?>
+            swal({
+                title: result.message,
+                text: result.message,
+                type: result.status,
+                timer: 2000
+            });
 		}
 	    }
 	});

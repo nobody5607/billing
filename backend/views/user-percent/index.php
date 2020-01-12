@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('<span class="fa fa-edit"></span> '.Yii::t('app', ''),
                                     yii\helpers\Url::to(['user-percent/update?id='.$model->id]), [
                                     'title' => Yii::t('app', 'Edit'),
-                                    'class' => 'btn btn-primary btn-xs',
+                                    'class' => 'btn btn-primary btn-xs btn-user-percent-status',
                                     'data-action'=>'update',
                                     'data-pjax'=>0
                         ]);
@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('<span class="fa fa-trash"></span> '.Yii::t('app', ''),
                                 yii\helpers\Url::to(['user-percent/delete?id='.$model->id]), [
                                 'title' => Yii::t('app', 'Delete'),
-                                'class' => 'btn btn-danger btn-xs',
+                                'class' => 'btn btn-danger btn-xs btn-user-percent-status',
                                 'data-confirm' => Yii::t('chanpan', 'Are you sure you want to delete this item?'),
                                 'data-method' => 'post',
                                 'data-action' => 'delete',

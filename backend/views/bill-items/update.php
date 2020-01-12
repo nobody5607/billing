@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' 
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="modal-header kn-modal-header">
-    <button type="button" class="btn btn-danger pull-right btnModalMain"><i class="fa fa-power-off"></i></button>
+    <a  class="pull-right btnModalMain close">&times;</a>
     <h3 class="modal-title" id="itemModalLabel"> <?= Html::encode($this->title)?></h3>
 </div>
 <div class="modal-body">

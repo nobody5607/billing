@@ -27,14 +27,22 @@ class BillItems extends BillItemsModel
     }
     public function search($params)
     {
-        //VarDumper::dump($params);
-        $query = BillItemsModel::find()
-            ->where('rstat not in(0,3)')
-            ->orderBy(['billno'=>SORT_ASC]);
+         //VarDumper::dump($params);
+        $schema = BillItemsModel::find();
+//        $query = BillItemsModel::find()
+//            ->where('rstat not in(0,3)')
+//            ->orderBy(['billno'=>SORT_ASC]);
+        if(isset($params['rstat'])){
+            $query = $schema->where('rstat=:rstat',[':rstat' => $params['rstat']]);
+        }else{
+            $query = $schema->where('rstat not in(0,3)');
+        }
+        $query=$query->orderBy(['id'=>SORT_DESC]);
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 50,
+                'pageSize' =>1000,
             ],
         ]);
 

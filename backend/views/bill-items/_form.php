@@ -13,12 +13,7 @@ use appxq\sdii\helpers\SDNoty;
 /* @var $model backend\models\BillItems */
 /* @var $form yii\bootstrap\ActiveForm */
 ?>
-<?php if(isset($modal)):?>
-    <div class="modal-header kn-modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 id="itemModalLabel"> <?= Html::encode($this->title)?></h4>
-    </div>
-<?php endif;?>
+
 <div class="bill-items-form">
 
     <?php $form = ActiveForm::begin([
@@ -27,7 +22,12 @@ use appxq\sdii\helpers\SDNoty;
     ]); ?>
 
 
-
+<?php if($model->isNewRecord):?>
+    <div class="modal-header kn-modal-header">
+        <a  class="pull-right btnModalMain close">&times;</a>
+        <h3 class="modal-title" id="itemModalLabel"> <?= Html::encode($this->title)?></h3>
+    </div>
+<?php endif; ?>
 <?= $form->field($model, 'id')
     ->hiddenInput()->label(FALSE) ?>
     <?php if(isset($modal)):?>
@@ -35,6 +35,47 @@ use appxq\sdii\helpers\SDNoty;
         <?php else:?>
     <div>
         <?php endif; ?>
+
+        <div class="row">
+            <div class="col-md-12">
+                <?php
+                    $model->rstat = isset($model->rstat)?$model->rstat:1;
+                    $items = [1=>'เปิดการใช้งานบิล',0=>'ปิดการใช้งานบิล','2'=>'ไม่สามารถแก้ไขบิลได้'];
+                    echo $form->field($model, 'rstat')->inline()->radioList($items);
+                ?>
+                <?php \richardfan\widget\JSRegister::begin()?>
+                <script>
+                    function initRemarks(show){
+                        if(show == 0){
+                            $("#form-remark").removeClass("hidden");
+                        }else{
+                            $("#form-remark").addClass("hidden");
+                        }
+                    }
+                    initRemarks(<?= isset($model->rstat)?$model->rstat:1; ?>);
+                    $("#billitems-rstat .radio-inline input").change(function(){
+                       let val = $(this).val();
+                        console.log(val);
+                        initRemarks(val);
+                       return false;
+                    });
+                </script>
+                <?php \richardfan\widget\JSRegister::end()?>
+            </div>
+
+            <div class="col-md-12">
+                <div class="alert alert-warning hidden" id="form-remark" style="background: white !important;
+    border: 2px solid #f39c12;    color: #595d6e !important;">
+                    <?php
+                    $items = \backend\models\Remarks::find()->where('rstat not in(0,3)')->all();
+                    $items = \yii\helpers\ArrayHelper::map($items,'id','name');
+                    echo $form->field($model, 'remark')->radioList($items);
+                    ?>
+                </div>
+            </div>
+        </div>
+
+
         <div class="row">
             <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
                 <?php
@@ -268,7 +309,24 @@ $billmanager = \Yii::$app->user->can('billmanager');
 <?php richardfan\widget\JSRegister::end();?>    
 <?php endif; ?>    
     
-    
+
+<?php if(!$model->isNewRecord):?>
+    <?php  \richardfan\widget\JSRegister::begin(['position' => \yii\web\View::POS_READY]); ?>
+    <script>
+        function readonlyBill(){
+            let rstat = '<?= $model->rstat;?>';
+            if(rstat != '1'){
+                $("#BillItems").find('.btn').remove();
+                $("#BillItems").find("input,select,textarea").attr('disabled', true);
+                setTimeout(function(){
+                    $(".btnDelete,.btn-add-user-shipping,.btn-add-user-package,#modal-addbtn-user-percent,.btn-user-percent-status").remove();
+                },1500);
+            }
+        }
+        readonlyBill();
+    </script>
+    <?php \richardfan\widget\JSRegister::end();?>
+<?php endif; ?>
 <?php  \richardfan\widget\JSRegister::begin([
     //'key' => 'bootstrap-modal',
     'position' => \yii\web\View::POS_READY
