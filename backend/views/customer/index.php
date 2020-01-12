@@ -72,9 +72,9 @@ $this->params['breadcrumbs'][] = $this->title;
 		'template' => '{update} {delete}',
                 'buttons'=>[
                     'update'=>function($url, $model){
-                        return Html::a('<span class="fa fa-edit"></span> '.Yii::t('app', 'Edit'), 
+                        return Html::a('<span class="fa fa-pencil"></span> '.Yii::t('app', 'Update'),
                                     yii\helpers\Url::to(['customer/update/'.$model->id]), [
-                                    'title' => Yii::t('app', 'Edit'),
+                                    'title' => Yii::t('app', 'Update'),
                                     'class' => 'btn btn-primary btn-xs',
                                     'data-action'=>'update',
                                     'data-pjax'=>0

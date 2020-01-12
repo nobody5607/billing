@@ -13,7 +13,7 @@ class Api2Controller extends Controller
         $output = [];
         $sqlStatusBill = "
             SELECT 
-             (select count(*) FROM bill_items WHERE rstat not in(0,3)) as allbill,
+             (select count(*) FROM bill_items WHERE rstat not in(3)) as allbill,
              (select count(*) FROM bill_items WHERE  status=1 and rstat not in(0,3)) as normalbill,
              (select count(*) FROM bill_items WHERE  (status=2 or status=5) and rstat not in(0,3)) as damagedbill,
              (select count(*) FROM bill_items WHERE  (status=3 or status=4) and rstat not in(0,3)) as cancelbill,

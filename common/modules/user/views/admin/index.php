@@ -8,7 +8,7 @@ use appxq\sdii\widgets\ModalForm;
 use appxq\sdii\helpers\SDNoty;
 use appxq\sdii\helpers\SDHtml;
 
-$this->title = Yii::t('appmenu', 'ผู้ใช้');
+$this->title = Yii::t('appmenu', 'จัดการพนักงาน');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -19,15 +19,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 <label><i class="fa fa-user"></i> <?= Html::encode($this->title) ?></label>
             </div>
             <div class="col-md-3 col-xs-3 col-sm-3 text-right">
-                <button class="btn btn-success btn-xs" id="btnCreate">เพิ่มพนักงาน</button>
+                <button class="btn btn-success btn-lg btn-outline-success" id="btnCreate">เพิ่มพนักงาน</button>
+
             </div>
         </div>
     </div>
     <div class="box-body">
+        <div class="table-responsive">
 <?php Pjax::begin(['id' => 'user-grid-pjax']); ?>
-        <div>
+
         <?=
-        GridView::widget([
+        \yii\grid\GridView::widget([
             'id' => 'user-grid',
             //'panelBtn' => Html::button(SDHtml::getBtnDelete(), ['data-url'=>Url::to(['/user/admin/deletes']), 'class' => 'btn btn-danger btn-sm', 'id'=>'modal-delbtn-user', 'disabled'=>true]),
             'dataProvider' => $dataProvider,
@@ -37,12 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'class' => 'yii\grid\SerialColumn',
                     'headerOptions' => ['style' => 'text-align: center;'],
-                    'contentOptions' => ['style' => 'width:60px;text-align: center;'],
                 ],
                 
                 [
-                    'contentOptions' => ['style' => 'width:150px;text-align: left;'],
-                    'attribute' => 'email',  
+                    'attribute' => 'email',
                     'value' => 'email',
                     'headerOptions' => ['style' => 'width:10px']
                 ],
@@ -97,31 +97,29 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'format' => 'raw',
                     'headerOptions' => ['style' => 'text-align: center;'],
-                    'contentOptions' => ['style' => 'width:80px;text-align: center;'],
                 ],
-                [
-                    'header' => Yii::t('_user', 'Admin'),
-                    'value' => function ($model){
-                        $data = \common\modules\user\classes\CNAuth::canAdmin($model->id);
-                        if (!empty($data)) {
-                            return '<i style="color:green;" class="glyphicon glyphicon-ok"></i>';
-                        }
-                        return '<i style="color:red;" class="glyphicon glyphicon-remove-sign"></i>';
-                    },
-                    'format' => 'raw',
-                    'headerOptions' => ['style' => 'text-align: center;'],
-                    'contentOptions' => ['style' => 'width:90px;text-align: center;'],
-                ],
+//                [
+//                    'header' => Yii::t('_user', 'Admin'),
+//                    'value' => function ($model){
+//                        $data = \common\modules\user\classes\CNAuth::canAdmin($model->id);
+//                        if (!empty($data)) {
+//                            return '<i style="color:green;" class="glyphicon glyphicon-ok"></i>';
+//                        }
+//                        return '<i style="color:red;" class="glyphicon glyphicon-remove-sign"></i>';
+//                    },
+//                    'format' => 'raw',
+//                    'headerOptions' => ['style' => 'text-align: center;'],
+//                ],
                 [
                     'class' => 'appxq\sdii\widgets\ActionColumn',
-                    'contentOptions' => ['style' => 'width:250px;text-align: center;'],
+                    'headerOptions' => ['style' => 'width:550px'],
                     'template' => '{assign} {update} {delete} ',
                     ///admin/assignment/view?id=1
                     'buttons' => [
                         'assign' => function($url, $model) {
                             return Html::a('<span class="fa fa-shield"></span> ' . Yii::t('chanpan', 'Assign'), yii\helpers\Url::to(['/admin/assignment/view', 'id' => $model->id]), [
                                         'title' => Yii::t('user', 'Assign'),
-                                        'class' => 'btn btn-success btn-xs',
+                                        'class' => 'btn btn-success btn-xs btn-block',
                                         'data-action' => 'assign',
                                         'data-pjax' => 0
                             ]);
@@ -129,7 +127,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'update' => function($url, $model) {
                             return Html::a('<span class="fa fa-pencil"></span> ' . Yii::t('chanpan', 'Edit'), yii\helpers\Url::to(['/user/admin/update-profile/', 'id' => $model->id]), [
                                         'title' => Yii::t('user', 'Edit'),
-                                        'class' => 'btn btn-primary btn-xs',
+                                        'class' => 'btn btn-primary btn-xs btn-block',
                                         'data-action' => 'update',
                                         'data-pjax' => 0
                             ]);
@@ -138,7 +136,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             if ($model->id != \Yii::$app->user->getId()) {
                                 return Html::a('<span class="fa fa-trash"></span> ' . Yii::t('chanpan', 'Delete'), yii\helpers\Url::to(['/user/admin/delete/', 'id' => $model->id]), [
                                             'title' => Yii::t('chanpan', 'Delete'),
-                                            'class' => 'btn btn-danger btn-xs',
+                                            'class' => 'btn btn-danger btn-xs btn-block',
                                             'data-confirm' => Yii::t('user', 'Are you sure you want to delete this item?'),
                                             'data-method' => 'post',
                                             'data-action' => 'delete',
@@ -151,8 +149,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]);
         ?>
-        </div>     
-            <?php Pjax::end(); ?>
+
+            <?php Pjax::end(); ?> </div>
     </div>
 </div>
 
