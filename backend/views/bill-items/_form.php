@@ -37,6 +37,7 @@ use appxq\sdii\helpers\SDNoty;
         <?php endif; ?>
 
         <div class="row">
+
             <div class="col-md-12">
                 <?php
                     $model->rstat = isset($model->rstat)?$model->rstat:1;
@@ -268,7 +269,9 @@ use appxq\sdii\helpers\SDNoty;
 <?php
 echo $form->field($model, 'remark')->textarea(); //->hint('Default Template <a class="btn btn-warning btn-xs btn-template" data-widget="{tab-widget}">Use Default</a>');
 ?>
-
+    <div class="col-md-12">
+        <label style="color:red">* หมายหตุ ถ้าเจอเครื่อง * แสดงว่าต้องกรอกฟิล์ถึงจะสามารถกดบันทึกได้</label>
+    </div>
     </div>
     <div class="modal-footer" style="background: #f3f3f3;">
         <div class="row">

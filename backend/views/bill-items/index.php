@@ -42,8 +42,9 @@ $rstat = Yii::$app->request->get('rstat');
 
                     <?php Pjax::begin(['id' => 'bill-items-grid-pjax']); ?>
                     <?php if(!isset($rstat)):?>
-                    <a href="#" id="btn-close-bill"><i class="fa fa-times"></i> ปิดบิล</a> |
-                    <a href="#" id="btn-deletes"><i class="fa fa-trash"></i> ลบ</a>
+                        <a href="#" id="btn-close-bill"><i class="fa fa-times"></i> ปิดบิล</a> |
+                        <a href="#" id="btn-deletes"><i class="fa fa-trash"></i> ลบ</a>
+                        <label style="color:red">* หมายหตุ ต้องติ๊กเลือกบิลก่อน</label>
                     <?php endif; ?>
                     <?=
                     GridView::widget([
