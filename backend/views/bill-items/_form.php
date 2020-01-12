@@ -318,7 +318,9 @@ $billmanager = \Yii::$app->user->can('billmanager');
     <script>
         function readonlyBill(){
             let rstat = '<?= $model->rstat;?>';
-            if(rstat != '1'){
+            let view = '<?= isset($view)?$view:''?>';
+            console.log(view);
+            if(rstat != '1' || view == '1'){
                 $("#BillItems").find('.btn').remove();
                 $("#BillItems").find("input,select,textarea").attr('disabled', true);
                 setTimeout(function(){

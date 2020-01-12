@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $this->render('_form', [
                 'model' => $model,
                 'modal' => '',
+                'view'=>$view
             ]) ?>
         </div>
         <div id="product-list" class="tab-pane fade">

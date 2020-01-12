@@ -70,7 +70,7 @@ class BillItems extends \yii\db\ActiveRecord
             'blog'=> Yii::t('backend', 'กล่อง'),
             'difficulty'=>'ความยาก',
             'affective_score'=>'คะแนนจิตพิสัย',
-            'rstat'=>'สถานะบิล',
+            'rstat'=>'สถานะการใช้งานบิล',
             'remark_id'=>'หมายเหตุ'
         ];
     }

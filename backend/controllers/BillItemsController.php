@@ -189,7 +189,7 @@ class BillItemsController extends Controller
     public function actionUpdate($id)
     {
         $this->checkBillDate($id);
-
+        $view = Yii::$app->request->get('view');
 
 	    $model = $this->findModel($id);
         $bid = $model->id;
@@ -219,6 +219,7 @@ class BillItemsController extends Controller
 	    } else {
             return $this->renderAjax('update', [
                 'model' => $model,
+                'view'=>$view
             ]);
 	    }
     }

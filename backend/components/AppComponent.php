@@ -78,11 +78,13 @@ class AppComponent extends Component {
                         'icon' => 'file',
                         'url' => '#',
                         'items' => [
+                            ['label' => 'รายงาน',     'icon' => ' ', 'url' => ['/report/index'],'visible' => \Yii::$app->user->can('report')],
                             ['label' => 'อัปโหลดรายการสินค้า',     'icon' => ' ', 'url' => ['/report/bill-items'],'visible' => \Yii::$app->user->can('report')],
                             ['label' => 'อัปโหลดบิลตามสินค้า',     'icon' => ' ', 'url' => ['/report/sell-bill'],'visible' => \Yii::$app->user->can('report')],
                             ['label' => 'พนักงานส่งของ',     'icon' => ' ', 'url' => ['/report/customer-car'],'visible' => \Yii::$app->user->can('report')],
                             ['label' => 'พนักงานจัดของ',     'icon' => ' ', 'url' => ['/report/customer-package'],'visible' => \Yii::$app->user->can('report')],
-                            ['label' => 'รายงานกล่อง',     'icon' => ' ', 'url' => ['/report/block'],'visible' => \Yii::$app->user->can('report')],
+                            ['label' => 'รายงานตามกล่อง',     'icon' => ' ', 'url' => ['/report/block'],'visible' => \Yii::$app->user->can('report')],
+
                         ],
                     ],
                     [
