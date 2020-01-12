@@ -175,7 +175,7 @@ $rstat = Yii::$app->request->get('rstat');
                                 'contentOptions' =>['style'=>'text-align:right'],
                                 'attribute'=>'amount',
                                 'value'=>function($model){
-                                    return isset($model->amount)?number_format($model->amount):0;
+                                    return isset($model->amount)?$model->amount:0;
                                 }
                             ],
 //
