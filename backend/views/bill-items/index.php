@@ -47,12 +47,13 @@ $rstat = Yii::$app->request->get('rstat');
                         <label style="color:red">* หมายหตุ ต้องติ๊กเลือกบิลก่อน</label>
                     <?php endif; ?>
                     <?=
-                    GridView::widget([
+                    \yii\grid\GridView::widget([
                         'id' => 'bill-items-grid',
                         /* 	'panelBtn' => Html::button(SDHtml::getBtnAdd(), ['data-url'=>Url::to(['bill-items/create']), 'class' => 'btn btn-success btn-sm', 'id'=>'modal-addbtn-bill-items']). ' ' .
                           Html::button(SDHtml::getBtnDelete(), ['data-url'=>Url::to(['bill-items/deletes']), 'class' => 'btn btn-danger btn-sm', 'id'=>'modal-delbtn-bill-items', 'disabled'=>true]), */
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
+                        'layout'=>"{items}\n{summary}\n{pager}",
                         'columns' => [
                             [
                                 'class' => 'yii\grid\CheckboxColumn',
