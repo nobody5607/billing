@@ -117,16 +117,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     ///admin/assignment/view?id=1
                     'buttons' => [
                         'assign' => function($url, $model) {
-                            return Html::a('<span class="fa fa-shield"></span> ' . Yii::t('chanpan', 'Assign'), yii\helpers\Url::to(['/admin/assignment/view', 'id' => $model->id]), [
-                                        'title' => Yii::t('user', 'Assign'),
+                            return Html::a('<span class="fa fa-shield"></span> ' . Yii::t('app', 'มอบหมาย'), yii\helpers\Url::to(['/admin/assignment/view', 'id' => $model->id]), [
+                                        'title' => Yii::t('app', 'มอบหมาย'),
                                         'class' => 'btn btn-success btn-xs btn-block',
                                         'data-action' => 'assign',
                                         'data-pjax' => 0
                             ]);
                         },
                         'update' => function($url, $model) {
-                            return Html::a('<span class="fa fa-pencil"></span> ' . Yii::t('chanpan', 'Edit'), yii\helpers\Url::to(['/user/admin/update-profile/', 'id' => $model->id]), [
-                                        'title' => Yii::t('user', 'Edit'),
+                            return Html::a('<span class="fa fa-pencil"></span> ' . Yii::t('app', 'Update'), yii\helpers\Url::to(['/user/admin/update-profile/', 'id' => $model->id]), [
+                                        'title' => Yii::t('app', 'Update'),
                                         'class' => 'btn btn-primary btn-xs btn-block',
                                         'data-action' => 'update',
                                         'data-pjax' => 0
@@ -134,8 +134,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                         'delete' => function ($url, $model) {
                             if ($model->id != \Yii::$app->user->getId()) {
-                                return Html::a('<span class="fa fa-trash"></span> ' . Yii::t('chanpan', 'Delete'), yii\helpers\Url::to(['/user/admin/delete/', 'id' => $model->id]), [
-                                            'title' => Yii::t('chanpan', 'Delete'),
+                                return Html::a('<span class="fa fa-trash"></span> ' . Yii::t('app', 'Delete'), yii\helpers\Url::to(['/user/admin/delete/', 'id' => $model->id]), [
+                                            'title' => Yii::t('app', 'Delete'),
                                             'class' => 'btn btn-danger btn-xs btn-block',
                                             'data-confirm' => Yii::t('user', 'Are you sure you want to delete this item?'),
                                             'data-method' => 'post',
