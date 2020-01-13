@@ -188,7 +188,7 @@ class BillItemsController extends Controller
     }
     public function actionUpdate($id)
     {
-        $this->checkBillDate($id);
+        //$this->checkBillDate($id);
         $view = Yii::$app->request->get('view');
 
 	    $model = $this->findModel($id);
