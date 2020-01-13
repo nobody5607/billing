@@ -98,6 +98,22 @@ $rstat = Yii::$app->request->get('rstat');
                             'billno',
                             'billref',
                             [
+                                'contentOptions' => ['style'=>'width:100px'],
+                                'label' => 'ชื่อลูกค้า',
+                                'value' => function($model){
+                                    $billType = BillType::find()->where('id=:bill_type',[
+                                        ':bill_type' => $model->bill_type
+                                    ])->one();
+                                    $bill_type =  isset($billType->name)?$billType->name:'';
+                                    $billref = isset($model->billref)?$model->billref:'';
+                                    $idbill = "{$bill_type}{$billref}";
+                                    $sellBill = \backend\models\SellBill::find()->where('docno=:docno',[
+                                        ':docno' => $idbill
+                                    ])->one();
+                                    return isset($sellBill->customername)?$sellBill->customername:'-';
+                                }
+                            ],
+                            [
                                 'format' => 'raw',
                                 'attribute' => 'bill_type',
                                 'value' => function ($model) {
