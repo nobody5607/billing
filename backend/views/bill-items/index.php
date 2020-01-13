@@ -416,7 +416,7 @@ ModalForm::widget([
                 <div>
                     <label for="">สถานะบิล</label>
                     <?php
-                    $items = [0 => 'ปิดการใช้งานบิล', '2' => 'ไม่สามารถแก้ไขบิลได้'];
+                    $items = [1 => 'เปิดใช้งานบิล',0 => 'ปิดการใช้งานบิล', '2' => 'ไม่สามารถแก้ไขบิลได้'];
                     echo \yii\bootstrap\Html::radioList('rstat', '', $items, [
                         'id' => 'rstat'
                     ]);
