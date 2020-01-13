@@ -1,6 +1,7 @@
 <?php
 
 use backend\models\BillType;
+use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
@@ -40,52 +41,53 @@ $rstat = Yii::$app->request->get('rstat');
                 <div class="box-body">
                     <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
 
-                    <?php Pjax::begin(['id' => 'bill-items-grid-pjax']); ?>
-                    <?php if(!isset($rstat)):?>
-                        <a href="#" title="เลือกบิลที่ต้องการจัดการสถานะบิล" id="btn-close-bill" class=""><i class="fa fa-pencil-square-o"></i>จัดการสถานะบิล</a> |
-                        <a href="#" id="btn-deletes"><i class="fa fa-trash"></i> ลบ</a>
-                        <label style="color:red">* หมายหตุ ต้องติ๊กเลือกบิลก่อน</label>
-                    <?php endif; ?>
-                    <?=
-                    \yii\grid\GridView::widget([
-                        'id' => 'bill-items-grid',
-                        /* 	'panelBtn' => Html::button(SDHtml::getBtnAdd(), ['data-url'=>Url::to(['bill-items/create']), 'class' => 'btn btn-success btn-sm', 'id'=>'modal-addbtn-bill-items']). ' ' .
-                          Html::button(SDHtml::getBtnDelete(), ['data-url'=>Url::to(['bill-items/deletes']), 'class' => 'btn btn-danger btn-sm', 'id'=>'modal-delbtn-bill-items', 'disabled'=>true]), */
-                        'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
-                        'layout'=>"{items}\n{summary}\n{pager}",
-                        'columns' => [
-                            [
-                                'class' => 'yii\grid\CheckboxColumn',
-                                'checkboxOptions' => [
-                                    'class' => 'selectionBillIds'
+                    <div class="table-responsive">
+                        <?php Pjax::begin(['id' => 'bill-items-grid-pjax']); ?>
+                        <?php if(!isset($rstat)):?>
+                            <a href="#" title="เลือกบิลที่ต้องการจัดการสถานะบิล" id="btn-close-bill" class=""><i class="fa fa-pencil-square-o"></i>จัดการสถานะบิล</a> |
+                            <a href="#" id="btn-deletes"><i class="fa fa-trash"></i> ลบ</a>
+                            <label style="color:red">* หมายหตุ ต้องติ๊กเลือกบิลก่อน</label>
+                        <?php endif; ?>
+                        <?=
+                        \yii\grid\GridView::widget([
+                            'id' => 'bill-items-grid',
+                            /* 	'panelBtn' => Html::button(SDHtml::getBtnAdd(), ['data-url'=>Url::to(['bill-items/create']), 'class' => 'btn btn-success btn-sm', 'id'=>'modal-addbtn-bill-items']). ' ' .
+                              Html::button(SDHtml::getBtnDelete(), ['data-url'=>Url::to(['bill-items/deletes']), 'class' => 'btn btn-danger btn-sm', 'id'=>'modal-delbtn-bill-items', 'disabled'=>true]), */
+                            'dataProvider' => $dataProvider,
+                            'filterModel' => $searchModel,
+                            'layout'=>"{items}\n{summary}\n{pager}",
+                            'columns' => [
+                                [
+                                    'class' => 'yii\grid\CheckboxColumn',
+                                    'checkboxOptions' => [
+                                        'class' => 'selectionBillIds'
+                                    ],
+                                    'headerOptions' => ['style' => 'text-align: center;'],
+                                    'contentOptions' => ['style' => 'width:40px;text-align: center;'],
                                 ],
-                                'headerOptions' => ['style' => 'text-align: center;'],
-                                'contentOptions' => ['style' => 'width:40px;text-align: center;'],
-                            ],
-                            [
-                                'class' => 'yii\grid\SerialColumn',
-                                'headerOptions' => ['style' => 'text-align: center;'],
-                                'contentOptions' => ['style' => 'width:60px;text-align: center;'],
-                            ],
-                            [
-                                'format' => 'raw',
-                                'attribute' => 'bill_date',
-                                'value' => function ($model) {
-                                    if (isset($model->bill_date) && $model->bill_date != '') {
-                                        return \appxq\sdii\utils\SDdate::mysql2phpDate($model->bill_date);
-                                    }
-                                },
-                                'filter' => DatePicker::widget([
-                                    'model' => $searchModel,
+                                [
+                                    'class' => 'yii\grid\SerialColumn',
+                                    'headerOptions' => ['style' => 'text-align: center;'],
+                                    'contentOptions' => ['style' => 'width:60px;text-align: center;'],
+                                ],
+                                [
+                                    'format' => 'raw',
                                     'attribute' => 'bill_date',
-                                    'type' => DatePicker::TYPE_INPUT,
-                                    'pluginOptions' => [
-                                        'autoclose' => true,
-                                        'format' => 'yyyy-mm-dd'
-                                    ]
-                                ])
-                            ],
+                                    'value' => function ($model) {
+                                        if (isset($model->bill_date) && $model->bill_date != '') {
+                                            return \appxq\sdii\utils\SDdate::mysql2phpDate($model->bill_date);
+                                        }
+                                    },
+                                    'filter' => DatePicker::widget([
+                                        'model' => $searchModel,
+                                        'attribute' => 'bill_date',
+                                        'type' => DatePicker::TYPE_INPUT,
+                                        'pluginOptions' => [
+                                            'autoclose' => true,
+                                            'format' => 'yyyy-mm-dd'
+                                        ]
+                                    ])
+                                ],
 //                            [
 //                                'format' => 'raw',
 //                                'value' => function ($model) {
@@ -95,161 +97,162 @@ $rstat = Yii::$app->request->get('rstat');
 //                                    return "<a href='{$url}' target='_BLANK' class='showImage'>{$img}</a>";
 //                                }
 //                            ],
-                            'billno',
-                            'billref',
-                            [
-                                'contentOptions' => ['style'=>'width:100px'],
-                                'label' => 'ชื่อลูกค้า',
-                                'value' => function($model){
-                                    $billType = BillType::find()->where('id=:bill_type',[
-                                        ':bill_type' => $model->bill_type
-                                    ])->one();
-                                    $bill_type =  isset($billType->name)?$billType->name:'';
-                                    $billref = isset($model->billref)?$model->billref:'';
-                                    $idbill = "{$bill_type}{$billref}";
-                                    $sellBill = \backend\models\SellBill::find()->where('docno=:docno',[
-                                        ':docno' => $idbill
-                                    ])->one();
-                                    return isset($sellBill->customername)?$sellBill->customername:'-';
-                                }
-                            ],
-                            [
-                                'format' => 'raw',
-                                'attribute' => 'bill_type',
-                                'value' => function ($model) {
-                                    $url = \yii\helpers\Url::to(['/select2/bill-type?type=1']);
-                                    $data = isset($model->bill_type) ? backend\models\BillType::findOne($model->bill_type) : '';
-                                    return isset($data['name']) ? $data['name'] : 'ไม่ได้ตั้ง';
-                                },
-                                'filter' => \yii\helpers\ArrayHelper::map(BillType::find()->where('type=1')->asArray()->all(), 'id', 'name'),
-                            ],
-
-                           /// 'amount',
-                            [
-                                'format' => 'raw',
-                                'attribute' => 'status',
-                                'value' => function ($model) {
-                                    if ($model->status) {
-                                        return isset($model->statuss->name) ? $model->statuss->name : '';
+                                'billno',
+                                'billref',
+                                [
+                                    'contentOptions' => ['style'=>'width:100px'],
+                                    'label' => 'ชื่อลูกค้า',
+                                    'value' => function($model){
+                                        $billType = BillType::find()->where('id=:bill_type',[
+                                            ':bill_type' => $model->bill_type
+                                        ])->one();
+                                        $bill_type =  isset($billType->name)?$billType->name:'';
+                                        $billref = isset($model->billref)?$model->billref:'';
+                                        $idbill = "{$bill_type}{$billref}";
+                                        $sellBill = \backend\models\SellBill::find()->where('docno=:docno',[
+                                            ':docno' => $idbill
+                                        ])->one();
+                                        return isset($sellBill->customername)?$sellBill->customername:'-';
                                     }
-                                },
-                                'filter' => kartik\select2\Select2::widget([
-                                    'model' => $searchModel,
-                                    'attribute' => 'status',
-                                    'data' => \yii\helpers\ArrayHelper::map(\backend\models\search\BillStatus::find()->where('rstat not in(0,3)')->all(), 'id', 'name'),
-                                    //'theme' => kartik\select2\Select2::THEME_BOOTSTRAP,
-                                    'hideSearch' => false,
-                                    'options' => [
-                                        'placeholder' => 'เลือกสถานะบิล',
-                                    ],
-                                    'pluginOptions' => [
-                                        'allowClear' => true,
-                                    ],
-                                ]),
-                            ],
-                            [
-                                'format' => 'raw',
-                                'attribute' => 'shiping',
-                                'value' => function ($model) {
-                                    return isset($model->shippings->name) ? $model->shippings->name : 'ยังไม่จัดสินค้า';
-                                },
-                                'filter' => kartik\select2\Select2::widget([
-                                    'model' => $searchModel,
-                                    'attribute' => 'shiping',
-                                    'data' => \yii\helpers\ArrayHelper::map(\backend\models\search\BillStatusShipping::find()->where('rstat not in(0,3)')->all(), 'id', 'name'),
+                                ],
+                                [
+                                    'format' => 'raw',
+                                    'attribute' => 'bill_type',
+                                    'value' => function ($model) {
+                                        $url = \yii\helpers\Url::to(['/select2/bill-type?type=1']);
+                                        $data = isset($model->bill_type) ? backend\models\BillType::findOne($model->bill_type) : '';
+                                        return isset($data['name']) ? $data['name'] : 'ไม่ได้ตั้ง';
+                                    },
+                                    'filter' => \yii\helpers\ArrayHelper::map(BillType::find()->where('type=1')->asArray()->all(), 'id', 'name'),
+                                ],
 
-                                    'hideSearch' => false,
-                                    'options' => [
-                                        'placeholder' => 'สถานะการส่งสินค้า',
-                                    ],
-                                    'pluginOptions' => [
-                                        'allowClear' => true,
-                                    ],
-                                ]),
-                            ],
-                            [
-                                'format' => 'raw',
-                                'attribute' => 'charge',
-                                'value' => function ($model) {
-                                    return isset($model->charge) ? $model->charges->name : '';
-                                },
-                                'filter' => kartik\select2\Select2::widget([
-                                    'model' => $searchModel,
+                                /// 'amount',
+                                [
+                                    'format' => 'raw',
+                                    'attribute' => 'status',
+                                    'value' => function ($model) {
+                                        if ($model->status) {
+                                            return isset($model->statuss->name) ? $model->statuss->name : '';
+                                        }
+                                    },
+                                    'filter' => kartik\select2\Select2::widget([
+                                        'model' => $searchModel,
+                                        'attribute' => 'status',
+                                        'data' => \yii\helpers\ArrayHelper::map(\backend\models\search\BillStatus::find()->where('rstat not in(0,3)')->all(), 'id', 'name'),
+                                        //'theme' => kartik\select2\Select2::THEME_BOOTSTRAP,
+                                        'hideSearch' => false,
+                                        'options' => [
+                                            'placeholder' => 'เลือกสถานะบิล',
+                                        ],
+                                        'pluginOptions' => [
+                                            'allowClear' => true,
+                                        ],
+                                    ]),
+                                ],
+                                [
+                                    'format' => 'raw',
+                                    'attribute' => 'shiping',
+                                    'value' => function ($model) {
+                                        return isset($model->shippings->name) ? $model->shippings->name : 'ยังไม่จัดสินค้า';
+                                    },
+                                    'filter' => kartik\select2\Select2::widget([
+                                        'model' => $searchModel,
+                                        'attribute' => 'shiping',
+                                        'data' => \yii\helpers\ArrayHelper::map(\backend\models\search\BillStatusShipping::find()->where('rstat not in(0,3)')->all(), 'id', 'name'),
+
+                                        'hideSearch' => false,
+                                        'options' => [
+                                            'placeholder' => 'สถานะการส่งสินค้า',
+                                        ],
+                                        'pluginOptions' => [
+                                            'allowClear' => true,
+                                        ],
+                                    ]),
+                                ],
+                                [
+                                    'format' => 'raw',
                                     'attribute' => 'charge',
-                                    'data' => \yii\helpers\ArrayHelper::map(\backend\models\search\BillStatusCharge::find()->where('rstat not in(0,3)')->all(), 'id', 'name'),
-                                    //'theme' => kartik\select2\Select2::THEME_BOOTSTRAP,
-                                    'hideSearch' => false,
-                                    'options' => [
-                                        'placeholder' => 'สถานะเก็บเงิน',
-                                    ],
-                                    'pluginOptions' => [
-                                        'allowClear' => true,
-                                    ],
-                                ]),
-                            ],
-                            [
-                                'contentOptions' =>['style'=>'text-align:right'],
-                                'attribute'=>'amount',
-                                'value'=>function($model){
-                                    return isset($model->amount)?$model->amount:0;
-                                }
-                            ],
+                                    'value' => function ($model) {
+                                        return isset($model->charge) ? $model->charges->name : '';
+                                    },
+                                    'filter' => kartik\select2\Select2::widget([
+                                        'model' => $searchModel,
+                                        'attribute' => 'charge',
+                                        'data' => \yii\helpers\ArrayHelper::map(\backend\models\search\BillStatusCharge::find()->where('rstat not in(0,3)')->all(), 'id', 'name'),
+                                        //'theme' => kartik\select2\Select2::THEME_BOOTSTRAP,
+                                        'hideSearch' => false,
+                                        'options' => [
+                                            'placeholder' => 'สถานะเก็บเงิน',
+                                        ],
+                                        'pluginOptions' => [
+                                            'allowClear' => true,
+                                        ],
+                                    ]),
+                                ],
+                                [
+                                    'contentOptions' =>['style'=>'text-align:right'],
+                                    'attribute'=>'amount',
+                                    'value'=>function($model){
+                                        return isset($model->amount)?$model->amount:0;
+                                    }
+                                ],
 //
-                            [
-                                'class' => 'appxq\sdii\widgets\ActionColumn',
-                                'contentOptions' => ['style' => 'width:80px;text-align: center;'],
+                                [
+                                    'class' => 'appxq\sdii\widgets\ActionColumn',
+                                    'contentOptions' => ['style' => 'width:80px;text-align: center;'],
 //                                'template' => '{update-status} {update} {delete}',
-                                'template' => '{update}',
-                                'buttons' => [
-                                    'update-status' => function ($url, $model) {
-                                        return Html::a('<span class="fa fa-times"></span> ' . Yii::t('app', 'ปิดบิล'),
-                                            yii\helpers\Url::to(['/bill-items/update-status?id=' . $model->id]), [
-                                                'title' => Yii::t('app', 'Update'),
+                                    'template' => '{update}',
+                                    'buttons' => [
+                                        'update-status' => function ($url, $model) {
+                                            return Html::a('<span class="fa fa-times"></span> ' . Yii::t('app', 'ปิดบิล'),
+                                                yii\helpers\Url::to(['/bill-items/update-status?id=' . $model->id]), [
+                                                    'title' => Yii::t('app', 'Update'),
+                                                    'class' => '',
+                                                    'data-action' => 'update',
+                                                    'data-pjax' => 0
+                                                ]);
+                                        },
+                                        'update' => function ($url, $model) {
+
+                                            $message = '';
+                                            if (Yii::$app->user->can('billmanager')) {
+                                                $message = 'จัดการ';
+                                            } else if (Yii::$app->user->can('packager')) {
+                                                $message = 'จัดสินค้า';
+                                            } else if (Yii::$app->user->can('shipping')) {
+                                                $message = 'ส่งสินค้า';
+                                            } else if (Yii::$app->user->can('chargers')) {
+                                                $message = 'จัดการการเงิน';
+                                            }
+                                            return Html::a('<span class="fa fa-pencil"></span> ' . Yii::t('chanpan', $message), yii\helpers\Url::to(['bill-items/update?id=' . $model->id]), [
+                                                'title' => Yii::t('chanpan', 'Edit'),
                                                 'class' => '',
                                                 'data-action' => 'update',
                                                 'data-pjax' => 0
                                             ]);
-                                    },
-                                    'update' => function ($url, $model) {
+                                        },
+                                        'delete' => function ($url, $model) {
+                                            if (Yii::$app->user->can('billmanager')) {
+                                                return " | " . Html::a('<span class="fa fa-trash"></span> ' . Yii::t('chanpan', 'ลบ'), yii\helpers\Url::to(['bill-items/delete?id=' . $model->id]), [
+                                                        'title' => Yii::t('chanpan', 'Delete'),
+                                                        'class' => '',
+                                                        'data-confirm' => Yii::t('chanpan', 'Are you sure you want to delete this item?'),
+                                                        'data-method' => 'post',
+                                                        'data-action' => 'delete',
+                                                        'data-pjax' => 0
+                                                    ]);
+                                            }
+                                            return '';
 
-                                        $message = '';
-                                        if (Yii::$app->user->can('billmanager')) {
-                                            $message = 'จัดการ';
-                                        } else if (Yii::$app->user->can('packager')) {
-                                            $message = 'จัดสินค้า';
-                                        } else if (Yii::$app->user->can('shipping')) {
-                                            $message = 'ส่งสินค้า';
-                                        } else if (Yii::$app->user->can('chargers')) {
-                                            $message = 'จัดการการเงิน';
-                                        }
-                                        return Html::a('<span class="fa fa-pencil"></span> ' . Yii::t('chanpan', $message), yii\helpers\Url::to(['bill-items/update?id=' . $model->id]), [
-                                            'title' => Yii::t('chanpan', 'Edit'),
-                                            'class' => '',
-                                            'data-action' => 'update',
-                                            'data-pjax' => 0
-                                        ]);
-                                    },
-                                    'delete' => function ($url, $model) {
-                                        if (Yii::$app->user->can('billmanager')) {
-                                            return " | " . Html::a('<span class="fa fa-trash"></span> ' . Yii::t('chanpan', 'ลบ'), yii\helpers\Url::to(['bill-items/delete?id=' . $model->id]), [
-                                                    'title' => Yii::t('chanpan', 'Delete'),
-                                                    'class' => '',
-                                                    'data-confirm' => Yii::t('chanpan', 'Are you sure you want to delete this item?'),
-                                                    'data-method' => 'post',
-                                                    'data-action' => 'delete',
-                                                    'data-pjax' => 0
-                                                ]);
-                                        }
-                                        return '';
-
-                                    },
-                                ]
+                                        },
+                                    ]
+                                ],
+                                // 'remark',
                             ],
-                            // 'remark',
-                        ],
-                    ]);
-                    ?>
-                    <?php Pjax::end(); ?>
+                        ]);
+                        ?>
+                        <?php Pjax::end(); ?>
+                    </div>
 
                 </div>
             </div>
