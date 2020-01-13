@@ -112,7 +112,10 @@ $rstat = Yii::$app->request->get('rstat');
                                         $sellBill = \backend\models\SellBill::find()->where('docno=:docno',[
                                             ':docno' => $idbill
                                         ])->one();
-                                        return isset($sellBill->customername)?$sellBill->customername:'-';
+                                        $customername = isset($sellBill->customername)?$sellBill->customername:'-';
+                                        $customerno = isset($sellBill->customerno)?$sellBill->customerno:'';
+                                        $name = "({$customerno}){$customername}";
+                                        return $name;
                                     }
                                 ],
                                 [
