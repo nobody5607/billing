@@ -42,7 +42,7 @@ class BillItems extends BillItemsModel
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' =>1000,
+                'pageSize' =>50,
             ],
         ]);
 
