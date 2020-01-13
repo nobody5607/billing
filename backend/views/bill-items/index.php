@@ -113,8 +113,8 @@ $rstat = Yii::$app->request->get('rstat');
                                             ':docno' => $idbill
                                         ])->one();
                                         $customername = isset($sellBill->customername)?$sellBill->customername:'-';
-                                        $customerno = isset($sellBill->customerno)?$sellBill->customerno:'';
-                                        $name = "({$customerno}){$customername}";
+                                        $customerno = isset($sellBill->customerno)?"({$sellBill->customerno})":'';
+                                        $name = "{$customerno} {$customername}";
                                         return $name;
                                     }
                                 ],
