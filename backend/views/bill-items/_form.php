@@ -155,6 +155,7 @@ use appxq\sdii\helpers\SDNoty;
             
             <div class="col-md-2 col-sm-3 col-xs-3">
                  <?php
+
                     if($model->status == '5' AND !Yii::$app->user->can('billmanager')){
                         echo "<label class='label label-success' style='font-size: 16px;display: block;padding: 10px;'><i class='fa fa-check'></i> ยืนยันชำรุด</label>";
                     }else if($model->status == '4' AND !Yii::$app->user->can('billmanager')){

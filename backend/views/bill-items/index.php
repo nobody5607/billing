@@ -86,15 +86,15 @@ $rstat = Yii::$app->request->get('rstat');
                                     ]
                                 ])
                             ],
-                            [
-                                'format' => 'raw',
-                                'value' => function ($model) {
-                                    $storageUrl = \Yii::getAlias('@storageUrl');
-                                    $url = "{$storageUrl}/uploads/{$model->bill_upload}";
-                                    $img = Html::img($url, ['style' => 'width:50px;']);
-                                    return "<a href='{$url}' target='_BLANK' class='showImage'>{$img}</a>";
-                                }
-                            ],
+//                            [
+//                                'format' => 'raw',
+//                                'value' => function ($model) {
+//                                    $storageUrl = \Yii::getAlias('@storageUrl');
+//                                    $url = "{$storageUrl}/uploads/{$model->bill_upload}";
+//                                    $img = Html::img($url, ['style' => 'width:50px;']);
+//                                    return "<a href='{$url}' target='_BLANK' class='showImage'>{$img}</a>";
+//                                }
+//                            ],
                             'billno',
                             'billref',
                             [
