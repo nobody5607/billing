@@ -21,6 +21,8 @@ use Yii;
  * @property string $remark หมายเหตุ
  * @property string $cashier;
  * @property string $vat;
+ * @property string $customer_id;
+ * @property string $customer_name;
  */
 class BillItems extends \yii\db\ActiveRecord
 {
