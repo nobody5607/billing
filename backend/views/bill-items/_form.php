@@ -92,7 +92,7 @@ use appxq\sdii\helpers\SDNoty;
 
         </div>
         <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-3">
+            <div class="col-md-12 hidden">
             <?php 
                 /* Select2 */
                 $url = \yii\helpers\Url::to(['/select2/bill-type?type=1']);
@@ -182,15 +182,25 @@ use appxq\sdii\helpers\SDNoty;
                 ?>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-3">
-                 <?php
-                    if($model->charge == '10' AND !Yii::$app->user->can('billmanager')){
-                        echo "<label class='label label-success' style='font-size: 16px;display: block;padding: 10px;'><i class='fa fa-check'></i> ยืนยันตัดบัญชีแล้ว</label>";
-                    }else {
-                     $items = \yii\helpers\ArrayHelper::map(\backend\models\BillStatusCharge::find()->where('rstat not in(0,3)')->all(), 'id', 'name');
-                     echo $form->field($model, 'charge')
-                         ->radioList($items, []);
-                    }
-                ?>
+                 <div class="row">
+                     <div class="col-md-12">
+                         <?php
+                         if($model->charge == '10' AND !Yii::$app->user->can('billmanager')){
+                             echo "<label class='label label-success' style='font-size: 16px;display: block;padding: 10px;'><i class='fa fa-check'></i> ยืนยันตัดบัญชีแล้ว</label>";
+                         }else {
+                             $items = \yii\helpers\ArrayHelper::map(\backend\models\BillStatusCharge::find()->where('rstat not in(0,3)')->all(), 'id', 'name');
+                             echo $form->field($model, 'charge')
+                                 ->radioList($items, []);
+                         }
+                         ?>
+                     </div>
+                     <div class="col-md-12">
+                         <?php
+                         echo $form->field($model, 'refdata')->textInput(); //->hint('Default Template <a class="btn btn-warning btn-xs btn-template" data-widget="{tab-widget}">Use Default</a>');
+                         ?>
+                     </div>
+                 </div>
+
             </div>
             <div class="col-md-3 col-sm-3 col-xs-3">
                 <?php

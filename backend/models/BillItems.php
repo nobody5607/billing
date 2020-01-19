@@ -73,7 +73,8 @@ class BillItems extends \yii\db\ActiveRecord
             'difficulty'=>'ความยาก',
             'affective_score'=>'คะแนนจิตพิสัย',
             'rstat'=>'สถานะการใช้งานบิล',
-            'remark_id'=>'หมายเหตุ'
+            'remark_id'=>'หมายเหตุ',
+            'refdata'=>'เลขที่ RC'
         ];
     }
     public  function getBilltypes(){
