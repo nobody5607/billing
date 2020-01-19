@@ -19,6 +19,8 @@ use Yii;
  * @property int $charge สถานะเก็บเงิน 0=ยังไม่เรียกเก็บ 1=วางบิล 2=ฝากเก็บเงิน 3=เก็บเงิน/เช็ค/โอน 4=ตัดบัญชีแล้ว
  * @property string $bill_upload
  * @property string $remark หมายเหตุ
+ * @property string $cashier;
+ * @property string $vat;
  */
 class BillItems extends \yii\db\ActiveRecord
 {
@@ -36,12 +38,12 @@ class BillItems extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['billno', 'status','amount','blog','bill_type','billref','bill_date'], 'required'],
+            [[ 'status','billref','bill_date'], 'required'],
             [['id',  'billno', 'shop_id', 'btype', 'status', 'charge','affective_score'], 'integer'],
             [['bookno','amount'], 'string', 'max' => 20],
             [['remark'], 'string', 'max' => 100],
             [['rstat'], 'required'],
-            [['create_date','update_date','rstat','create_by','update_by','billtype','bill_date','bill_type','shiping','billref','blog','difficulty'], 'safe'],
+            [['customer_name','customer_id','totalprice','discount','discount_after','vat','cashier','create_date','update_date','rstat','create_by','update_by','billtype','bill_date','bill_type','shiping','billref','blog','difficulty'], 'safe'],
         ];
     }
 

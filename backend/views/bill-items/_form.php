@@ -78,31 +78,18 @@ use appxq\sdii\helpers\SDNoty;
 
 
         <div class="row">
-            <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+            <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4 hidden">
                 <?php
                         $items = \backend\models\Groups::find()->all();
                         $items = yii\helpers\ArrayHelper::map($items, 'id', 'name');
                         echo $form->field($model, 'blog')->dropDownList($items,['prompt'=>'--เลือกกล่อง--'])
                 ?>
             </div>
-            <div class="col-md-6 col-sm-4 col-xs-4 col-lg-4"> 
+            <div class="col-md-6 col-sm-4 col-xs-4 col-lg-4 hidden">
                 <?= $form->field($model, 'billno')
                     ->textInput(['maxlength' => true,'readonly'=> \Yii::$app->user->can('billmanager')?false:true]) ?>
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
-                
-                <?php
-                    echo $form->field($model, 'bill_date')->widget(DatePicker::classname(), [
-                        'options' => ['placeholder' => 'เลือกวันที่','readonly'=> \Yii::$app->user->can('billmanager')?false:true],
-                        'value' => isset($model->create_date)?$model->create_date:date('Y-m-d'),
-                        'pluginOptions' => [
-                            'todayHighlight' => true,
-                            'autoclose'=>true,
-                            'format' => 'yyyy-mm-dd'
-                        ]
-                    ]);
-                ?>
-            </div> 
+
         </div>
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-3">
@@ -127,7 +114,7 @@ use appxq\sdii\helpers\SDNoty;
             ?>
             
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-3">
+            <div class="col-lg-2 col-md-3 col-sm-3">
             <?php 
                 /* Select2 */
 
@@ -136,11 +123,24 @@ use appxq\sdii\helpers\SDNoty;
  
             ?>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-3">
+            <div class="col-lg-2 col-md-2 col-sm-3">
                 <?= $form->field($model, 'bookno')->textInput(['readonly'=> \Yii::$app->user->can('billmanager')?false:true]) ?>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-3">
+            <div class="col-lg-2 col-md-2 col-sm-3">
                 <?= $form->field($model, 'amount')->textInput(['maxlength' => true,'readonly'=> \Yii::$app->user->can('billmanager')?false:true]) ?>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-4">
+                <?php
+                echo $form->field($model, 'bill_date')->widget(DatePicker::classname(), [
+                    'options' => ['placeholder' => 'เลือกวันที่','readonly'=> \Yii::$app->user->can('billmanager')?false:true],
+                    'value' => isset($model->create_date)?$model->create_date:date('Y-m-d'),
+                    'pluginOptions' => [
+                        'todayHighlight' => true,
+                        'autoclose'=>true,
+                        'format' => 'yyyy-mm-dd'
+                    ]
+                ]);
+                ?>
             </div>
         </div> 
             <?php

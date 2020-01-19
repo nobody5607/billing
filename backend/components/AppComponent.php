@@ -69,6 +69,7 @@ class AppComponent extends Component {
                             ['label' => 'ห้ามแก้ไข','icon' => ' ', 'url' => ['/bill-items?rstat=2'],'visible' => \Yii::$app->user->can('previewBill')],
                             ['label' => 'ปิดบิล','icon' => ' ', 'url' => ['/bill-items?rstat=0'],'visible' => \Yii::$app->user->can('previewBill')],
                             ['label' => 'อัปโหลดสินค้า','icon' => ' ', 'url' => ['/bill-items/bill-upload'],'visible' => \Yii::$app->user->can('previewBill')],
+                            ['label' => 'อัปโหลดบิลรับชำระ','icon' => ' ', 'url' => ['/bill-items/bill-upload-rc'],'visible' => \Yii::$app->user->can('previewBill')],
                         ],
                     ],
 

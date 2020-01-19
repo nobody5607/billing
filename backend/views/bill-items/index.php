@@ -33,6 +33,8 @@ $rstat = Yii::$app->request->get('rstat');
                     </div>
                     <div class="pull-right">
                         <?php if (\Yii::$app->user->can('billmanager')) : ?>
+
+                            <a href="<?= Url::to(['/bill-items/bill-upload'])?>" class="btn btn-primary btn-lg btn-outline-primary"><i class="fa fa-upload"></i> อัปโหลดบิล</a>
                             <?= Html::button(Yii::t('bill', 'Create Bill') . ' ' . SDHtml::getBtnAdd(), ['data-url' => Url::to(['bill-items/create']), 'class' => 'btn btn-success btn-lg btn-outline-success', 'id' => 'modal-addbtn-bill-items'])
                             ?>
                         <?php endif; ?>
@@ -202,7 +204,7 @@ $rstat = Yii::$app->request->get('rstat');
 //
                                 [
                                     'class' => 'appxq\sdii\widgets\ActionColumn',
-                                    'contentOptions' => ['style' => 'width:80px;text-align: center;'],
+                                    'contentOptions' => ['style' => 'width:200px;text-align: center;'],
 //                                'template' => '{update-status} {update} {delete}',
                                     'template' => '{update}',
                                     'buttons' => [

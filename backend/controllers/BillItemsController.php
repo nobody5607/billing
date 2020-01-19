@@ -163,6 +163,12 @@ class BillItemsController extends Controller
         }
 
     }
+
+    public function actionBillUploadRc(){
+        return $this->render('bill-upload-rc', [
+        ]);
+    }
+
     public function actionDeleteBills(){
         $ids = Yii::$app->request->post('id');
         $ids = Json::decode($ids);
