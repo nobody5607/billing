@@ -20,8 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="box-header">
          <i class=""></i> <?=  Html::encode($this->title) ?>
          <div class="pull-right">
-             <?= Html::button(SDHtml::getBtnAdd(), ['data-url'=>Url::to(['bill-rc/create']), 'class' => 'btn btn-success btn-sm', 'id'=>'modal-addbtn-bill-rc']). ' ' .
-		      Html::button(SDHtml::getBtnDelete(), ['data-url'=>Url::to(['bill-rc/deletes']), 'class' => 'btn btn-danger btn-sm', 'id'=>'modal-delbtn-bill-rc', 'disabled'=>false]) 
+             <?= Html::button(SDHtml::getBtnDelete(), ['data-url'=>Url::to(['bill-rc/deletes']), 'class' => 'btn btn-danger btn-sm', 'id'=>'modal-delbtn-bill-rc', 'disabled'=>false])
              ?>
          </div>
     </div>
@@ -50,17 +49,17 @@ $this->params['breadcrumbs'][] = $this->title;
 		'contentOptions' => ['style'=>'width:60px;text-align: center;'],
 	    ],
 
-            'id',
+//            'id',
             'billdate',
             'billref',
             'customer_id',
             'customer_name',
-            // 'amount',
-            // 'balance',
-            // 'pamount',
-            // 'bill_date',
-            // 'doc_num',
-            // 'cashier',
+             'amount',
+             'balance',
+             'pamount',
+             'bill_date',
+             'doc_num',
+             'cashier',
             // 'rstat',
             // 'create_by',
             // 'create_date',
@@ -69,8 +68,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	    [
 		'class' => 'appxq\sdii\widgets\ActionColumn',
-		'contentOptions' => ['style'=>'width:180px;text-align: center;'],
-		'template' => '{update} {delete}',
+		'contentOptions' => ['style'=>'width:80px;text-align: center;'],
+		'template' => '{delete}',
                 'buttons'=>[
                     'update'=>function($url, $model){
                         return Html::a('<span class="fa fa-pencil"></span> '.Yii::t('app', 'Update'),
