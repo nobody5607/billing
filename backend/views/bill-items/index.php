@@ -45,11 +45,10 @@ $rstat = Yii::$app->request->get('rstat');
 
                     <div class="table-responsive">
                         <?php Pjax::begin(['id' => 'bill-items-grid-pjax']); ?>
-                        <?php if(!isset($rstat)):?>
+
                             <a href="#" title="เลือกบิลที่ต้องการจัดการสถานะบิล" id="btn-close-bill" class=""><i class="fa fa-pencil-square-o"></i>จัดการสถานะบิล</a> |
                             <a href="#" id="btn-deletes"><i class="fa fa-trash"></i> ลบ</a>
                             <label style="color:red">* หมายหตุ ต้องติ๊กเลือกบิลก่อน</label>
-                        <?php endif; ?>
                         <?=
                         \yii\grid\GridView::widget([
                             'id' => 'bill-items-grid',
@@ -441,7 +440,7 @@ ModalForm::widget([
                     <label for="">สถานะบิล</label>
                     <?php
                     $items = [1 => 'เปิดใช้งานบิล',0 => 'ปิดการใช้งานบิล', '2' => 'ไม่สามารถแก้ไขบิลได้'];
-                    echo \yii\bootstrap\Html::radioList('rstat', '', $items, [
+                    echo \yii\bootstrap\Html::radioList('rstat', $rstat, $items, [
                         'id' => 'rstat'
                     ]);
                     ?>
