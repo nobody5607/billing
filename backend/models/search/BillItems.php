@@ -28,7 +28,7 @@ class BillItems extends BillItemsModel
     public function search($params)
     {
          //VarDumper::dump($params);
-        $schema = BillItemsModel::find();
+        $schema = BillItemsModel::find()->where("billref NOT LIKE '%POS%' AND");
 //        $query = BillItemsModel::find()
 //            ->where('rstat not in(0,3)')
 //            ->orderBy(['billno'=>SORT_ASC]);
