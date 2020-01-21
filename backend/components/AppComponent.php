@@ -70,7 +70,7 @@ class AppComponent extends Component {
                             ['label' => 'ปิดบิล','icon' => ' ', 'url' => ['/bill-items?rstat=0'],'visible' => \Yii::$app->user->can('previewBill')],
                             ['label' => 'อัปโหลดสินค้า','icon' => ' ', 'url' => ['/bill-items/bill-upload'],'visible' => \Yii::$app->user->can('previewBill')],
                             ['label' => 'อัปโหลดบิลรับชำระ','icon' => ' ', 'url' => ['/bill-items/bill-upload-rc'],'visible' => \Yii::$app->user->can('previewBill')],
-                            ['label' => 'บิลชำระ','icon' => ' ', 'url' => ['/bill-items/bill-rc'],'visible' => \Yii::$app->user->can('previewBill')],
+                            ['label' => 'บิลชำระ','icon' => ' ', 'url' => ['/bill-rc'],'visible' => \Yii::$app->user->can('previewBill')],
                         ],
                     ],
 
