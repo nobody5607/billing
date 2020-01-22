@@ -28,13 +28,13 @@ class BillItems extends BillItemsModel
     public function search($params)
     {
          //VarDumper::dump($params); 00239
-        $schema = BillItemsModel::find()->where("billref NOT LIKE '%POS%' AND");
+        $schema = BillItemsModel::find();
         if(isset($params['rstat'])){
             $query = $schema->where('rstat=:rstat',[':rstat' => $params['rstat']]);
         }else{
             $query = $schema->where('rstat not in(0,3)');
         }
-        $query=$query->orderBy(['id'=>SORT_DESC]);
+        $query=$query->andWhere("billref NOT LIKE '%POS%'")->orderBy(['id'=>SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
