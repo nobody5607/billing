@@ -27,11 +27,8 @@ class BillItems extends BillItemsModel
     }
     public function search($params)
     {
-         //VarDumper::dump($params);
+         //VarDumper::dump($params); 00239
         $schema = BillItemsModel::find()->where("billref NOT LIKE '%POS%' AND");
-//        $query = BillItemsModel::find()
-//            ->where('rstat not in(0,3)')
-//            ->orderBy(['billno'=>SORT_ASC]);
         if(isset($params['rstat'])){
             $query = $schema->where('rstat=:rstat',[':rstat' => $params['rstat']]);
         }else{
