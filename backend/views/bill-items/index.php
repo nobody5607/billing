@@ -57,6 +57,7 @@ $rstat = Yii::$app->request->get('rstat');
                             'dataProvider' => $dataProvider,
                             'filterModel' => $searchModel,
                             'layout'=>"{items}\n{summary}\n{pager}",
+                             
                             'columns' => [
                                 [
                                     'class' => 'yii\grid\CheckboxColumn',
