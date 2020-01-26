@@ -34,7 +34,7 @@ class BillItems extends BillItemsModel
         }else{
             $query = $schema->where('rstat not in(0,3)');
         }
-        $query=$query->andWhere("billref NOT LIKE '%POS%'")->orderBy(['id'=>SORT_DESC]);
+        $query=$query->andWhere("billref NOT LIKE '%POS%'")->orderBy(['bill_date'=>SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
