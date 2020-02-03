@@ -49,4 +49,9 @@ class Customers extends \yii\db\ActiveRecord
             'type' => Yii::t('app', 'ตำแหน่ง'),
         ];
     }
+
+    public static function getCustomerById($id){
+        $model = Customers::findOne($id);
+        return $model;
+    }
 }

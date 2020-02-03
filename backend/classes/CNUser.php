@@ -8,6 +8,9 @@
 
 namespace backend\classes;
 
+use backend\models\Customers;
+use backend\models\UserSippings;
+
 /**
  * Description of CNUser
  *
@@ -46,6 +49,13 @@ class CNUser {
             return false;
      }
   }
-  
+
+  public static function getUserShippingById($user_id){
+      $userShipping = UserSippings::find()->where('bill_id = :bill_id AND type=99 AND rstat not in(0,3)',[
+          ':bill_id' => $user_id
+      ])->all();
+  }
+
+
   
 }

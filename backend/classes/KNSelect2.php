@@ -14,7 +14,17 @@ class KNSelect2 {
      * @param type $minimumInputLength พิมพ์กี่ตัวอักษรถึงจะทำงาน
      * @return render select2
      */
-    public static function renderSelect2Single($form, $model, $field, $init_data=[], $url, $placeholder='', $minimumInputLength=0, $label="ผู้ใช้"){
+    public static function renderSelect2Single($form, $model, $field, $init_data=[], $url, $placeholder='', $minimumInputLength=0, $label="ผู้ใช้", $addon=false){
+        if($addon === true){
+            $addon = [
+                'content' => \yii\helpers\Html::button("<i class='fa fa-plus'></i>", [
+                    'class' => 'btn btn-success btnMangePopup',
+                    'title' => 'Mark on map',
+                    'data-toggle' => 'tooltip'
+                ]),
+                'asButton' => true
+            ];
+        }
         return $form->field($model, $field)->widget(\kartik\select2\Select2::className(), [
             'initValueText' => !empty($init_data) ? $init_data['name'] : [], //กำหนดค่าเริ่มต้น
             'options' => ['placeholder' => $placeholder],
@@ -32,14 +42,7 @@ class KNSelect2 {
                 'templateSelection' => new \yii\web\JsExpression('function(prefix) {return prefix.text;}'),
             ],
             'addon' => [
-                'append' => [
-                    'content' => \yii\helpers\Html::button("<i class='fa fa-plus'></i>", [
-                        'class' => 'btn btn-success btnMangePopup', 
-                        'title' => 'Mark on map', 
-                        'data-toggle' => 'tooltip'
-                    ]),
-                    'asButton' => true
-                ] 
+                'append' => $addon
             ],
         ])->label($label);
     }//select2Single
