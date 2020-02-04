@@ -97,7 +97,7 @@ class AppComponent extends Component {
 //                    ['label' => \Yii::t('appmenu','Home'), 'icon' => 'home', 'url' => ['/']],
                     ['label' => \Yii::t('appmenu','About'), 'icon' => 'info-circle', 'url' => ['/site/about']],
                     ['label' => \Yii::t('appmenu','Contact'), 'icon' => 'phone-square', 'url' => ['/site/contact']],
-                    ['label' => \Yii::t('bill','จัดการพนักงานขับรถ'), 'icon' => 'user', 'url' => ['/customer'],'visible' => \Yii::$app->user->can('sell_shipping')],//sell-shipping
+                    ['label' => \Yii::t('bill','พนักงานขับรถ'), 'icon' => 'truck', 'url' => ['/customer'],'visible' => \Yii::$app->user->can('sell_shipping')],//sell-shipping
 
                     [
                         'label' => Yii::t('appmenu', 'System Config'),
