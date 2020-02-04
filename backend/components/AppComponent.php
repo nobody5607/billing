@@ -111,10 +111,12 @@ class AppComponent extends Component {
                                 'icon' => ' ',
                                 'url' => '#',
                                 'items' => [
-                                    //Assignments
+                                    //Assignments  customer-shipping
                                     ['label' => Yii::t('appmenu', 'คะแนนจิตวิพิสัย'), 'icon' => ' ', 'url' => ['/affective-score/index']],
                                     ['label' => Yii::t('appmenu', 'จัดการความยาก'), 'icon' => ' ', 'url' => ['/difficultys/index']],
                                     ['label' => Yii::t('appmenu', 'Percent'), 'icon' => ' ', 'url' => ['/sell-shipping/index']],
+
+                                    ['label' => Yii::t('appmenu', 'Percent ลูกค้า'), 'icon' => ' ', 'url' => ['/customer-shipping/index']],
                                     ['label' => Yii::t('appmenu', 'พนักงานขับรถ'), 'icon' => ' ', 'url' => ['/customer/index']],
                                     ['label' => Yii::t('appmenu', 'กลอง'), 'icon' => ' ', 'url' => ['/groups/index']],
 

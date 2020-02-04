@@ -1,38 +1,45 @@
-<?php 
-    $this->title = Yii::t('appmenu', 'Home');
+<?php
+    $this->title = Yii::t('appmenu', 'Dashboard');
 ?>
 <?php if (Yii::$app->user->can('edit_home')): ?>
     <a href="#" class="link btnEdit" data-url="<?= yii\helpers\Url::to(['/site/edit?params=home']) ?>"><i class="fa fa-pencil"></i></a>
 <?php endif; ?>
 <div class="text-muted" id="app">
-    <?= isset(\Yii::$app->params['home']) ? \Yii::$app->params['home'] : '' ?>
-
     <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <label for="">เลือกปีที่ต้องการแสดง</label>
-                    <select name="" id=""   @change="getReport" class="btn btn-default">
-                        <option value="">เลือกปี</option>
-                        <?php
-                            $year = date('Y')+543;
-                            //\appxq\sdii\utils\VarDumper::dump($year);
-                        ?>
-                        <?php for($i=2556; $i<=$year; $i++):?>
-                            <option value="<?= $i-543; ?>"><?= $i; ?></option>
-                        <?php endfor; ?>
-                    </select>
-                </div>
-                <div class="panel-body">
-                    <canvas id="myChart" height="150"></canvas>
+         <div class="col-md-4">
+             <?php echo isset(\Yii::$app->params['home']) ? \Yii::$app->params['home'] : '' ?>
+         </div>
+        <div class="col-md-8" style="margin-top:5px;">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <label for="">เลือกปีที่ต้องการแสดง</label>
+                            <select name="" id=""   @change="getReport" class="btn btn-default">
+                                <option value="">เลือกปี</option>
+                                <?php
+                                $year = date('Y')+543;
+                                //\appxq\sdii\utils\VarDumper::dump($year);
+                                ?>
+                                <?php for($i=2556; $i<=$year; $i++):?>
+                                    <option value="<?= $i-543; ?>"><?= $i; ?></option>
+                                <?php endfor; ?>
+                            </select>
+                        </div>
+                        <div class="panel-body">
+                            <canvas id="myChart" height="90"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+
 </div>
-    
-<?php if (Yii::$app->user->can('edit_home')): ?>    
-    
+
+<?php if (Yii::$app->user->can('edit_home')): ?>
+
 <?=
 \appxq\sdii\widgets\ModalForm::widget([
     'id' => 'modal-options',
@@ -105,7 +112,7 @@
                             scales: {
                                 yAxes: [{
                                     ticks: {
-                                        beginAtZero: true
+                                       // beginAtZero: true
                                     }
                                 }]
                             }
