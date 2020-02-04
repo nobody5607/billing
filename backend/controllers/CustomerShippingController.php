@@ -18,17 +18,18 @@ use appxq\sdii\helpers\SDHtml;
 class CustomerShippingController extends Controller
 {
 
-    public function beforeAction($action) {
-	if (parent::beforeAction($action)) {
-	    if (in_array($action->id, array('create', 'update','delete','index'))) {
-		
-	    }
-	    return true;
-	} else {
-	    return false;
-	}
+    public function beforeAction($action)
+    {
+        if (parent::beforeAction($action)) {
+            if (in_array($action->id, array('create', 'update', 'delete', 'index'))) {
+
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
-    
+
     /**
      * Lists all CustomerShipping models.
      * @return mixed
@@ -52,15 +53,15 @@ class CustomerShippingController extends Controller
      */
     public function actionView($id, $groupcond)
     {
-	if (Yii::$app->getRequest()->isAjax) {
-	    return $this->renderAjax('view', [
-		'model' => $this->findModel($id, $groupcond),
-	    ]);
-	} else {
-	    return $this->render('view', [
-		'model' => $this->findModel($id, $groupcond),
-	    ]);
-	}
+        if (Yii::$app->getRequest()->isAjax) {
+            return $this->renderAjax('view', [
+                'model' => $this->findModel($id, $groupcond),
+            ]);
+        } else {
+            return $this->render('view', [
+                'model' => $this->findModel($id, $groupcond),
+            ]);
+        }
     }
 
     /**
@@ -70,26 +71,26 @@ class CustomerShippingController extends Controller
      */
     public function actionCreate()
     {
-	if (Yii::$app->getRequest()->isAjax) {
-	    $model = new CustomerShipping();
+        if (Yii::$app->getRequest()->isAjax) {
+            $model = new CustomerShipping();
 
-	    if ($model->load(Yii::$app->request->post())) {
-            $model->rstat = 1;
-            $model->create_date = date('Y-m-d H:i:s');
-            $model->create_by = isset(\Yii::$app->user->id)?\Yii::$app->user->id:'';
-		if ($model->save()) {
-		    return \cpn\chanpan\classes\CNMessage::getSuccess('Create successfully');
-		} else {
-		    return \cpn\chanpan\classes\CNMessage::getError('Can not create the data.');
-		}
-	    } else {
-		return $this->renderAjax('create', [
-		    'model' => $model,
-		]);
-	    }
-	} else {
-	    throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
-	}
+            if ($model->load(Yii::$app->request->post())) {
+                $model->rstat = 1;
+                $model->create_date = date('Y-m-d H:i:s');
+                $model->create_by = isset(\Yii::$app->user->id) ? \Yii::$app->user->id : '';
+                if ($model->save()) {
+                    return \cpn\chanpan\classes\CNMessage::getSuccess('Create successfully');
+                } else {
+                    return \cpn\chanpan\classes\CNMessage::getError('Can not create the data.');
+                }
+            } else {
+                return $this->renderAjax('create', [
+                    'model' => $model,
+                ]);
+            }
+        } else {
+            throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
+        }
     }
 
     /**
@@ -99,28 +100,28 @@ class CustomerShippingController extends Controller
      * @param string $groupcond
      * @return mixed
      */
-    public function actionUpdate($id, $groupcond)
+    public function actionUpdate($id)
     {
-	if (Yii::$app->getRequest()->isAjax) {
-	    $model = $this->findModel($id, $groupcond);
+        if (Yii::$app->getRequest()->isAjax) {
+            $model = CustomerShipping::find()->where('id=:id', [':id' => $id]);
 
-	    if ($model->load(Yii::$app->request->post())) {
-        $model->rstat = 1;
-        $model->update_date = date('Y-m-d H:i:s');
-        $model->update_by = isset(\Yii::$app->user->id)?\Yii::$app->user->id:'';
-		if ($model->save()) {
-		    return \cpn\chanpan\classes\CNMessage::getSuccess('Update successfully');
-		} else {
-		    return \cpn\chanpan\classes\CNMessage::getError('Can not update the data.');
-		}
-	    } else {
-		return $this->renderAjax('update', [
-		    'model' => $model,
-		]);
-	    }
-	} else {
-	    throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
-	}
+            if ($model->load(Yii::$app->request->post())) {
+                $model->rstat = 1;
+                $model->update_date = date('Y-m-d H:i:s');
+                $model->update_by = isset(\Yii::$app->user->id) ? \Yii::$app->user->id : '';
+                if ($model->save()) {
+                    return \cpn\chanpan\classes\CNMessage::getSuccess('Update successfully');
+                } else {
+                    return \cpn\chanpan\classes\CNMessage::getError('Can not update the data.');
+                }
+            } else {
+                return $this->renderAjax('update', [
+                    'model' => $model,
+                ]);
+            }
+        } else {
+            throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
+        }
     }
 
     /**
@@ -130,45 +131,46 @@ class CustomerShippingController extends Controller
      * @param string $groupcond
      * @return mixed
      */
-    public function actionDelete($id, $groupcond)
+    public function actionDelete($id)
     {
-	if (Yii::$app->getRequest()->isAjax) {
-        $model = $this->findModel($id, $groupcond);
-        $model->rstat = 3;
-        $model->update_date = date('Y-m-d H:i:s');
-        $model->update_by = isset(\Yii::$app->user->id)?\Yii::$app->user->id:'';
-	    if ($model->save()) {
-
-		    return \cpn\chanpan\classes\CNMessage::getSuccess('Delete successfully');
-	    } else {
-		    return \cpn\chanpan\classes\CNMessage::getError('Can not delete the data.');
-	    }
-	} else {
-	    throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
-	}
-    }
-
-    public function actionDeletes() {
-	if (Yii::$app->getRequest()->isAjax) {
-
-	    if (isset($_POST['selection'])) {
-		foreach ($_POST['selection'] as $id) {
-		    $model = $this->findModel($id);
-            $model = $this->findModel($id, $groupcond);
+        if (Yii::$app->getRequest()->isAjax) {
+            $model = CustomerShipping::find()->where('id=:id',[':id'=>$id])->one();
             $model->rstat = 3;
             $model->update_date = date('Y-m-d H:i:s');
-            $model->update_by = isset(\Yii::$app->user->id)?\Yii::$app->user->id:'';
-            $model->save();
-		}
-		return \cpn\chanpan\classes\CNMessage::getSuccess('Delete successfully'); 
-	    } else {
-		return \cpn\chanpan\classes\CNMessage::getError('Can not delete the data.'); 
-	    }
-	} else {
-	    throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
-	}
+            $model->update_by = isset(\Yii::$app->user->id) ? \Yii::$app->user->id : '';
+            if ($model->save()) {
+
+                return \cpn\chanpan\classes\CNMessage::getSuccess('Delete successfully');
+            } else {
+                return \cpn\chanpan\classes\CNMessage::getError('Can not delete the data.');
+            }
+        } else {
+            throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
+        }
     }
-    
+
+    public function actionDeletes()
+    {
+        if (Yii::$app->getRequest()->isAjax) {
+
+            if (isset($_POST['selection'])) {
+                foreach ($_POST['selection'] as $id) {
+                    $model = $this->findModel($id);
+                    $model = $this->findModel($id, $groupcond);
+                    $model->rstat = 3;
+                    $model->update_date = date('Y-m-d H:i:s');
+                    $model->update_by = isset(\Yii::$app->user->id) ? \Yii::$app->user->id : '';
+                    $model->save();
+                }
+                return \cpn\chanpan\classes\CNMessage::getSuccess('Delete successfully');
+            } else {
+                return \cpn\chanpan\classes\CNMessage::getError('Can not delete the data.');
+            }
+        } else {
+            throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
+        }
+    }
+
     /**
      * Finds the CustomerShipping model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
