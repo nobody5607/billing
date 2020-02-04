@@ -50,7 +50,7 @@ $rstat = Yii::$app->request->get('rstat');
                             <a href="#" id="btn-deletes"><i class="fa fa-trash"></i> ลบ</a>
                             <label style="color:red">* หมายหตุ ต้องติ๊กเลือกบิลก่อน</label>
                         <?=
-                        \yii\grid\GridView::widget([
+                        \kartik\grid\GridView::widget([
                             'id' => 'bill-items-grid',
                             /* 	'panelBtn' => Html::button(SDHtml::getBtnAdd(), ['data-url'=>Url::to(['bill-items/create']), 'class' => 'btn btn-success btn-sm', 'id'=>'modal-addbtn-bill-items']). ' ' .
                               Html::button(SDHtml::getBtnDelete(), ['data-url'=>Url::to(['bill-items/deletes']), 'class' => 'btn btn-danger btn-sm', 'id'=>'modal-delbtn-bill-items', 'disabled'=>true]), */
