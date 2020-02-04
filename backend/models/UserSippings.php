@@ -36,7 +36,7 @@ class UserSippings extends \yii\db\ActiveRecord
         return [
             [['user_id'], 'required'],
             [['id', 'bill_id', 'user_id', 'parent_id', 'type', 'rstat', 'create_by', 'upddate_by'], 'integer'],
-            [['create_date', 'update_date','percent','treasury','storage'], 'safe'],
+            [['create_date', 'update_date','percent','treasury','storage','bill_date'], 'safe'],
             [['id'], 'unique'],
         ];
     }

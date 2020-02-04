@@ -23,6 +23,7 @@ use Yii;
  * @property string $vat;
  * @property string $customer_id;
  * @property string $customer_name;
+ * * @property string $bill_date;
  */
 class BillItems extends \yii\db\ActiveRecord
 {
