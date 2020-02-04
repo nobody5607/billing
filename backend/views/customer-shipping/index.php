@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		'contentOptions' => ['style'=>'width:60px;text-align: center;'],
 	    ],
 
-
+            'id',
             'groupcond',
             'groupname',
             'percent',
