@@ -16,6 +16,10 @@ use Yii;
  * @property string $position
  * @property string $create_date
  * @property string $token
+ *
+ * * @property string $percent_package
+ * * @property string $treasury
+ * * @property string $factor
  */
 class Commissions extends \yii\db\ActiveRecord
 {
@@ -34,7 +38,7 @@ class Commissions extends \yii\db\ActiveRecord
     {
         return [
             [['bill_id', 'user_id'], 'integer'],
-            [['create_date'], 'safe'],
+            [['create_date','percent_package','treasury','factor'], 'safe'],
             [['driver', 'position', 'token'], 'string', 'max' => 255],
             [['status'], 'string', 'max' => 10],
             [['price'], 'string', 'max' => 100],
