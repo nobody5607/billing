@@ -48,24 +48,39 @@ class BillItems extends BillItemsModel
         if (!$this->validate()) {
             return $dataProvider;
         }
+        if($this->billref != ''){
+            $query->andWhere("billref like :billref OR customer_id like :customer_id OR customer_name LIKE :customer_name OR amount like :amount",[
+                ':billref'=>"%{$this->billref}%",
+                ':customer_id'=>"%{$this->billref}%",
+                ':customer_name'=>"%{$this->billref}%",
+                ':amount'=>"%{$this->billref}%"
+            ]);
+        }
+        if($this->status != ''){
+            $query->andWhere("status=:status",[
+                ':status'=>$this->status
+            ]);
+        }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'billno' => $this->billno,
-            'shop_id' => $this->shop_id,
-            'btype' => $this->btype,
-            'status' => $this->status,
-            'charge' => $this->charge,
-            'bill_type'=>$this->bill_type,
-            'bill_date'=>$this->bill_date
-        ]);
 
-        $query->andFilterWhere(['like', 'bookno', $this->bookno])
-            ->andFilterWhere(['like', 'billref', $this->billref])
-            ->andFilterWhere(['like', 'amount', $this->amount])
-            ->andFilterWhere(['like', 'bill_upload', $this->bill_upload])
-            ->andFilterWhere(['like', 'remark', $this->remark])
-            ->andFilterWhere(['like', 'shiping', $this->shiping]);
+//        $query->andFilterWhere([
+//            'id' => $this->id,
+//            'billno' => $this->billno,
+//            'shop_id' => $this->shop_id,
+//            'btype' => $this->btype,
+//            'status' => $this->status,
+//            'charge' => $this->charge,
+//            'bill_type'=>$this->bill_type,
+//            'bill_date'=>$this->bill_date
+//        ]);
+       // VarDumper::dump($this->billref);
+
+        //$query->andFilterWhere(['like', 'bookno', $this->billref]);
+            //->orFilterWhere(['like', 'billref', $this->billref]);
+//            ->andFilterWhere(['like', 'amount', $this->amount])
+//            ->andFilterWhere(['like', 'bill_upload', $this->bill_upload])
+//            ->andFilterWhere(['like', 'remark', $this->remark])
+//            ->andFilterWhere(['like', 'shiping', $this->shiping]);
 
         return $dataProvider;
     }

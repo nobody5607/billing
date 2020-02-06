@@ -41,7 +41,10 @@ $rstat = Yii::$app->request->get('rstat');
                     </div>
                 </div>
                 <div class="box-body">
-                    <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
+                    <div class="well">
+                        <div>ค้นหาจาก</div>
+                        <?php echo $this->render('_search', ['model' => $searchModel]);  ?>
+                    </div>
 
                     <div class="table-responsive">
                         <?php Pjax::begin(['id' => 'bill-items-grid-pjax']); ?>
@@ -49,14 +52,15 @@ $rstat = Yii::$app->request->get('rstat');
                             <a href="#" title="เลือกบิลที่ต้องการจัดการสถานะบิล" id="btn-close-bill" class=""><i class="fa fa-pencil-square-o"></i>จัดการสถานะบิล</a> |
                             <a href="#" id="btn-deletes"><i class="fa fa-trash"></i> ลบ</a>
                             <label style="color:red">* หมายหตุ ต้องติ๊กเลือกบิลก่อน</label>
+
+                        <div class="table table-responsive table-bordered table-striped"></div>
                         <?=
-                        \kartik\grid\GridView::widget([
+                          \kartik\grid\GridView::widget([
+                            //'tableOptions'=>['style'=>'width:1666px','class'=>'table table-hover table-bordered table-striped'],
                             'id' => 'bill-items-grid',
-                            /* 	'panelBtn' => Html::button(SDHtml::getBtnAdd(), ['data-url'=>Url::to(['bill-items/create']), 'class' => 'btn btn-success btn-sm', 'id'=>'modal-addbtn-bill-items']). ' ' .
-                              Html::button(SDHtml::getBtnDelete(), ['data-url'=>Url::to(['bill-items/deletes']), 'class' => 'btn btn-danger btn-sm', 'id'=>'modal-delbtn-bill-items', 'disabled'=>true]), */
                             'dataProvider' => $dataProvider,
-                            'filterModel' => $searchModel,
-                            'layout'=>"{items}\n{summary}\n{pager}",
+//                            'filterModel' => $searchModel,
+                            'layout'=>"{summary}\n{items}\n{pager}",
                              
                             'columns' => [
                                 [
@@ -65,12 +69,10 @@ $rstat = Yii::$app->request->get('rstat');
                                         'class' => 'selectionBillIds'
                                     ],
                                     'headerOptions' => ['style' => 'text-align: center;'],
-                                    'contentOptions' => ['style' => 'width:40px;text-align: center;'],
                                 ],
                                 [
                                     'class' => 'yii\grid\SerialColumn',
                                     'headerOptions' => ['style' => 'text-align: center;'],
-                                    'contentOptions' => ['style' => 'width:60px;text-align: center;'],
                                 ],
                                 [
                                     'format' => 'raw',
@@ -90,19 +92,15 @@ $rstat = Yii::$app->request->get('rstat');
                                         ]
                                     ])
                                 ],
-//                            [
-//                                'format' => 'raw',
-//                                'value' => function ($model) {
-//                                    $storageUrl = \Yii::getAlias('@storageUrl');
-//                                    $url = "{$storageUrl}/uploads/{$model->bill_upload}";
-//                                    $img = Html::img($url, ['style' => 'width:50px;']);
-//                                    return "<a href='{$url}' target='_BLANK' class='showImage'>{$img}</a>";
-//                                }
-//                            ],
-                                'billno',
-                                'billref',
+                                //'billno',
+
                                 [
-                                    'contentOptions' => ['style'=>'width:100px'],
+                                    'headerOptions' => ['style'=>'width:200px'],
+                                    'attribute'=>'billref',
+                                    'value'=>'billref'
+                                ],
+                                [
+                                    'headerOptions' => ['style'=>'width:350px'],
                                     'label' => 'ชื่อลูกค้า',
                                     'value' => function($model){
                                         $billType = BillType::find()->where('id=:bill_type',[
@@ -122,6 +120,7 @@ $rstat = Yii::$app->request->get('rstat');
                                 ],
                                 [
                                     'format' => 'raw',
+                                    'headerOptions' => ['style'=>'width:150px'],
                                     'attribute' => 'bill_type',
                                     'value' => function ($model) {
                                         $url = \yii\helpers\Url::to(['/select2/bill-type?type=1']);
@@ -155,6 +154,7 @@ $rstat = Yii::$app->request->get('rstat');
                                     ]),
                                 ],
                                 [
+                                    'headerOptions' => ['style'=>'width:150px'],
                                     'format' => 'raw',
                                     'attribute' => 'shiping',
                                     'value' => function ($model) {
@@ -175,6 +175,7 @@ $rstat = Yii::$app->request->get('rstat');
                                     ]),
                                 ],
                                 [
+                                    'headerOptions' => ['style'=>'width:150px'],
                                     'format' => 'raw',
                                     'attribute' => 'charge',
                                     'value' => function ($model) {
@@ -204,9 +205,9 @@ $rstat = Yii::$app->request->get('rstat');
 //
                                 [
                                     'class' => 'appxq\sdii\widgets\ActionColumn',
-                                    'contentOptions' => ['style' => 'width:200px;text-align: center;'],
+                                    'contentOptions' => ['style' => 'width:250px;text-align: center;'],
 //                                'template' => '{update-status} {update} {delete}',
-                                    'template' => '{update}',
+                                    'template' => '{update} {delete}',
                                     'buttons' => [
                                         'update-status' => function ($url, $model) {
                                             return Html::a('<span class="fa fa-times"></span> ' . Yii::t('app', 'ปิดบิล'),
@@ -237,7 +238,7 @@ $rstat = Yii::$app->request->get('rstat');
                                             ]);
                                         },
                                         'delete' => function ($url, $model) {
-                                            if (Yii::$app->user->can('billmanager')) {
+                                            if (Yii::$app->user->can('billmanager') || Yii::$app->user->can('admin')) {
                                                 return " | " . Html::a('<span class="fa fa-trash"></span> ' . Yii::t('chanpan', 'ลบ'), yii\helpers\Url::to(['bill-items/delete?id=' . $model->id]), [
                                                         'title' => Yii::t('chanpan', 'Delete'),
                                                         'class' => '',
