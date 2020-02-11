@@ -34,8 +34,23 @@ $rstat = Yii::$app->request->get('rstat');
                     <div class="pull-right">
                         <?php if (\Yii::$app->user->can('billmanager')) : ?>
 
-                            <a href="<?= Url::to(['/bill-items/bill-upload'])?>" class="btn btn-primary btn-lg btn-outline-primary"><i class="fa fa-upload"></i> อัปโหลดบิล</a>
-                            <?= Html::button(Yii::t('bill', 'Create Bill') . ' ' . SDHtml::getBtnAdd(), ['data-url' => Url::to(['bill-items/create']), 'class' => 'btn btn-success btn-lg btn-outline-success', 'id' => 'modal-addbtn-bill-items'])
+                            <a title="อัปโหลดบิล" style="
+                            position: fixed;
+                            bottom: 100px;
+                            right: 15px;
+                            z-index: 1;
+                            border-radius: 100%;
+                            padding: 10px 15px 10px 15px;
+                             "
+                             href="<?= Url::to(['/bill-items/bill-upload'])?>" class="btn btn-primary btn-lg"><i class="fa fa-upload"></i></a>
+                            <?= Html::button(SDHtml::getBtnAdd(), ['data-url' => Url::to(['bill-items/create']), 'class' => 'btn btn-success btn-lg', 'id' => 'modal-addbtn-bill-items',
+                                    'style'=>'    position: fixed;
+    bottom: 50px;
+    right: 15px;
+    z-index: 1;
+    border-radius: 100%;
+    padding: 10px 15px 10px 15px;','title'=>'เพิ่มบิล'
+                            ])
                             ?>
                         <?php endif; ?>
                     </div>
@@ -292,7 +307,7 @@ ModalForm::widget([
 <script>
     $('#modal-bill-items').on('hidden.bs.modal', function () {
         // do something…
-        location.reload();
+        //location.reload();
     })
 
     $(".hasDatepicker").addClass('form-control');
