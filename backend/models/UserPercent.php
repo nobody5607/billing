@@ -31,7 +31,7 @@ class UserPercent extends \yii\db\ActiveRecord
             [['bill_id'], 'required'],
             [['bill_id', 'default'], 'integer'],
             [['driver', 'customer'], 'string', 'max' => 5],
-            [['bill_id'], 'unique'],
+//            [['bill_id'], 'unique'],
         ];
     }
 

@@ -290,6 +290,11 @@ ModalForm::widget([
 ]);
 ?>
 <script>
+    $('#modal-bill-items').on('hidden.bs.modal', function () {
+        // do something…
+        location.reload();
+    })
+
     $(".hasDatepicker").addClass('form-control');
     window.onscroll = function () {
         myFunction()

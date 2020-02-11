@@ -71,19 +71,37 @@ $('form#<?= $model->formName()?>').on('beforeSubmit', function(e) {
             if(result.action == 'create') {
                 //$(\$form).trigger('reset');
                 $(document).find('#modal-user-percent').modal('hide');
-                $.pjax.reload({container:'#user-percent-grid-pjax'});
+                //$.pjax.reload({container:'#user-percent-grid-pjax'});
             } else if(result.action == 'update') {
                 $(document).find('#modal-user-percent').modal('hide');
-                $.pjax.reload({container:'#user-percent-grid-pjax'});
+                //$.pjax.reload({container:'#user-percent-grid-pjax'});
             }
         } else {
             <?= SDNoty::show('result.message', 'result.status')?>
-        } 
+        }
+        showUserPercent();
     }).fail(function() {
         <?= SDNoty::show("'" . SDHtml::getMsgError() . "Server Error'", '"error"')?>
         console.log('server error');
     });
     return false;
 });
+
+function showUserPercent(){
+    let url = '<?= \yii\helpers\Url::to(['/user-percent'])?>';
+    $.get(url,function (result) {
+        $("#preview-user-percent").html(result);
+        callPercent();
+    });
+    return false;
+}
+function callPercent(){
+    let url = '<?= \yii\helpers\Url::to(['/product-list/cal-percent'])?>';
+    $.get(url,function (result) {
+        $("#preview-user-cal").html(result);
+    });
+    return false;
+}
+
 </script>
 <?php  \richardfan\widget\JSRegister::end(); ?>

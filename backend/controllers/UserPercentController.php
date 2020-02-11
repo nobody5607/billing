@@ -21,21 +21,21 @@ class UserPercentController extends Controller
     public function behaviors()
     {
         return [
-/*	    'access' => [
-		'class' => AccessControl::className(),
-		'rules' => [
-		    [
-			'allow' => true,
-			'actions' => ['index', 'view'], 
-			'roles' => ['?', '@'],
-		    ],
-		    [
-			'allow' => true,
-			'actions' => ['view', 'create', 'update', 'delete', 'deletes'], 
-			'roles' => ['@'],
-		    ],
-		],
-	    ],*/
+            /*	    'access' => [
+                    'class' => AccessControl::className(),
+                    'rules' => [
+                        [
+                        'allow' => true,
+                        'actions' => ['index', 'view'],
+                        'roles' => ['?', '@'],
+                        ],
+                        [
+                        'allow' => true,
+                        'actions' => ['view', 'create', 'update', 'delete', 'deletes'],
+                        'roles' => ['@'],
+                        ],
+                    ],
+                    ],*/
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -45,33 +45,34 @@ class UserPercentController extends Controller
         ];
     }
 
-    public function beforeAction($action) {
-	if (parent::beforeAction($action)) {
-	    if (in_array($action->id, array('create', 'update'))) {
-		
-	    }
-	    return true;
-	} else {
-	    return false;
-	}
+    public function beforeAction($action)
+    {
+        if (parent::beforeAction($action)) {
+            if (in_array($action->id, array('create', 'update'))) {
+
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
-    
+
     /**
      * Lists all UserPercent models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $bill_id = isset(\Yii::$app->session['bill_id'])?\Yii::$app->session['bill_id']:'';
-        $query = UserPercent::find()->where('bill_id=:bill_id',[':bill_id' => $bill_id]);
-        if(!$query->all()){
-            $query = UserPercent::find()->where(['id'=>'10000']);
+        $bill_id = isset(\Yii::$app->session['bill_id']) ? \Yii::$app->session['bill_id'] : '';
+        $query = UserPercent::find()->where('bill_id=:bill_id', [':bill_id' => $bill_id]);
+        if (!$query->all()) {
+            $query = UserPercent::find()->where(['id' => '10000']);
         }
         //VarDumper::dump($query->one());
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-        if(Yii::$app->request->isAjax){
+        if (Yii::$app->request->isAjax) {
             return $this->renderAjax('index', [
                 'dataProvider' => $dataProvider,
             ]);
@@ -89,15 +90,15 @@ class UserPercentController extends Controller
      */
     public function actionView($id)
     {
-	if (Yii::$app->getRequest()->isAjax) {
-	    return $this->renderAjax('view', [
-		'model' => $this->findModel($id),
-	    ]);
-	} else {
-	    return $this->render('view', [
-		'model' => $this->findModel($id),
-	    ]);
-	}
+        if (Yii::$app->getRequest()->isAjax) {
+            return $this->renderAjax('view', [
+                'model' => $this->findModel($id),
+            ]);
+        } else {
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }
     }
 
     /**
@@ -108,27 +109,27 @@ class UserPercentController extends Controller
     public function actionCreate()
     {
 
-	if (Yii::$app->getRequest()->isAjax) {
-	    $model = new UserPercent();
-        $bill_id = isset(\Yii::$app->session['bill_id'])?\Yii::$app->session['bill_id']:'';
-        $model->bill_id = $bill_id;
-        $model->default = 2;
+        if (Yii::$app->getRequest()->isAjax) {
+            $model = new UserPercent();
+            $bill_id = isset(\Yii::$app->session['bill_id']) ? \Yii::$app->session['bill_id'] : '';
+            $model->bill_id = $bill_id;
+            $model->default = 2;
 
-	    if ($model->load(Yii::$app->request->post())) {
-		Yii::$app->response->format = Response::FORMAT_JSON;
-		if ($model->save()) {
-		    return \cpn\chanpan\classes\CNMessage::getSuccess('Create successfully');
-		} else {
-		    return \cpn\chanpan\classes\CNMessage::getError('Can not create the data.', $model->errors);
-		}
-	    } else {
-		return $this->renderAjax('create', [
-		    'model' => $model,
-		]);
-	    }
-	} else {
-	    throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
-	}
+            if ($model->load(Yii::$app->request->post())) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                if ($model->save()) {
+                    return \cpn\chanpan\classes\CNMessage::getSuccess('Create successfully');
+                } else {
+                    return \cpn\chanpan\classes\CNMessage::getError('Can not create the data.', $model->errors);
+                }
+            } else {
+                return $this->renderAjax('create', [
+                    'model' => $model,
+                ]);
+            }
+        } else {
+            throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
+        }
     }
 
     /**
@@ -139,23 +140,23 @@ class UserPercentController extends Controller
      */
     public function actionUpdate($id)
     {
-	if (Yii::$app->getRequest()->isAjax) {
-	    $model = $this->findModel($id);
+        if (Yii::$app->getRequest()->isAjax) {
+            $model = $this->findModel($id);
 
-	    if ($model->load(Yii::$app->request->post())) {
-		if ($model->save()) {
-		    return \cpn\chanpan\classes\CNMessage::getSuccess('Update successfully');
-		} else {
-		    return \cpn\chanpan\classes\CNMessage::getError('Can not update the data.');
-		}
-	    } else {
-		return $this->renderAjax('update', [
-		    'model' => $model,
-		]);
-	    }
-	} else {
-	    throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
-	}
+            if ($model->load(Yii::$app->request->post())) {
+                if ($model->save()) {
+                    return \cpn\chanpan\classes\CNMessage::getSuccess('Update successfully');
+                } else {
+                    return \cpn\chanpan\classes\CNMessage::getError('Can not update the data.');
+                }
+            } else {
+                return $this->renderAjax('update', [
+                    'model' => $model,
+                ]);
+            }
+        } else {
+            throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
+        }
     }
 
     /**
@@ -166,34 +167,35 @@ class UserPercentController extends Controller
      */
     public function actionDelete($id)
     {
-	if (Yii::$app->getRequest()->isAjax) {
-	    Yii::$app->response->format = Response::FORMAT_JSON;
-	    if ($this->findModel($id)->delete()) {
-		return \cpn\chanpan\classes\CNMessage::getSuccess('Delete successfully'); 
-	    } else {
-		return \cpn\chanpan\classes\CNMessage::getError('Can not delete the data.'); 
-	    }
-	} else {
-	    throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
-	}
+        if (Yii::$app->getRequest()->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if ($this->findModel($id)->delete()) {
+                return \cpn\chanpan\classes\CNMessage::getSuccess('Delete successfully');
+            } else {
+                return \cpn\chanpan\classes\CNMessage::getError('Can not delete the data.');
+            }
+        } else {
+            throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
+        }
     }
 
-    public function actionDeletes() {
-	if (Yii::$app->getRequest()->isAjax) {
-	    Yii::$app->response->format = Response::FORMAT_JSON;
-	    if (isset($_POST['selection'])) {
-		foreach ($_POST['selection'] as $id) {
-		    $this->findModel($id)->delete();
-		}
-		return \cpn\chanpan\classes\CNMessage::getSuccess('Delete successfully'); 
-	    } else {
-		return \cpn\chanpan\classes\CNMessage::getError('Can not delete the data.'); 
-	    }
-	} else {
-	    throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
-	}
+    public function actionDeletes()
+    {
+        if (Yii::$app->getRequest()->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if (isset($_POST['selection'])) {
+                foreach ($_POST['selection'] as $id) {
+                    $this->findModel($id)->delete();
+                }
+                return \cpn\chanpan\classes\CNMessage::getSuccess('Delete successfully');
+            } else {
+                return \cpn\chanpan\classes\CNMessage::getError('Can not delete the data.');
+            }
+        } else {
+            throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
+        }
     }
-    
+
     /**
      * Finds the UserPercent model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
