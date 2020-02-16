@@ -34,7 +34,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index','about','contact','edit','report'],
+                        'actions' => ['logout', 'index','about','contact','edit','report','backup-database'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -169,6 +169,19 @@ class SiteController extends Controller
 
         return CNMessage::getSuccess("success", $output);
 
+    }
+
+
+    public function actionBackupDatabase(){
+
+        $filename='database_backup_'.date('dmY').'.sql';
+        $sql = isset(Yii::$app->params['sql_backup'])?Yii::$app->params['sql_backup']:'';//"";
+        exec($sql.$filename,$output);
+        $backup_path = isset(Yii::$app->params['backup_path'])?Yii::$app->params['backup_path']:'';
+        exec($backup_path, $output);
+        return $this->render("backup-database",[
+            'output'=>$output
+        ]);
     }
 
  
