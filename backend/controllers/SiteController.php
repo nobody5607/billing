@@ -174,7 +174,7 @@ class SiteController extends Controller
 
     public function actionBackupDatabase(){
 
-        $filename='database_backup_'.date('dmYHis').'.sql';
+        $filename='database_backup_'.date('dmY_His').'.sql';
         $sql = isset(Yii::$app->params['sql_backup'])?Yii::$app->params['sql_backup']:'';//"";
         exec($sql.$filename,$output);
         $backup_path = isset(Yii::$app->params['backup_path'])?Yii::$app->params['backup_path']:'';
