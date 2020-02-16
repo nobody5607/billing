@@ -185,7 +185,10 @@ class SiteController extends Controller
         $filename = Yii::$app->request->post('filename');
         if(Yii::$app->user->can('admin')){
             $backup_path = isset(Yii::$app->params['backup_path'])?Yii::$app->params['backup_path']:'';
-            exec("rm -rf {$backup_path}/{$filename}", $output);
+
+            if($filename != ''){
+                exec("rm -rf {$backup_path}/{$filename}", $output);
+            }
             return CNMessage::getSuccess("success",$output);
         }
     }
