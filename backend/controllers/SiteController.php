@@ -34,7 +34,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index','about','contact','edit','report','backup-database'],
+                        'actions' => ['logout', 'index','about','contact','edit','report','backup-database','database','backup','delete-database'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -171,17 +171,35 @@ class SiteController extends Controller
 
     }
 
+    public function actionDatabase(){
+        //exec($sql.$filename,$output);
+        if(Yii::$app->user->can('admin')) {
+            $backup_path = isset(Yii::$app->params['backup_path']) ? Yii::$app->params['backup_path'] : '';
+            exec("ls " . $backup_path, $output);
 
-    public function actionBackupDatabase(){
+            return CNMessage::getSuccess("success", $output);
+        }
 
+    }
+    public function actionDeleteDatabase(){
+        $filename = Yii::$app->request->post('filename');
+        if(Yii::$app->user->can('admin')){
+            $backup_path = isset(Yii::$app->params['backup_path'])?Yii::$app->params['backup_path']:'';
+            exec("ls {$backup_path}/{$filename}", $output);
+            return CNMessage::getSuccess("success",$output);
+        }
+    }
+    public function actionBackup(){
         $filename='database_backup_'.date('dmY_His').'.sql';
         $sql = isset(Yii::$app->params['sql_backup'])?Yii::$app->params['sql_backup']:'';//"";
         exec($sql.$filename,$output);
-        $backup_path = isset(Yii::$app->params['backup_path'])?Yii::$app->params['backup_path']:'';
-//        VarDumper::dump($backup_path);
-        exec($backup_path, $output2);
+        return CNMessage::getSuccess("success",$output);
+    }
+
+    public function actionBackupDatabase(){
+
         return $this->render("backup-database",[
-            'output'=>$output2
+
         ]);
     }
 
