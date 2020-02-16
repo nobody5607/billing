@@ -1,5 +1,5 @@
 <?php
-    \appxq\sdii\utils\VarDumper::dump($output);
+//    \appxq\sdii\utils\VarDumper::dump($output);
     $url_backup = isset(Yii::$app->params['url_backup'])?Yii::$app->params['url_backup']:'';
 
 ?>
