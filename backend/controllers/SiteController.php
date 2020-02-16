@@ -176,7 +176,7 @@ class SiteController extends Controller
         if(Yii::$app->user->can('admin')) {
             $backup_path = isset(Yii::$app->params['backup_path']) ? Yii::$app->params['backup_path'] : '';
             exec("ls " . $backup_path, $output);
-
+            rsort($output);
             return CNMessage::getSuccess("success", $output);
         }
 
