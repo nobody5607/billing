@@ -53,7 +53,7 @@ $url_backup = isset(Yii::$app->params['url_backup'])?Yii::$app->params['url_back
                 }
             },
             async deleteData(value) {
-                let url = '<?= \yii\helpers\Url::to(['/site/delete-database'])?>';
+                let url = '<?= \yii\helpers\Url::to(['/site/delete-database?filename='])?>'+value;
                 let result = await axios.get(url);
                 if(result.data.status === 'success'){
                     this.fetchData();
